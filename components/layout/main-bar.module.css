@@ -1,0 +1,8 @@
+.mainBar{
+    color: white;
+    padding: 10px;
+}
+
+.mainBar > * {
+    margin: 0;
+}
