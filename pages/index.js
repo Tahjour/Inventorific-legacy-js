@@ -1,7 +1,13 @@
-import HomePageContent from "../components/home-page/homepage-content";
+import { Fragment } from "react";
+import HomePageContent from "../components/home-page/home-page-content";
+import HomePageLayout from "../components/home-page/home-page-layout";
 function HomePage() {
     return (
-        <HomePageContent />
+        <Fragment>
+            <HomePageLayout navLocation={"home"}>
+                <HomePageContent />
+            </HomePageLayout>
+        </Fragment>
     );
 }
 
