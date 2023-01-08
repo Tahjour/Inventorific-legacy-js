@@ -4,7 +4,7 @@ import HomePageLayout from "../components/home-page/home-page-layout";
 function HomePage() {
     return (
         <Fragment>
-            <HomePageLayout navLocation={"home"}>
+            <HomePageLayout>
                 <HomePageContent />
             </HomePageLayout>
         </Fragment>

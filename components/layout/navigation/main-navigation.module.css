@@ -18,7 +18,7 @@
 	color: white;
 	font-weight: bold;
 	transition: color, text-shadow linear;
-	transition-duration: 0.2s;
+	transition-duration: 200ms;
 }
 
 .header img {

@@ -17,7 +17,6 @@ function MainNavigation(props) {
         <header className={styles.header}>
             <Link href="/" legacyBehavior>
                 <a>
-                    {/* <div className={styles.logo}>Inventory</div> */}
                     <Image src={"/Logo.png"} alt={"The app's logo"} width={105} height={100}></Image>
                 </a>
             </Link>
