@@ -7,6 +7,7 @@
 	height: 100%;
 	padding: 0;
 	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .itemCard {
@@ -46,6 +47,14 @@
 
 .itemImage {
 	border-radius: 20px 20px 0 0;
+}
+
+.itemInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
 }
 
 .addNewItemIcon {

@@ -6,8 +6,9 @@
 	padding-left: 10px;
 	height: 50px;
 	width: 100%;
+	gap: 20px;
 	background-color: rgb(21, 21, 21);
-	z-index: 5;
+	z-index: 1;
 }
 
 .mainBarAddNewBtn {
@@ -15,9 +16,10 @@
 	flex-direction: row;
 	align-items: center;
 	gap: 10px;
-	background-color: transparent;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 255, 255, 0.5));
 	color: white;
 	border: 1px solid rgba(0, 255, 255, 0.5);
+    outline: 0;
 	border-radius: 10px;
 	padding: 5px;
 	transition: 100ms ease-in-out;
@@ -30,5 +32,15 @@
 }
 
 .mainBarAddNewIcon {
+	font-size: 1.5rem;
+}
+
+.listStyleBtn {
+	background-color: transparent;
+	color: white;
+	border: 0;
+}
+
+.listStyleIcon {
 	font-size: 1.5rem;
 }
