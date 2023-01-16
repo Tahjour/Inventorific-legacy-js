@@ -4,7 +4,7 @@ import MainNavigation from "../navigation/main-navigation";
 import SideBar from "./side-bar";
 import styles from "./app-layout.module.css";
 
-function MainLayout(props) {
+function AppLayout(props) {
     return (
         <Fragment>
             <MainNavigation />
@@ -20,4 +20,4 @@ function MainLayout(props) {
     );
 }
 
-export default MainLayout;
+export default AppLayout;

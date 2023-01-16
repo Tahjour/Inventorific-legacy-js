@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./home-page-content.module.css";
 function HomePageContent() {
     return (
@@ -5,7 +6,9 @@ function HomePageContent() {
             <div className={styles.intro}>
                 <h1>Simple Inventory</h1>
                 <p>Perfect for small shops</p>
-                <button>Try Now!</button>
+                <Link href={"/app"}>
+                    <button>Try Now!</button>
+                </Link>
             </div>
         </section>
     );

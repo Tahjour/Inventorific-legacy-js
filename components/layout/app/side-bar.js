@@ -1,4 +1,4 @@
-import styles from "./side-bar.module.css";
+import styles from "./app-layout.module.css";
 
 function SideBar(props) {
     return (

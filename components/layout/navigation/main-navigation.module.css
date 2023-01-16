@@ -1,6 +1,6 @@
 .header {
 	width: 100%;
-	height: 4rem;
+	height: var(--main-nav-height);
 	/* background-color: #2d2d2d; */
 	/* box-shadow: 0 2px 2px rgba(0, 255, 255, 0.5); */
 	display: flex;
@@ -53,10 +53,14 @@
 	width: 100%;
 	height: 100%;
 	text-align: center;
-	background-color: #232323;
+	background-color: rgb(35, 35, 35);
 	border: 0;
 	color: white;
 	border-radius: 20px;
+}
+.searchBar:focus {
+	outline: 1px solid var(--neon-blue-accent);
+	box-shadow: 0 0 10px var(--neon-blue-accent);
 }
 
 .searchIcon {
