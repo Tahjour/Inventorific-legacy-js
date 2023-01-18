@@ -9,10 +9,26 @@
 }
 
 html {
-	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/background.jpg");
-	background-position: center;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
+		radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255), rgb(0, 0, 0));
+	/* background-position: center;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: cover; */
+}
+
+@keyframes backgroundAnimation {
+	0% {
+		background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
+			radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255), rgb(0, 0, 0));
+	}
+	50% {
+		background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
+			radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255));
+	}
+	100% {
+		background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
+			radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255), rgb(0, 0, 0));
+	}
 }
 
 body {

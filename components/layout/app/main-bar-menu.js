@@ -5,22 +5,19 @@ import styles from "./main-bar-menu.module.css";
 
 function MainBarMenu() {
     const [listStyle, setListStyle] = useState("tile");
-
     function changeListStyle() {
         listStyle === "tile" ? setListStyle("list") : setListStyle("tile");
     }
     return (
         <section className={styles.mainBarMenu}>
-            <button className={styles.mainBarAddNewBtn}>
-                <BsPlusCircle className={styles.mainBarAddNewIcon} />
-                Add Item
+            <button className={styles.mainBarMenuAddNewBtn}>
+                <BsPlusCircle className={styles.mainBarMenuAddNewIcon} />
             </button>
-            <button className={styles.listStyleBtn} onClick={changeListStyle}>
+            <button className={styles.mainBarMenuAddNewBtn} onClick={changeListStyle}>
                 {listStyle === "tile" ? <FaList className={styles.listStyleIcon} /> : <BsGrid className={styles.listStyleIcon} />}
             </button>
         </section>
     );
-
 }
 
 export default MainBarMenu;

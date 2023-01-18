@@ -16,10 +16,8 @@ function MainNavigation() {
     );
     return (
         <header className={styles.header}>
-            <Link href="/" legacyBehavior>
-                <a>
-                    <Image src={"/Logo.png"} alt={"The app's logo"} width={90} height={90} priority></Image>
-                </a>
+            <Link href="/">
+                <Image className={styles.logoImage} src={"/Logo smaller.png"} alt={"The app's logo"} width={55} height={50} priority></Image>
             </Link>
 
             {route === "/app" && searchBarAndIcons}

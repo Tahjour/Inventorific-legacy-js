@@ -7,32 +7,34 @@
 	height: 50px;
 	width: 100%;
 	gap: 20px;
-	background-color: rgb(21, 21, 21);
+	background-color: rgb(25, 25, 25);
 	z-index: 1;
 }
 
-.mainBarAddNewBtn {
+.mainBarMenuAddNewBtn {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 10px;
-	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 255, 255, 0.5));
+	/* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 255, 255, 0.5)); */
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0,0.5)),
+		radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255));
 	color: white;
-	border: 1px solid rgba(0, 255, 255, 0.5);
+	border: 0;
     outline: 0;
 	border-radius: 10px;
-	padding: 5px;
+	padding: 10px;
 	transition: 100ms ease-in-out;
 }
 
-.mainBarAddNewBtn:hover {
+.mainBarMenuAddNewBtn:hover {
 	background-color: rgba(0, 255, 255, 0.5);
 	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 	cursor: pointer;
 }
 
-.mainBarAddNewIcon {
-	font-size: 1.5rem;
+.mainBarMenuAddNewIcon {
+	font-size: 1.2rem;
 }
 
 .listStyleBtn {
@@ -42,5 +44,5 @@
 }
 
 .listStyleIcon {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 }
