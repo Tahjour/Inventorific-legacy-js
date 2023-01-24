@@ -4,9 +4,9 @@ function HomePageContent() {
     return (
         <section className={styles.homePageContent}>
             <div className={styles.intro}>
-                <h1>Sci-Fi Inventory</h1>
+                <h1>Inventracker</h1>
                 <p>Perfect for small shops</p>
-                <Link href={"/app"}>
+                <Link href={"/app"} className={styles.tryBtnLink}>
                     <button>Try Now!</button>
                 </Link>
             </div>

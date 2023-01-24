@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Open+Sans:wght@400;700&display=swap');
 :root {
 	--main-nav-height: 4rem;
+	--main-bar-menu-height: 50px;
 	--neon-blue-accent: rgba(0, 255, 255, 0.5);
 }
 
@@ -14,21 +15,6 @@ html {
 	/* background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover; */
-}
-
-@keyframes backgroundAnimation {
-	0% {
-		background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
-			radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255), rgb(0, 0, 0));
-	}
-	50% {
-		background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
-			radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255));
-	}
-	100% {
-		background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
-			radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255), rgb(0, 0, 0));
-	}
 }
 
 body {

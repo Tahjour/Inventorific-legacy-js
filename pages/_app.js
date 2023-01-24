@@ -1,10 +1,10 @@
-import StaticLayout from '../components/layout/static/static-layout';
+import { StatusContextProvider } from '../context/StatusContext';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
     return (
-        <StaticLayout>
+        <StatusContextProvider>
             <Component {...pageProps} />
-        </StaticLayout>
+        </StatusContextProvider>
     );
 }
