@@ -29,7 +29,6 @@ function MainBarMenu() {
                 </div>
                 {/* !work on turning this modal into context instead */}
             </section>
-            {statusContext.isAddItemModalOpen && <AddItemModalForm />}
         </Fragment>
     );
 }
