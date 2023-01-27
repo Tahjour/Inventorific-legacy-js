@@ -12,8 +12,8 @@ function MainNavigation() {
             <Link href="/">
                 <Image className={styles.logoImage} src={"/Logo smaller.png"} alt={"The app's logo"} width={55} height={50} priority></Image>
             </Link>
-            
-            {route === "/app" && <h1 className={styles.appHeaderTitle}>Inventracker</h1>}
+
+            {route === "/app" && <h1 className={styles.appHeaderTitle}>{process.env.appName}</h1>}
             {route !== "/login" ?
                 <nav>
                     <ul>

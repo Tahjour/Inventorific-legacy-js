@@ -3,22 +3,4 @@ export function addItemToDatabase() {
 
 }
 
-export const LocalDatabase = [{
-    id: "bread",
-    name: "Bread",
-    price: 20,
-    description: "Best bread ever",
-    imageURL: "/background.jpg"
-}, {
-    id: "bread",
-    name: "Bread",
-    price: 20,
-    description: "Best bread ever",
-    imageURL: "/background.jpg"
-}, {
-    id: "bread",
-    name: "Bread",
-    price: 20,
-    description: "Best bread ever",
-    imageURL: "/background.jpg"
-},];
+export const LocalDatabase = [];

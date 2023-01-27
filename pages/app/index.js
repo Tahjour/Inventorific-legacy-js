@@ -1,25 +1,13 @@
 import AppLayout from "../../components/layout/app/app-layout";
 import TileList from "../../components/layout/app/item-lists/tile-list";
-import { buildDatabasePath, extractData } from "../api/database";
+import { LocalDatabase } from "../../db/localDB";
 
-function AppPage(props) {
+function AppPage() {
     return (
         <AppLayout>
-            <TileList items={props.items} />
+            <TileList items={LocalDatabase} />
         </AppLayout>
     );
-}
-
-export async function getServerSideProps() {
-    const filePath = buildDatabasePath();
-    const data = await extractData(filePath);
-    console.log(filePath);
-    console.log(data);
-    return {
-        props: {
-            items: data
-        }
-    };
 }
 
 export default AppPage;

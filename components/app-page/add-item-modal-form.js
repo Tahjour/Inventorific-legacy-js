@@ -1,5 +1,6 @@
 import { Fragment, useContext, useRef } from "react";
 import { StatusContext } from "../../context/StatusContext";
+import { LocalDatabase } from "../../db/localDB";
 import styles from "./add-item-modal-form.module.css";
 import ModalBackdrop from "./modal-form-backdrop";
 function AddItemModalForm() {
@@ -22,15 +23,8 @@ function AddItemModalForm() {
             description: enteredItemDescription,
             imageURL: enteredItemImageURL,
         };
-        fetch("/api/database", {
-            method: "POST",
-            body: JSON.stringify(newItem),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(response => response.json()).then(data => console.log(data));
         statusContext.closeAddItemModal();
-        
+        LocalDatabase.push(newItem);
     }
 
     return <Fragment>
@@ -40,7 +34,10 @@ function AddItemModalForm() {
                 <h1>Enter Item Data</h1>
                 <input type="text" id="itemName" name="itemName" placeholder="Name of Item" ref={itemNameRef}></input>
                 <input type="text" id="itemPrice" name="itemPrice" placeholder="Price of Item" ref={itemPriceRef}></input>
-                <textarea placeholder="Image of Item(Paste Link)" ref={imageURLRef}></textarea>
+                {/* <textarea placeholder="Image of Item(Paste Link)" ref={imageURLRef}></textarea> */}
+                <label className={styles.customImageUpload}>
+                    <input type={"file"} ></input>Upload Image
+                </label>
                 <textarea placeholder="Description of Item" ref={itemDescriptionRef}></textarea>
                 <button className={styles.submitBtn}>Submit</button>
             </form>

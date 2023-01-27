@@ -1,12 +1,15 @@
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import styles from "./tile-list.module.css";
+import { StatusContext } from "../../../../context/StatusContext";
+import { LocalDatabase } from "../../../../db/localDB";
 
 function TileList(props) {
     const { items } = props;
+    const statusContext = useContext(StatusContext);
     const [isLoadingItems, setIsLoadingItems] = useState(true);
     const [loadedItems, setLoadedItems] = useState([]);
     useEffect(() => {
@@ -15,6 +18,9 @@ function TileList(props) {
         }
         setIsLoadingItems(false);
     }, [items]);
+    function addNewItemHandler() {
+        statusContext.showAddItemModal();
+    }
     return (
         <Fragment>
             <ul className={styles.tileList}>
@@ -34,7 +40,7 @@ function TileList(props) {
                         </div>
                     </li>;
                 })}
-                {!isLoadingItems && loadedItems.length !== 0 && <li className={styles.itemCard}>
+                {!isLoadingItems && <li className={styles.itemCard} onClick={addNewItemHandler}>
                     <div className={styles.itemInfo}>
                         <h3>Add Item</h3>
                         <BsPlusCircle className={styles.addNewItemIcon} />

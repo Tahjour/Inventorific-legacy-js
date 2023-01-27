@@ -1,7 +1,7 @@
 .tileList {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	justify-items: center;
+	/* justify-items: center; */
 	/* flex-direction: row;
 	flex-wrap: wrap; */
 	width: 100%;
@@ -31,6 +31,15 @@
 	cursor: pointer;
 }
 
+.itemCard h3,
+.itemCard p {
+	margin: 0;
+}
+
+.itemCard h3 {
+	margin-bottom: 20px;
+}
+
 .itemCard:last-child {
 	justify-content: center;
 }
@@ -52,7 +61,7 @@
 .itemInfo {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
 	height: 50%;
 	width: 100%;
@@ -60,8 +69,8 @@
 
 .operationIcons {
 	width: 80%;
-	margin-bottom: 20px;
 	font-size: 1.5rem;
+	margin-bottom: 5px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
