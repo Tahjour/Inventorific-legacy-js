@@ -6,7 +6,6 @@ import styles from "./main-navigation.module.css";
 
 function MainNavigation() {
     const route = useRouter().route;
-    console.log(route);
     return (
         <header className={styles.header}>
             <Link href="/">

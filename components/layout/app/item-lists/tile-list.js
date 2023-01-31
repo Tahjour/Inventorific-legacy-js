@@ -5,7 +5,6 @@ import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import styles from "./tile-list.module.css";
 import { StatusContext } from "../../../../context/StatusContext";
-import { LocalDatabase } from "../../../../db/localDB";
 
 function TileList(props) {
     const { items } = props;

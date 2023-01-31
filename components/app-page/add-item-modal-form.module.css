@@ -27,12 +27,13 @@
 	align-items: center;
 	gap: 25px;
 	background-color: rgb(30, 30, 30);
-	width: 50%;
-	height: 70%;
+	width: 80%;
+	height: 80%;
 	border-radius: 20px;
 	text-align: center;
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+	transition: transform 5s ease-in-out;
 }
 
 .form h1 {
@@ -81,8 +82,32 @@
 }
 
 .customImageUpload {
-	padding: 6px 12px;
+	position: relative;
+	width: 50%;
+	height: 50%;
+	overflow: hidden;
+	padding: 6px;
 	cursor: pointer;
+}
+.customImageUpload img {
+	object-fit: cover;
+}
+
+.customImageUploadContents {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.customImageUploadContents svg {
+	font-size: 1.2rem;
+}
+
+.customImageUploadContents p {
+	margin: 0;
 }
 
 .form .submitBtn {

@@ -1,9 +1,9 @@
 .tileList {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	/* justify-items: center; */
-	/* flex-direction: row;
-	flex-wrap: wrap; */
+	display: flex;
+	/* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+	justify-items: center;
+	flex-direction: row;
+	flex-wrap: wrap;
 	width: 100%;
 	height: 100%;
 	padding: 0 50px;
@@ -52,6 +52,10 @@
 	position: relative;
 	width: 100%;
 	height: 50%;
+}
+
+.itemImageContainer img {
+	object-fit: cover;
 }
 
 .itemImage {
