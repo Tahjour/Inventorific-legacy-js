@@ -5,37 +5,48 @@ import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import styles from "./tile-list.module.css";
 import { StatusContext } from "../../../../context/StatusContext";
+import { deleteItem, LocalDatabaseItems } from "../../../../db/localDB";
 
-function TileList(props) {
-    const { items } = props;
+function TileList() {
     const statusContext = useContext(StatusContext);
     const [isLoadingItems, setIsLoadingItems] = useState(true);
     const [loadedItems, setLoadedItems] = useState([]);
+
     useEffect(() => {
-        if (items) {
-            setLoadedItems(items);
+        if (LocalDatabaseItems) {
+            setLoadedItems(LocalDatabaseItems);
         }
         setIsLoadingItems(false);
-    }, [items]);
+    }, [loadedItems, isLoadingItems]);
+
     function addNewItemHandler() {
         statusContext.showAddItemModal();
     }
+
+    function deleteItemHandler(itemIndex) {
+        deleteItem(itemIndex);
+        setLoadedItems(LocalDatabaseItems);
+        setIsLoadingItems(true);
+    }
+
     return (
         <Fragment>
             <ul className={styles.tileList}>
-                {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((itemData) => {
-                    return <li key={itemData.id} className={styles.itemCard}>
+                {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((item, itemIndex) => {
+                    return <li key={item.id} className={styles.itemCard}>
                         <div className={styles.itemImageContainer}>
-                            <Image className={styles.itemImage} src={itemData.imageURL} alt={"Item's image"} fill />
+                            <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill />
                         </div>
                         <div className={styles.itemInfo}>
-                            <h3>{itemData.name}</h3>
-                            <p>${itemData.price}</p>
+                            <h3>{item.name}</h3>
+                            <p>${item.price}</p>
                             <div className={styles.operationIcons}>
                                 <BiEdit className={styles.editIcon} />
-                                <BsTrash className={styles.deleteIcon} />
+                                <BsTrash className={styles.deleteIcon} onClick={() => {
+                                    deleteItemHandler(itemIndex);
+                                }} />
                             </div>
-                            {/* <p>{itemData.description}</p> */}
+                            {/* <p>{item.description}</p> */}
                         </div>
                     </li>;
                 })}

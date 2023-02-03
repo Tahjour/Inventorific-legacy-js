@@ -1,6 +1,6 @@
 import { Fragment, useContext, useRef, useState } from "react";
 import { StatusContext } from "../../context/StatusContext";
-import { LocalDatabase } from "../../db/localDB";
+import { LocalDatabaseItems } from "../../db/localDB";
 import styles from "./add-item-modal-form.module.css";
 import ModalBackdrop from "./modal-form-backdrop";
 import { BiImageAdd } from "react-icons/bi";
@@ -28,7 +28,7 @@ function AddItemModalForm() {
             imageURL: enteredItemImageURL,
         };
         statusContext.closeAddItemModal();
-        LocalDatabase.push(newItem);
+        LocalDatabaseItems.push(newItem);
     }
 
     function imageInputChangeHandler(event) {

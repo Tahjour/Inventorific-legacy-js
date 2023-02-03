@@ -54,3 +54,11 @@ h6 {
 	margin-block-start: 55px;
 	margin-block-end: 5px;
 }
+
+textarea {
+	font-family: 'Open Sans', 'Lato', sans-serif;
+}
+
+textarea::placeholder {
+	font-family: 'Open Sans', 'Lato', sans-serif;
+}
