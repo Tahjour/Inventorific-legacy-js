@@ -1,31 +1,29 @@
 import { createContext, useState } from "react";
 
 export const StatusContext = createContext({
-    isAddItemModalOpen: false,
-    toggleAddItemModalState: () => { },
-    showAddItemModal: () => { },
-    closeAddItemModal: () => { }
+    isItemModalOpen: false,
+    itemToEdit: null,
+    showItemModal: (itemToEdit = null) => { },
+    closeItemModal: () => { },
 });
 
 export function StatusContextProvider(props) {
-    const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+    const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+    const [itemToEdit, setItemToEdit] = useState(null);
 
-    function toggleAddItemModalStateHandler() {
-        setIsAddItemModalOpen(!isAddItemModalOpen);
+    function showItemModalStateHandler(itemToEdit = null) {
+        setItemToEdit(itemToEdit);
+        setIsItemModalOpen(true);
     }
-
-    function showAddItemModalStateHandler() {
-        setIsAddItemModalOpen(true);
-    }
-    function closeAddItemModalStateHandler() {
-        setIsAddItemModalOpen(false);
+    function closeItemModalStateHandler() {
+        setIsItemModalOpen(false);
     }
 
     const context = {
-        isAddItemModalOpen: isAddItemModalOpen,
-        toggleAddItemModalState: toggleAddItemModalStateHandler,
-        showAddItemModal: showAddItemModalStateHandler,
-        closeAddItemModal: closeAddItemModalStateHandler
+        isItemModalOpen: isItemModalOpen,
+        itemToEdit: itemToEdit,
+        showItemModal: showItemModalStateHandler,
+        closeItemModal: closeItemModalStateHandler,
     };
 
     return (

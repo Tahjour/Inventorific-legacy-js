@@ -20,7 +20,15 @@ function TileList() {
     }, [loadedItems, isLoadingItems]);
 
     function addNewItemHandler() {
-        statusContext.showAddItemModal();
+        statusContext.showItemModal();
+    }
+
+    function editItemHandler(itemIndex) {
+        const item = {
+            data: LocalDatabaseItems[itemIndex],
+            index: itemIndex
+        };
+        statusContext.showItemModal(item);
     }
 
     function deleteItemHandler(itemIndex) {
@@ -29,19 +37,23 @@ function TileList() {
         setIsLoadingItems(true);
     }
 
+
+
     return (
         <Fragment>
             <ul className={styles.tileList}>
                 {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((item, itemIndex) => {
                     return <li key={item.id} className={styles.itemCard}>
                         <div className={styles.itemImageContainer}>
-                            <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill />
+                            <Image className={styles.itemImage} src={item.imagePath} alt={"Item's image"} fill />
                         </div>
                         <div className={styles.itemInfo}>
                             <h3>{item.name}</h3>
                             <p>${item.price}</p>
                             <div className={styles.operationIcons}>
-                                <BiEdit className={styles.editIcon} />
+                                <BiEdit className={styles.editIcon} onClick={() => {
+                                    editItemHandler(itemIndex);
+                                }} />
                                 <BsTrash className={styles.deleteIcon} onClick={() => {
                                     deleteItemHandler(itemIndex);
                                 }} />

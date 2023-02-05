@@ -30,7 +30,7 @@
 	text-align: center;
 	padding-top: 10px;
 	color: white;
-	border-right: 1px solid var(--neon-blue-accent);
+	/* border-right: 1px solid var(--neon-blue-accent); */
 	/* box-shadow: inset 0 0 10px var(--neon-blue-accent); */
 }
 

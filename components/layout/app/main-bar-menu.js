@@ -11,7 +11,7 @@ function MainBarMenu() {
         listStyle === "tile" ? setListStyle("list") : setListStyle("tile");
     }
     function addNewItemHandler() {
-        statusContext.showAddItemModal();
+        statusContext.showItemModal();
     }
     return (
         <Fragment>
