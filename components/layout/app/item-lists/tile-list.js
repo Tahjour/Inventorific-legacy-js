@@ -37,8 +37,6 @@ function TileList() {
         setIsLoadingItems(true);
     }
 
-
-
     return (
         <Fragment>
             <ul className={styles.tileList}>

@@ -11,7 +11,9 @@ const nextConfig = {
   //   return config;
   // }
   env: {
-    appName: "Inventorific"
+    appName: "Inventorific",
+    mongodbUsername: "Tester",
+    mongodbPassword: "Testerpassword"
   }
 };
 

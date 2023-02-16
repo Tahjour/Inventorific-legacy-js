@@ -68,7 +68,12 @@
 }
 
 .itemInfo:last-child {
+	transition: gap 200ms ease-in-out;
 	justify-content: center;
+}
+
+.itemCard:last-child:hover .itemInfo:last-child {
+	gap: 50px;
 }
 
 .operationIcons {
