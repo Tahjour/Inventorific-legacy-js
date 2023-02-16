@@ -1,5 +1,6 @@
-import { hashPassword } from "../../../lib/auth";
-import { connectToDatabase } from "../../../lib/db";
+import { hashPassword } from "../../../db/authHelper";
+import { connectToDatabase } from "../../../db/externalDB";
+
 
 async function signUpHandler(req, res) {
     if (req.method !== 'POST') {
