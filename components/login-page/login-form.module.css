@@ -37,14 +37,17 @@
 	gap: 25px;
 }
 
+.form > * {
+	color: rgb(190, 190, 190);
+}
+
 .form input {
 	text-align: center;
 	border-radius: 10px;
 	width: 70%;
-	height: 15%;
+	height: 20%;
 	border: 0;
 	background-color: rgb(50, 50, 50);
-	color: rgb(190, 190, 190);
 }
 
 .form input:focus {
@@ -61,25 +64,43 @@
 }
 
 .form .submitBtn {
-	background-color: transparent;
+	position: relative;
+	z-index: 1;
+	background-color: black;
+	background-image: linear-gradient(to right, rgba(0, 255, 255, 0.5), rgba(89, 0, 148, 0.5));
 	color: white;
-	border: 1px solid rgba(0, 255, 255, 0.5);
+	border: none;
 	border-radius: 10px;
-	padding: 10px;
+	width: 30%;
+	height: 15%;
 	text-align: center;
-	transition: 100ms linear;
+	cursor: pointer;
 }
 
-.form .submitBtn:hover {
-	background-color: rgba(0, 255, 255, 0.5);
-	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-	cursor: pointer;
+.form .submitBtn::before {
+	position: absolute;
+	content: "";
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-image: linear-gradient(to right, rgba(0, 255, 255, 1), rgba(89, 0, 148, 1));
+	box-shadow: 0 0 10px rgba(0, 255, 255, 1);
+	border-radius: 10px;
+	z-index: -1;
+	opacity: 0;
+	transition: opacity 100ms ease-in-out;
+}
+
+.form .submitBtn:hover::before {
+	opacity: 1;
 }
 
 .form .toggleBtn {
 	background-color: transparent;
 	border: 0;
 	color: rgba(0, 255, 255, 0.5);
+	margin-bottom: 10px;
 	transition: 100ms linear;
 }
 
@@ -90,7 +111,12 @@
 
 @media screen and (max-width: 600px) {
 	.formOuter {
+		height: 60%;
 		width: 80%;
+	}
+
+	.form input {
+		height: 20%;
 	}
 }
 

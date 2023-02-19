@@ -8,6 +8,7 @@
 }
 
 .itemCard {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -19,13 +20,40 @@
 	background-color: rgb(25, 25, 25);
 	box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 	list-style: none;
+	cursor: pointer;
 	transition: 100ms ease-in-out;
 }
 
-.itemCard:hover {
-	/* transform: scale(1.05); */
-	box-shadow: 0 0 20px rgba(0, 255, 255, 1);
-	cursor: pointer;
+.itemCard::before {
+	content: "";
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border-radius: inherit;
+	background: linear-gradient(to right, rgba(89, 0, 148, 1), rgba(0, 255, 255, 1));
+	transform: scale(1.1);
+	filter: blur(10px);
+	opacity: 0;
+	transition: opacity 200ms ease-in-out;
+}
+
+.itemCard:hover::before {
+	opacity: 1;
+}
+
+.itemCard::after {
+	content: "";
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border-radius: inherit;
+	background: inherit;
 }
 
 .itemCard h3,
@@ -36,11 +64,6 @@
 
 .itemCard:last-child {
 	justify-content: center;
-}
-
-.itemCard:last-child:hover {
-	/* background-color: rgba(0, 255, 255, 0.7); */
-	box-shadow: 0 0 20px rgba(0, 255, 255, 1);
 }
 
 .itemImageContainer {

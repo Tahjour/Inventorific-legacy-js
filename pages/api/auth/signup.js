@@ -1,3 +1,4 @@
+//*This is not currently being used.
 import { hashPassword } from "../../../db/authHelper";
 import { connectToDatabase } from "../../../db/externalDB";
 

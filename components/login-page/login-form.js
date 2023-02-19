@@ -20,11 +20,14 @@ function LoginForm() {
                     <input type="text" id="email" name="email" placeholder="Your email"></input>
                     <input type="password" id="password" name="password" placeholder="Your password"></input>
                     <button className={styles.submitBtn} onClick={LoginFormHandler}>
-                        {isLogin ? "Login" : "Sign up"}
+                        {isLogin ? "Login" : "Sign Up"}
                     </button>
-                    <button className={styles.toggleBtn} onClick={toggleIsLogin}>
-                        {isLogin ? "Create a New Account" : "Login with Existing Account"}
-                    </button>
+                    <div>
+                        {isLogin ? "Don't have an account?" : "Have an account? "}
+                        <button className={styles.toggleBtn} onClick={toggleIsLogin}>
+                            {isLogin ? "Sign Up" : "Sign In"}
+                        </button>
+                    </div>
                 </form>
             </div>
         </section>
