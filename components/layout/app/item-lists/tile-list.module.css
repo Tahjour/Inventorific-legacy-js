@@ -21,7 +21,6 @@
 	box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 	list-style: none;
 	cursor: pointer;
-	transition: 100ms ease-in-out;
 }
 
 .itemCard::before {
@@ -37,7 +36,7 @@
 	transform: scale(1.1);
 	filter: blur(10px);
 	opacity: 0;
-	transition: opacity 200ms ease-in-out;
+	transition: opacity 200ms linear;
 }
 
 .itemCard:hover::before {
@@ -91,7 +90,7 @@
 }
 
 .itemInfo:last-child {
-	transition: gap 200ms ease-in-out;
+	transition: gap 200ms linear;
 	justify-content: center;
 }
 
@@ -110,7 +109,7 @@
 .editIcon {
 	color: green;
 	border-radius: 50%;
-	transition: transform 100ms ease-in-out, background-color 100ms ease-in-out;
+	transition: transform 100ms linear, background-color 100ms linear;
 }
 .editIcon:hover {
 	transform: scale(1.2);
@@ -120,7 +119,7 @@
 .deleteIcon {
 	color: red;
 	border-radius: 50%;
-	transition: transform 100ms ease-in-out;
+	transition: transform 100ms linear;
 }
 .deleteIcon:hover {
 	transform: scale(1.2);
