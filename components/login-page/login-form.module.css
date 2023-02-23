@@ -12,8 +12,8 @@
 	justify-content: center;
 	align-items: center;
 	background-color: rgb(30, 30, 30);
-	width: 40%;
-	height: 50%;
+	width: 500px;
+	height: 500px;
 	margin-top: -5%;
 	border-radius: 20px;
 	text-align: center;
@@ -22,40 +22,57 @@
 }
 
 .formOuter h1 {
-	margin-bottom: 60px;
 	color: white;
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
 }
 
 .form {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 25px;
 }
 
 .form > * {
 	color: rgb(190, 190, 190);
 }
 
-.form input {
-	text-align: center;
+.inputContainer {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	border-radius: 10px;
 	width: 70%;
-	height: 20%;
-	border: 0;
+	height: 50px;
+	margin-bottom: 20px;
 	background-color: rgb(50, 50, 50);
 }
 
-.form input:focus {
+.textInput {
+	border-radius: 10px;
+	width: 80%;
+	height: 100%;
+	border: 0;
+	color: rgb(190, 190, 190);
+	background-color: inherit;
+}
+
+.inputIcons {
+	position: absolute;
+	right: 10px;
+}
+
+.form .textInput:focus {
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	outline: 1px solid rgba(0, 255, 255, 0.5);
 }
 
-.form input:autofill {
+.textInput:autofill {
 	-webkit-text-fill-color: rgb(190, 190, 190);
 	caret-color: white;
 	box-shadow: 0 0 1000px rgb(50, 50, 50) inset;
@@ -63,7 +80,8 @@
 	/* Above is a hack to stop the background color from when the user autofills saved input */
 }
 
-.form .submitBtn {
+.form .submitBtn,
+.googleBtn {
 	position: relative;
 	z-index: 1;
 	background-color: black;
@@ -72,12 +90,13 @@
 	border: none;
 	border-radius: 10px;
 	width: 30%;
-	height: 15%;
+	height: 50px;
 	text-align: center;
 	cursor: pointer;
 }
 
-.form .submitBtn::before {
+.form .submitBtn::before,
+.googleBtn::before {
 	position: absolute;
 	content: "";
 	top: 0;
@@ -92,7 +111,23 @@
 	transition: opacity 100ms ease-in-out;
 }
 
-.form .submitBtn:hover::before {
+.googleBtn {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	margin-top: 20px;
+	background-image: linear-gradient(to right, rgba(51, 103, 214, 0.51), rgba(0, 79, 250, 0.51));
+}
+
+.googleBtn::before {
+	background-image: linear-gradient(to right, rgb(51, 103, 214), rgb(0, 79, 250));
+	box-shadow: 0 0 10px rgb(51, 103, 214);
+}
+
+.form .submitBtn:hover::before,
+.googleBtn:hover::before {
 	opacity: 1;
 }
 
@@ -109,19 +144,20 @@
 	color: rgba(0, 255, 255, 1);
 }
 
+.loginOrSignUpPart {
+	position: absolute;
+	bottom: 0;
+}
+
 @media screen and (max-width: 600px) {
 	.formOuter {
-		height: 60%;
-		width: 80%;
-	}
-
-	.form input {
-		height: 20%;
+		height: 80%;
+		width: 95%;
 	}
 }
 
-@media screen and (min-width: 601px) and (max-width: 1200px) {
+/* @media screen and (min-width: 601px) and (max-width: 1200px) {
 	.formOuter {
 		width: 60%;
 	}
-}
+} */

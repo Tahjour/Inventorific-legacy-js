@@ -33,7 +33,6 @@ function MainBarMenu() {
                         <input className={styles.searchBar} type="text" placeholder="search..."></input>
                         <BsSearch className={styles.searchIcon} />
                     </div>
-
                 </div>
             </section>
         </Fragment>
