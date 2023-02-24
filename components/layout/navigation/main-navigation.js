@@ -12,7 +12,7 @@ function MainNavigation() {
             </Link>
 
             {route === "/app" && <h1 className={styles.appHeaderTitle}>{process.env.appName}</h1>}
-            {route !== "/login" ?
+            {route !== "/login" && route !== "/register" ?
                 <nav>
                     <ul>
                         <li>

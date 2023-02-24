@@ -1,10 +1,10 @@
-import LoginForm from "../../components/auth-pages/login-form";
+import RegisterForm from "../../components/auth-pages/register-form";
 import MainNavigationLayout from "../../components/layout/navigation/main-navigation-layout";
 
 function LoginPage() {
     return (
         <MainNavigationLayout>
-            <LoginForm />
+            <RegisterForm />
         </MainNavigationLayout>
     );
 }
