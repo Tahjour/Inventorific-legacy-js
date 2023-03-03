@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "./auth-pages.module.css";
 import { FiUser, FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
@@ -25,6 +26,10 @@ function LoginForm() {
         cpasswordRef.current = "";
         setIsLogin(!isLogin);
     }
+
+    async function googleSignInHandler() {
+        await signIn("google", { callbackUrl: "http://localhost:3000/app" });
+    }
     return (
         <section className={styles.formContainer}>
             <div className={styles.formOuter}>
@@ -38,7 +43,7 @@ function LoginForm() {
                     </div>
                     <div className={styles.inputContainer}>
                         <input className={styles.textInput} type={showPassword.password ? "text" : "password"} id="password" name="password" placeholder="Password" ref={passwordRef}></input>
-                        <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: !showPassword.password }); }} />
+                        {showPassword.password ? <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: false }); }} /> : <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: true }); }} />}
                     </div>
 
                     <button className={styles.submitBtn}>
@@ -48,7 +53,7 @@ function LoginForm() {
                     <div className={styles.separatorLine}>
                         <span>or</span>
                     </div>
-                    <button type="button" className={styles.googleBtn}>
+                    <button type="button" className={styles.googleBtn} onClick={googleSignInHandler}>
                         <FcGoogle size={25} /> {"Login with Google"}
                     </button>
 

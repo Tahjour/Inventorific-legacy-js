@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.0.3",
     "bcrypt": "^5.1.0",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",

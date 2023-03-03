@@ -43,28 +43,44 @@
 
 .header li {
 	margin: 0 1rem;
+	color: white;
 }
 .header li a:hover {
 	color: rgba(0, 255, 255, 0.5);
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
 }
 
-.themeIcon {
-	position: relative;
-	left: 30px;
+.dropdownTrigger {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	display: flex;
+	align-items: center;
 	color: white;
-	font-size: 1.5rem;
+	background-color: rgb(25, 25, 25);
+	padding: 10px;
+	border-radius: 10px;
+	z-index: 2;
+}
+.dropdownTrigger:focus,
+.dropdownTrigger:hover {
+	outline: 1px solid rgba(0, 255, 255, 0.5);
 }
 
-.logo {
-	font-size: 2rem;
-	color: white;
-	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
-	margin: 0;
+.dropdownContent {
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 10px;
+	background-color: rgb(25, 25, 25);
+	z-index: 2;
+}
+.dropdownItem:hover,
+.dropdownItem:focus {
+	outline: 1px solid rgba(0, 255, 255, 0.5);
 }
 
-@media screen and (max-width: 900px) {
-	.header {
-		justify-content: center;
+@media screen and (max-width: 500px) {
+	.appHeaderTitle {
+		display: none;
 	}
 }

@@ -10,20 +10,14 @@ function RegisterForm() {
         password: false,
         cpassword: false
     });
-    const usernameRef = useRef("");
-    const emailRef = useRef("");
-    const passwordRef = useRef("");
-    const cpasswordRef = useRef("");
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [cpassword, setCpassword] = useState("");
 
     function LoginFormHandler(event) {
         event.preventDefault();
-    }
-    function toggleIsLogin(event) {
-        usernameRef.current = "";
-        emailRef.current = "";
-        passwordRef.current = "";
-        cpasswordRef.current = "";
-        setIsLogin(!isLogin);
+        
     }
     return (
         <section className={styles.formContainer}>
@@ -33,25 +27,24 @@ function RegisterForm() {
                 <form className={styles.form} onSubmit={LoginFormHandler}>
 
                     <div className={styles.inputContainer}>
-                        <input className={styles.textInput} type="text" id="username" name="username" placeholder="Username" ref={usernameRef}></input>
+                        <input className={styles.textInput} type="text" id="username" name="username" placeholder="Username" onChange={(e) => { setUsername(e.target.value); }}></input>
                         <FiUser className={styles.inputIcons} />
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <input className={styles.textInput} type="text" id="email" name="email" placeholder={"Email"} ref={emailRef}></input>
+                        <input className={styles.textInput} type="email" id="email" name="email" placeholder={"Email"} onChange={(e) => { setEmail(e.target.value); }}></input>
                         <MdAlternateEmail className={styles.inputIcons} />
                     </div>
+
                     <div className={styles.inputContainer}>
-                        <input className={styles.textInput} type={showPassword.password ? "text" : "password"} id="password" name="password" placeholder="Password" ref={passwordRef}></input>
-                        <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: !showPassword.password }); }} />
+                        <input className={styles.textInput} type={showPassword.password ? "text" : "password"} id="password" name="password" placeholder="Password" onChange={(e) => { setPassword(e.target.value); }}></input>
+                        {showPassword.password ? <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: false }); }} /> : <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: true }); }} />}
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <input className={styles.textInput} type={showPassword.cpassword ? "text" : "password"} id="cpassword" name="cpassword" placeholder="Confirm Password" ref={cpasswordRef}></input>
-                        <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: !showPassword.cpassword }); }} />
+                        <input className={styles.textInput} type={showPassword.cpassword ? "text" : "password"} id="cpassword" name="cpassword" placeholder="Confirm Password" onChange={(e) => { setCpassword(e.target.value); }}></input>
+                        {showPassword.cpassword ? <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: false }); }} /> : <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: true }); }} />}
                     </div>
-
-
 
                     <button className={styles.submitBtn}>
                         {"Sign Up"}
