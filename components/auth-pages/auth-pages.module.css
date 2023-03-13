@@ -6,7 +6,8 @@
 	align-items: center;
 }
 
-.formOuter {
+.formOuter,
+.formOuterRegister {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -21,7 +22,12 @@
 	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
-.formOuter h1 {
+.formOuterRegister {
+	height: 500px;
+}
+
+.formOuter h1,
+.formOuterRegister h1 {
 	margin-bottom: 70px;
 	color: white;
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
@@ -71,8 +77,13 @@
 }
 
 .form .textInput:focus {
-	border: 1px solid rgba(0, 255, 255, 0.5);
-	outline: 1px solid rgba(0, 255, 255, 0.5);
+	/* border: 1px solid rgba(0, 255, 255, 0.5); */
+	outline: 2px solid rgba(0, 255, 255, 0.5);
+}
+
+.form .errorTextInput,
+.form .errorTextInput:focus {
+	outline: 2px solid rgba(255, 0, 0, 0.5);
 }
 
 .textInput:autofill {
@@ -177,19 +188,22 @@
 }
 
 @media screen and (max-width: 600px) {
-	.formOuter {
+	.formOuter,
+	.formOuterRegister {
 		width: 100%;
 	}
 }
 
 @media screen and (min-width: 601px) and (max-width: 1200px) {
-	.formOuter {
+	.formOuter,
+	.formOuterRegister {
 		width: 60%;
 	}
 }
 
 @media screen and (min-width: 2560px) {
-	.formOuter {
+	.formOuter,
+	.formOuterRegister {
 		width: 1000px;
 	}
 }

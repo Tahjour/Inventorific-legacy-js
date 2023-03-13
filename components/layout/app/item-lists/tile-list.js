@@ -5,7 +5,7 @@ import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import styles from "./tile-list.module.css";
 import { StatusContext } from "../../../../context/StatusContext";
-import { deleteItem, LocalDatabaseItems } from "../../../../db/localDB";
+import { deleteItem, LocalDatabaseItems } from "../../../../lib/localDB";
 
 function TileList() {
     const statusContext = useContext(StatusContext);

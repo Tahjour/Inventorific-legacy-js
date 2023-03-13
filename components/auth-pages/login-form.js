@@ -5,26 +5,33 @@ import { FiUser, FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { MdAlternateEmail } from "react-icons/md";
 import Link from "next/link";
+import { useFormik } from 'formik';
+import { loginValidate } from "../../lib/authHelper";
+import { useRouter } from "next/router";
+
 
 function LoginForm() {
-    const [showPassword, setShowPassword] = useState({
-        password: false,
-        cpassword: false
-    });
-    const usernameRef = useRef("");
-    const emailRef = useRef("");
-    const passwordRef = useRef("");
-    const cpasswordRef = useRef("");
+    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
 
-    function LoginFormHandler(event) {
-        event.preventDefault();
-    }
-    function toggleIsLogin(event) {
-        usernameRef.current = "";
-        emailRef.current = "";
-        passwordRef.current = "";
-        cpasswordRef.current = "";
-        setIsLogin(!isLogin);
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validate: loginValidate,
+        onSubmit: LoginFormSubmitHandler
+    });
+
+    async function LoginFormSubmitHandler(values) {
+        const result = await signIn('credentials', {
+            redirect: false,
+            email: values.email,
+            password: values.password,
+        });
+        if (result.ok) {
+            router.push('/app');
+        }
     }
 
     async function googleSignInHandler() {
@@ -35,18 +42,19 @@ function LoginForm() {
             <div className={styles.formOuter}>
                 <h1>Login to Your Account</h1>
 
-                <form className={styles.form} onSubmit={LoginFormHandler}>
+                <form className={styles.form} onSubmit={formik.handleSubmit}>
 
                     <div className={styles.inputContainer}>
-                        <input className={styles.textInput} type="text" id="email" name="email" placeholder={"Email or Username"} ref={emailRef}></input>
-                        <FiUser className={styles.inputIcons} />
-                    </div>
-                    <div className={styles.inputContainer}>
-                        <input className={styles.textInput} type={showPassword.password ? "text" : "password"} id="password" name="password" placeholder="Password" ref={passwordRef}></input>
-                        {showPassword.password ? <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: false }); }} /> : <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: true }); }} />}
+                        <input className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`} type="text" id="email" name="email" placeholder={"Email"} {...formik.getFieldProps('email')}></input>
+                        <MdAlternateEmail className={styles.inputIcons} />
                     </div>
 
-                    <button className={styles.submitBtn}>
+                    <div className={styles.inputContainer}>
+                        <input className={`${styles.textInput} ${formik.errors.password && formik.touched.password ? styles.errorTextInput : null}`} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="Password" {...formik.getFieldProps('password')}></input>
+                        {showPassword ? <FiEye className={styles.inputIcons} onClick={() => { setShowPassword(false); }} /> : <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword(true); }} />}
+                    </div>
+
+                    <button type="submit" className={styles.submitBtn}>
                         {"Login"}
                     </button>
 
@@ -67,8 +75,8 @@ function LoginForm() {
                         </Link>
                     </div>
                 </form>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 }
 

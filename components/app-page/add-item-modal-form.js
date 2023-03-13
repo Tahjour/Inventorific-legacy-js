@@ -1,6 +1,6 @@
 import { Fragment, useContext, useRef, useState } from "react";
 import { StatusContext } from "../../context/StatusContext";
-import { LocalDatabaseItems } from "../../db/localDB";
+import { LocalDatabaseItems } from "../../lib/localDB";
 import styles from "./add-item-modal-form.module.css";
 import ModalBackdrop from "./modal-form-backdrop";
 import { BiImageAdd } from "react-icons/bi";

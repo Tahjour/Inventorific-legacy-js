@@ -7,7 +7,7 @@ function HomePageContent() {
                 <h1>{process.env.appName}</h1>
                 <p>An inventory control manager</p>
                 <Link href={"/app"} className={styles.tryBtnLink}>
-                    <button>Try now!</button>
+                    <button>Launch</button>
                 </Link>
             </div>
         </section>

@@ -1,19 +1,20 @@
 //*This is not currently being used.
-import { hashPassword } from "../../../db/authHelper";
-import { connectToDatabase } from "../../../db/externalDB";
+import { hashPassword } from "../../../lib/authHelper";
+import { connectToDatabase } from "../../../lib/externalDB";
 
 
 async function signUpHandler(req, res) {
     if (req.method !== 'POST') {
+        res.status(500).json({ message: "Only POST requests are allowed" });
         return;
     }
-    const data = req.body;
-    const { email, password } = data;
 
-    if (!email || !password || !email.includes('@') || password.trim().length < 7) {
-        res.status(422).json({ message: "Invalid email or password" });
-        return;
-    }
+    const { username, email, password } = req.body;
+
+    // if (!email || !password || !email.includes('@') || password.trim().length < 7) {
+    //     res.status(422).json({ message: "Invalid email or password" });
+    //     return;
+    // }
     const mongoClient = await connectToDatabase();
     const db = mongoClient.db(process.env.mongodbDatabase);
     const collection = db.collection(process.env.mongodbCollection);
@@ -27,6 +28,7 @@ async function signUpHandler(req, res) {
 
     const hashedPassword = await hashPassword(password);
     const result = await collection.insertOne({
+        username: username,
         email: email,
         password: hashedPassword,
     });

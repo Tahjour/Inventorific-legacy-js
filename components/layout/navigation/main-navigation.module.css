@@ -1,4 +1,5 @@
 .header {
+	position: relative;
 	width: 100%;
 	height: var(--main-nav-height);
 	/* background-color: #2d2d2d; */
@@ -9,23 +10,39 @@
 	padding: 10px;
 }
 
+.header:first-child {
+	flex: 1;
+}
+.header:nth-child(2) {
+	flex: 5;
+}
+.header:nth-child(3) {
+	flex: 1;
+}
+
 .darkBackground {
 	background-color: #2d2d2d;
 }
 
 .appHeaderTitle {
 	margin: 0;
-	text-align: center;
+	/* text-align: center; */
 	color: white;
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
 }
 
-.header a {
+.defaultLink,
+.dropdownLink {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
 	transition: color, text-shadow linear;
 	transition-duration: 200ms;
+}
+
+.defaultLink:hover {
+	color: rgba(0, 255, 255, 0.5);
+	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
 }
 
 .header ul {
@@ -45,12 +62,13 @@
 	margin: 0 1rem;
 	color: white;
 }
-.header li a:hover {
+/* .header li a:hover {
 	color: rgba(0, 255, 255, 0.5);
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
-}
+} */
 
 .dropdownTrigger {
+	position: relative;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -60,24 +78,52 @@
 	background-color: rgb(25, 25, 25);
 	padding: 10px;
 	border-radius: 10px;
+	border: 0;
 	z-index: 2;
 }
-.dropdownTrigger:focus,
-.dropdownTrigger:hover {
-	outline: 1px solid rgba(0, 255, 255, 0.5);
+
+.dropdownTrigger:hover,
+.dropdownTrigger[data-state='open'] {
+	cursor: pointer;
+	background: linear-gradient(to right, rgba(0, 255, 255, 0.5), rgba(119, 0, 255, 0.5));
+	/* outline: 1px solid rgba(0, 255, 255, 0.5); */
 }
 
 .dropdownContent {
+	margin-top: 5px;
 	border-radius: 10px;
 	cursor: pointer;
 	padding: 10px;
 	background-color: rgb(25, 25, 25);
 	z-index: 2;
 }
+
+.dropdownItem {
+	font-size: 13px;
+	line-height: 1;
+	color: var(--violet11);
+	border-radius: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 25px;
+	padding: 0 5px;
+	position: relative;
+	/* padding-left: 25px; */
+	font-weight: normal;
+	user-select: none;
+	outline: none;
+}
+
+.dropdownLink {
+	font-weight: normal;
+}
 .dropdownItem:hover,
 .dropdownItem:focus {
-	outline: 1px solid rgba(0, 255, 255, 0.5);
+	background: linear-gradient(to right, rgba(0, 255, 255, 0.5), rgba(119, 0, 255, 0.5));
 }
+
+/* --------------------------------------------------------------------------------------- */
 
 @media screen and (max-width: 500px) {
 	.appHeaderTitle {
