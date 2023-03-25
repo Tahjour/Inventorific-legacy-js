@@ -24,18 +24,25 @@ function LoginForm() {
     });
 
     async function LoginFormSubmitHandler(values) {
+        // await signOut();
+        console.log("reached here!!!");
         const result = await signIn('credentials', {
             redirect: false,
             email: values.email,
             password: values.password,
         });
+        console.log("reached here too!!!");
         if (result.ok) {
             router.push('/app');
         }
     }
 
     async function googleSignInHandler() {
-        await signIn("google", { callbackUrl: "http://localhost:3000/app" });
+        try {
+            await signIn("google", { callbackUrl: "http://localhost:3000/app" });
+        } catch (error) {
+            console.error("Error during sign-in:", error);
+        }
     }
     return (
         <section className={styles.formContainer}>

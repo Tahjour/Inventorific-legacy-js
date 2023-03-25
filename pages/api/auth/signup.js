@@ -9,7 +9,7 @@ async function signUpHandler(req, res) {
         return;
     }
 
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
 
     // if (!email || !password || !email.includes('@') || password.trim().length < 7) {
     //     res.status(422).json({ message: "Invalid email or password" });
@@ -17,7 +17,7 @@ async function signUpHandler(req, res) {
     // }
     const mongoClient = await connectToDatabase();
     const db = mongoClient.db(process.env.mongodbDatabase);
-    const collection = db.collection(process.env.mongodbCollection);
+    const collection = db.collection(process.env.mongodbUsersCollection);
 
     const existingUser = await collection.findOne({ email: email });
 
@@ -28,9 +28,11 @@ async function signUpHandler(req, res) {
 
     const hashedPassword = await hashPassword(password);
     const result = await collection.insertOne({
-        username: username,
+        type: 'credentials',
+        name: name,
         email: email,
         password: hashedPassword,
+        items: []
     });
     mongoClient.close();
     res.status(201).json({ message: "User added successfully!", result: result });

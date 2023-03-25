@@ -19,26 +19,30 @@ function MainNavigation() {
     async function logOutHandler() {
         await signOut();
     }
-    console.log(session);
     return (
         <header className={styles.header}>
             <Link href="/">
-                <Image className={styles.logoImage} src={"/Logo smaller.png"} alt={"The app's logo"} width={55} height={50}></Image>
+                <Image className={styles.logoImage} src={"/Logo smaller.png"} alt={"The app's logo"} width={55} height={50} priority></Image>
             </Link>
 
             {route === "/app" && <Link href={"/"} className={styles.defaultLink}>
                 {/* <h1 className={styles.appHeaderTitle}>{process.env.appName}</h1> */}
             </Link>}
-            {route !== "/login" && route !== "/register" ?
-                <nav>
-                    <ul>
-                        <li>
-                            {session ? <DropdownMenu.Root className={styles.dropdownRoot}>
+            {<nav>
+                <ul>
+                    <li>
+                        {
+                            session ? <DropdownMenu.Root className={styles.dropdownRoot}>
                                 <DropdownMenu.Trigger className={styles.dropdownTrigger}>
                                     {session.user.name.length > 15 ? `${session.user.name.slice(0, 15)}...` : session.user.name}
                                     <AiFillCaretDown size={20} />
                                 </DropdownMenu.Trigger>
                                 <DropdownMenu.Content className={styles.dropdownContent}>
+                                    {route !== "/app" ? <Link href={"/app"} className={styles.dropdownLink}>
+                                        <DropdownMenu.Item className={styles.dropdownItem}>
+                                            Launch App
+                                        </DropdownMenu.Item>
+                                    </Link> : null}
                                     <Link href={"/register"} className={styles.dropdownLink}>
                                         <DropdownMenu.Item className={styles.dropdownItem}>
                                             Make New Account
@@ -53,12 +57,15 @@ function MainNavigation() {
                                         Sign Out
                                     </DropdownMenu.Item>
                                 </DropdownMenu.Content>
-                            </DropdownMenu.Root> : <Link className={styles.defaultLink} href="/login">Login</Link>}
-                        </li>
-                    </ul>
-                </nav> : null
+                            </DropdownMenu.Root> :
+                                route !== "/login" && route !== "/register" ?
+                                    <Link className={styles.defaultLink} href="/login">Login</Link> : null
+                        }
+                    </li>
+                </ul>
+            </nav>
             }
-        </header>
+        </header >
     );
 }
 

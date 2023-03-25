@@ -5,30 +5,45 @@ import styles from "./add-item-modal-form.module.css";
 import ModalBackdrop from "./modal-form-backdrop";
 import { BiImageAdd } from "react-icons/bi";
 import Image from "next/image";
+import { v4 as uuidv4 } from 'uuid';
 
 function AddItemModalForm() {
     const statusContext = useContext(StatusContext);
     const itemToEdit = statusContext.itemToEdit;
     const [imageFilePathURL, setImageFilePathURL] = useState(itemToEdit ? itemToEdit.data.imagePath : null);
+    const [itemImage, setItemImage] = useState();
     const itemNameRef = useRef();
     const itemPriceRef = useRef();
     const itemDescriptionRef = useRef();
 
-    function itemSubmitHandler(event) {
+    async function itemSubmitHandler(event) {
         event.preventDefault();
 
-        const enteredItemName = itemToEdit ? itemToEdit.data.name : itemNameRef.current.value;
-        const enteredItemPrice = itemToEdit ? itemToEdit.data.price : itemPriceRef.current.value;
-        const enteredItemDescription = itemToEdit ? itemToEdit.data.description : itemDescriptionRef.current.value;
+        const enteredItemName = itemNameRef.current.value;
+        const enteredItemPrice = itemPriceRef.current.value;
+        const enteredItemDescription = itemDescriptionRef.current.value;
         const enteredItemImagePathURL = imageFilePathURL;
 
         const newItem = {
-            id: enteredItemName,
+            id: uuidv4(),
             name: enteredItemName,
             price: enteredItemPrice,
             description: enteredItemDescription,
             imagePath: enteredItemImagePathURL,
         };
+
+        const formData = new FormData();
+        formData.append("id", uuidv4());
+        formData.append("name", enteredItemName);
+        formData.append("price", enteredItemPrice);
+        formData.append("description", enteredItemDescription);
+        formData.append("image", itemImage);
+
+        await fetch("/api/item-upload", {
+            method: "POST",
+            body: formData,
+        });
+
         itemToEdit ? LocalDatabaseItems[itemToEdit.index] = newItem : LocalDatabaseItems.push(newItem);
         statusContext.closeItemModal();
     }
@@ -36,7 +51,10 @@ function AddItemModalForm() {
     function imageInputChangeHandler(event) {
         if (event.target.files && event.target.files[0]) {
             const img = event.target.files[0];
-            setImageFilePathURL(URL.createObjectURL(img));
+            setItemImage(img);
+            const imageURL = URL.createObjectURL(img);
+            console.log(imageURL);
+            setImageFilePathURL(imageURL);
         }
     }
 

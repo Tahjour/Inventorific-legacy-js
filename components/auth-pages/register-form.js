@@ -7,15 +7,17 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import { registerValidate } from "../../lib/authHelper";
 import { headers } from "../../next.config";
+import { useRouter } from "next/router";
 
 function RegisterForm() {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState({
         password: false,
         cpassword: false
     });
     const formik = useFormik({
         initialValues: {
-            username: '',
+            name: '',
             email: '',
             password: '',
             cpassword: '',
@@ -25,7 +27,7 @@ function RegisterForm() {
     });
     async function SignUpFormSubmitHandler(values) {
         const reqBody = {
-            username: values.username,
+            name: values.name,
             email: values.email,
             password: values.password
         };
@@ -35,9 +37,10 @@ function RegisterForm() {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(response => response.json()).then(data => console.log(data));
-        console.log(values);
-
+        }).then(res => res.json()).then(data => {
+            console.log(data);
+            router.push("/login");
+        });
     }
     return (
         <section className={styles.formContainer}>
@@ -47,7 +50,7 @@ function RegisterForm() {
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
 
                     <div className={styles.inputContainer}>
-                        <input className={`${styles.textInput} ${formik.errors.username && formik.touched.username ? styles.errorTextInput : null}`} type="text" id="username" name="username" placeholder="Username" {...formik.getFieldProps('username')} required></input>
+                        <input className={`${styles.textInput} ${formik.errors.name && formik.touched.name ? styles.errorTextInput : null}`} type="text" id="name" name="name" placeholder="Username" {...formik.getFieldProps('name')} required></input>
                         <FiUser className={styles.inputIcons} />
                     </div>
 
