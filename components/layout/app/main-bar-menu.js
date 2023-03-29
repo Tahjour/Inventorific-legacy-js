@@ -1,17 +1,17 @@
 import { Fragment, useContext, useState } from "react";
 import { BsGrid, BsPlusCircle, BsSearch, BsSun } from "react-icons/bs";
 import { IoListSharp } from "react-icons/io5";
-import { StatusContext } from "../../../context/StatusContext";
+import { ItemsContext } from "../../../context/ItemsContext";
 import styles from "./main-bar-menu.module.css";
 
 function MainBarMenu() {
-    const statusContext = useContext(StatusContext);
+    const itemsContext = useContext(ItemsContext);
     const [listStyle, setListStyle] = useState("tile");
     function changeListStyle() {
         listStyle === "tile" ? setListStyle("list") : setListStyle("tile");
     }
     function addNewItemHandler() {
-        statusContext.showItemModal();
+        itemsContext.showItemModal();
     }
     return (
         <Fragment>

@@ -4,56 +4,51 @@ import { BsPlusCircle } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import styles from "./tile-list.module.css";
-import { StatusContext } from "../../../../context/StatusContext";
-import { deleteItem, LocalDatabaseItems } from "../../../../lib/localDB";
+import { ItemsContext } from "../../../../context/ItemsContext";
 
 function TileList() {
-    const statusContext = useContext(StatusContext);
+    const itemsContext = useContext(ItemsContext);
     const [isLoadingItems, setIsLoadingItems] = useState(true);
     const [loadedItems, setLoadedItems] = useState([]);
 
     useEffect(() => {
-        if (LocalDatabaseItems) {
-            setLoadedItems(LocalDatabaseItems);
+        if (itemsContext.getItems()) {
+            setLoadedItems(itemsContext.getItems());
         }
         setIsLoadingItems(false);
-    }, [loadedItems, isLoadingItems]);
+    }, [loadedItems, isLoadingItems, itemsContext]);
 
     function addNewItemHandler() {
-        statusContext.showItemModal();
+        itemsContext.showItemModal();
     }
 
-    function editItemHandler(itemIndex) {
-        const item = {
-            data: LocalDatabaseItems[itemIndex],
-            index: itemIndex
-        };
-        statusContext.showItemModal(item);
+    function editItemHandler(item) {
+        itemsContext.showItemModal(item);
     }
 
-    function deleteItemHandler(itemIndex) {
-        deleteItem(itemIndex);
-        setLoadedItems(LocalDatabaseItems);
+    function deleteItemHandler(item) {
+        itemsContext.deleteItem(item);
+        setLoadedItems(itemsContext.getItems());
         setIsLoadingItems(true);
     }
 
     return (
         <Fragment>
             <ul className={styles.tileList}>
-                {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((item, itemIndex) => {
+                {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((item) => {
                     return <li key={item.id} className={styles.itemCard}>
                         <div className={styles.itemImageContainer}>
-                            <Image className={styles.itemImage} src={item.imagePath} alt={"Item's image"} fill />
+                            <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
                         </div>
                         <div className={styles.itemInfo}>
                             <h3>{item.name}</h3>
                             <p>${item.price}</p>
                             <div className={styles.operationIcons}>
                                 <BiEdit className={styles.editIcon} onClick={() => {
-                                    editItemHandler(itemIndex);
+                                    editItemHandler(item);
                                 }} />
                                 <BsTrash className={styles.deleteIcon} onClick={() => {
-                                    deleteItemHandler(itemIndex);
+                                    deleteItemHandler(item);
                                 }} />
                             </div>
                             {/* <p>{item.description}</p> */}

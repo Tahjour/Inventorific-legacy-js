@@ -4,13 +4,13 @@ import MainNavigation from "../navigation/main-navigation";
 import SideBar from "./side-bar";
 import styles from "./app-layout.module.css";
 import AddItemModalForm from "../../app-page/add-item-modal-form";
-import { StatusContext } from "../../../context/StatusContext";
+import { ItemsContext } from "../../../context/ItemsContext";
 
 function AppLayout(props) {
-    const statusContext = useContext(StatusContext);
+    const itemsContext = useContext(ItemsContext);
     return (
         <Fragment>
-            {statusContext.isItemModalOpen && <AddItemModalForm />}
+            {itemsContext.isItemModalOpen && <AddItemModalForm />}
             <MainNavigation />
             <div className={styles.bars}>
                 <SideBar>
