@@ -37,39 +37,14 @@ async function handler(req, res) {
                     return;
                 }
 
-                // Check if there is an edited image file
-                if (!files.editedItemImageFile.filepath) {
-                    res.status(500).json({ message: "There is no edited image file" });
-                }
-                // Access the image file
-                const editedItemImageFile = files.editedItemImageFile.filepath;
-
                 // Define the existing image public ID
-                const existingImagePublicId = `${process.env.CLOUDINARY_MAIN_FOLDER}/${fields.itemBeforeEditName}(${fields.itemBeforeEditID})`;
+                const existingImagePublicId = `${process.env.CLOUDINARY_MAIN_FOLDER}/${fields.itemToDeleteName}(${fields.itemToDeleteID})`;
 
                 // Delete the existing image from Cloudinary
                 const existingImageDestroyRes = await cloudinary.uploader.destroy(existingImagePublicId);
                 if (existingImageDestroyRes.result !== 'ok') {
                     res.status(500).json({ message: "Failed to delete the existing image on server" });
                 }
-
-                // Upload the edited image to Cloudinary
-                const uploadResponse = await cloudinary.uploader.upload(editedItemImageFile, {
-                    public_id: `${fields.editedItemName}(${fields.editedItemID})`,
-                    folder: process.env.CLOUDINARY_MAIN_FOLDER,
-                });
-
-                // Get the edited image URL
-                const editedItemImageURL = uploadResponse.secure_url;
-
-                // Create the edited item object
-                const editedItem = {
-                    id: fields.editedItemID,
-                    name: fields.editedItemName,
-                    price: fields.editedItemPrice,
-                    description: fields.editedItemDescription,
-                    imageURL: editedItemImageURL,
-                };
 
                 // Connect to the MongoDB database
                 const mongoClient = await connectToDatabase();
@@ -80,14 +55,14 @@ async function handler(req, res) {
                 // Find the existing user in the database
                 const existingUser = await users.findOne({ email: session.user.email });
 
-                // Update the item for the existing user
+                // Delete the item for the existing user
                 if (existingUser) {
-                    const updateRes = await users.updateOne(
-                        { email: session.user.email, "items.id": fields.editedItemID },
-                        { $set: { "items.$": editedItem } }
+                    const deleteRes = await users.updateOne(
+                        { email: session.user.email },
+                        { $pull: { items: { id: fields.itemToDeleteID } } }
                     );
-                    // Send a response after the update
-                    res.status(201).json({ messages: "Success!", editedItem, updateRes });
+                    // Send a response after the deletion
+                    res.status(201).json({ messages: "Item Deleted!", deleteRes });
                 } else {
                     // Handle the case when no user is found
                     res.status(404).json({ message: "User not found" });

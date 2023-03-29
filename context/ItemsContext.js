@@ -89,9 +89,16 @@ export function ItemsContextProvider(props) {
         }
     }
 
-    function deleteItemHandler(itemToDelete) {
+    async function deleteItemHandler(itemToDelete) {
         setUserItems((prevItems) => {
             return prevItems.filter(item => item.id !== itemToDelete.id);
+        });
+        const formData = new FormData();
+        formData.append("itemToDeleteID", itemToDelete.id);
+        formData.append("itemToDeleteName", itemToDelete.name);
+        await fetch("/api/delete-item", {
+            method: "POST",
+            body: formData,
         });
     }
 
