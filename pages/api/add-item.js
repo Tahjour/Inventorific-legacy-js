@@ -1,6 +1,6 @@
-import { connectToDatabase } from "../../../lib/externalDB";
+import { connectToDatabase } from "../../lib/externalDB";
 import { v2 as cloudinary } from "cloudinary";
-import { authOptions } from "../auth/[...nextauth]";
+import { authOptions } from "./auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import formidable from "formidable";
 
@@ -36,21 +36,22 @@ async function handler(req, res) {
                     return;
                 }
 
-                if (!files.newItemImageFile) {
-                    res.status(400).json({ message: "No image file provided" });
-                    return;
+                let newItemImageURL = process.env.CLOUDINARY_DEFAULT_IMAGE_URL;
+
+                if (files.newItemImageFile) {
+                    // Access the image file
+                    const newItemImageFile = files.newItemImageFile.filepath;
+                    const mainFolder = `${process.env.CLOUDINARY_MAIN_FOLDER}`;
+                    const userFolder = `${session.user.name}(${session.user.email})`;
+                    const userItemImage = `${fields.newItemName}(${fields.newItemID})`;
+                    const newPublicID = `${mainFolder}/${userFolder}/${userItemImage}`;
+
+                    // Upload image to Cloudinary
+                    const uploadResponse = await cloudinary.uploader.upload(newItemImageFile, {
+                        public_id: newPublicID,
+                    });
+                    newItemImageURL = uploadResponse.secure_url;
                 }
-
-                // Access the image file
-                const newItemImageFile = files.newItemImageFile.filepath;
-
-                // Upload image to Cloudinary
-                const uploadResponse = await cloudinary.uploader.upload(newItemImageFile, {
-                    public_id: `${fields.newItemName}(${fields.newItemID})`,
-                    folder: `Inventorific`, // Optional: specify a folder for your images
-                });
-
-                const newItemImageURL = uploadResponse.secure_url;
 
                 const newItem = {
                     id: fields.newItemID,

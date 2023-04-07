@@ -1,23 +1,40 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const ItemsContext = createContext({
     isItemModalOpen: false,
-    getItemToEdit: () => { return {}; },
+    getItemBeforeEdit: () => { return {}; },
     getItems: () => { return []; },
     addItem: async (newItem) => { },
     deleteItem: (itemToDelete) => { },
-    saveEditedItem: (editedItem, itemBeforeEdit) => { },
-    showItemModal: (itemToEdit = null) => { },
+    saveItemAfterEdit: (itemAfterEdit, itemBeforeEdit) => { },
+    showItemModal: (itemBeforeEdit = null) => { },
     closeItemModal: () => { },
 });
 
 export function ItemsContextProvider(props) {
     const [userItems, setUserItems] = useState([]);
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
-    const [itemToEdit, setItemToEdit] = useState(null);
+    const [itemBeforeEdit, setItemBeforeEdit] = useState(null);
+    const [isFirstLoadDone, setIsFirstLoadDone] = useState(false);
 
-    function showItemModalStateHandler(itemToEdit = null) {
-        setItemToEdit(itemToEdit);
+    useEffect(() => {
+        //Figure out how to add a loading component
+        async function loadAllItems() {
+            if (!isFirstLoadDone) {
+                const response = await fetch("/api/load-items");
+                const data = await response.json();
+                console.log("data: ", data);
+                if (data.allItems) {
+                    setUserItems(data.allItems);
+                    setIsFirstLoadDone(true);
+                }
+            }
+        }
+        loadAllItems();
+    }, [isFirstLoadDone, userItems]);
+
+    function showItemModalStateHandler(itemBeforeEdit = null) {
+        setItemBeforeEdit(itemBeforeEdit);
         setIsItemModalOpen(true);
     }
     function closeItemModalStateHandler() {
@@ -26,8 +43,8 @@ export function ItemsContextProvider(props) {
     function getItemsHandler() {
         return userItems;
     }
-    function getItemToEditHandler() {
-        return itemToEdit;
+    function getItemBeforeEditHandler() {
+        return itemBeforeEdit;
     }
 
     async function addItemHandler(newItem) {
@@ -41,12 +58,14 @@ export function ItemsContextProvider(props) {
         formData.append("newItemName", newItem.name);
         formData.append("newItemPrice", newItem.price);
         formData.append("newItemDescription", newItem.description);
+        formData.append("newItemImageFilePathURL", newItem.imageURL);
         formData.append("newItemImageFile", newItem.imageFile);
 
         const response = await fetch("/api/add-item", {
             method: "POST",
             body: formData,
         });
+
         const data = await response.json();
         if (data.newItem) {
             newItem.imageURL = data.newItem.imageURL;
@@ -56,9 +75,9 @@ export function ItemsContextProvider(props) {
         }
     }
 
-    async function saveEditedItemHandler(editedItem, itemBeforeEdit) {
+    async function saveItemAfterEditHandler(itemBeforeEdit, itemAfterEdit) {
         setUserItems((prevItems) => {
-            return prevItems.map((item) => (item.id === editedItem.id ? editedItem : item));
+            return prevItems.map((item) => (item.id === itemAfterEdit.id ? itemAfterEdit : item));
         });
         const formData = new FormData();
 
@@ -67,24 +86,27 @@ export function ItemsContextProvider(props) {
         formData.append("itemBeforeEditName", itemBeforeEdit.name);
         formData.append("itemBeforeEditPrice", itemBeforeEdit.price);
         formData.append("itemBeforeEditDescription", itemBeforeEdit.description);
+        formData.append("itemBeforeEditImageURL", itemBeforeEdit.imageURL);
         formData.append("itemBeforeEditImageFile", itemBeforeEdit.imageFile);
 
         // Add item after edit properties to form data
-        formData.append("editedItemID", editedItem.id);
-        formData.append("editedItemName", editedItem.name);
-        formData.append("editedItemPrice", editedItem.price);
-        formData.append("editedItemDescription", editedItem.description);
-        formData.append("editedItemImageFile", editedItem.imageFile);
+        formData.append("itemAfterEditID", itemAfterEdit.id);
+        formData.append("itemAfterEditName", itemAfterEdit.name);
+        formData.append("itemAfterEditPrice", itemAfterEdit.price);
+        formData.append("itemAfterEditDescription", itemAfterEdit.description);
+        formData.append("itemAfterEditImageURL", itemAfterEdit.imageURL);
+        formData.append("itemAfterEditImageFile", itemAfterEdit.imageFile);
 
         const response = await fetch("/api/edit-item", {
             method: "POST",
             body: formData,
         });
+
         const data = await response.json();
-        if (data.editedItem) {
-            editedItem.imageURL = data.editedItem.imageURL;
+        if (data.itemAfterEdit) {
+            itemAfterEdit.imageURL = data.itemAfterEdit.imageURL;
             setUserItems((prevItems) => {
-                return prevItems.map((item) => (item.id === editedItem.id ? editedItem : item));
+                return prevItems.map((item) => (item.id === itemAfterEdit.id ? itemAfterEdit : item));
             });
         }
     }
@@ -96,6 +118,7 @@ export function ItemsContextProvider(props) {
         const formData = new FormData();
         formData.append("itemToDeleteID", itemToDelete.id);
         formData.append("itemToDeleteName", itemToDelete.name);
+        formData.append("itemToDeleteImageFilePathURL", itemToDelete.imageURL);
         await fetch("/api/delete-item", {
             method: "POST",
             body: formData,
@@ -104,10 +127,10 @@ export function ItemsContextProvider(props) {
 
     const context = {
         isItemModalOpen: isItemModalOpen,
-        getItemToEdit: getItemToEditHandler,
+        getItemBeforeEdit: getItemBeforeEditHandler,
         getItems: getItemsHandler,
         addItem: addItemHandler,
-        saveEditedItem: saveEditedItemHandler,
+        saveItemAfterEdit: saveItemAfterEditHandler,
         deleteItem: deleteItemHandler,
         showItemModal: showItemModalStateHandler,
         closeItemModal: closeItemModalStateHandler,
