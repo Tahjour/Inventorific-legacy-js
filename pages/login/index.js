@@ -3,9 +3,7 @@ import MainNavigationLayout from "../../components/layout/navigation/main-naviga
 
 function LoginPage() {
     return (
-        <MainNavigationLayout>
-            <LoginForm />
-        </MainNavigationLayout>
+        <LoginForm />
     );
 }
 

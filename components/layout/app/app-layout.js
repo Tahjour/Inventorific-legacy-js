@@ -11,7 +11,7 @@ function AppLayout(props) {
     return (
         <Fragment>
             {itemsContext.isItemModalOpen && <AddItemModalForm />}
-            <MainNavigation />
+            {/* <MainNavigation /> */}
             <div className={styles.bars}>
                 <SideBar>
 

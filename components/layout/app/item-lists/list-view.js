@@ -6,7 +6,7 @@ import { BsTrash } from "react-icons/bs";
 import styles from "./tile-list.module.css";
 import { ItemsContext } from "../../../../context/ItemsContext";
 
-function TileList() {
+function ListView() {
     const itemsContext = useContext(ItemsContext);
     const [isLoadingItems, setIsLoadingItems] = useState(true);
     const [loadedItems, setLoadedItems] = useState([]);
@@ -34,15 +34,15 @@ function TileList() {
 
     return (
         <Fragment>
-            <ul className={styles.tileList}>
+            <ul className={styles.listView}>
                 {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((item) => {
                     return <li key={item.id} className={styles.itemCard}>
                         <div className={styles.itemImageContainer}>
                             <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
                         </div>
                         <div className={styles.itemInfo}>
-                            <h3>{item.name.length > 15 ? `${item.name.slice(0, 15)}...` : item.name}</h3>
-                            <p>{item.price.length > 15 ? `$${item.price.slice(0, 12)}...` : `$${item.price}`}</p>
+                            <h3>{item.name}</h3>
+                            <p>${item.price}</p>
                             <div className={styles.operationIcons}>
                                 <BiEdit className={styles.editIcon} onClick={() => {
                                     editItemHandler(item);
@@ -66,4 +66,4 @@ function TileList() {
     );
 }
 
-export default TileList;
+export default ListView;

@@ -12,6 +12,9 @@ export const ItemsContext = createContext({
 });
 
 export function ItemsContextProvider(props) {
+    //todo: add loading screens where necessary
+    //todo: finish the list view and individual item pages to see full details about items
+    //todo: Get the search to work
     const [userItems, setUserItems] = useState([]);
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
     const [itemBeforeEdit, setItemBeforeEdit] = useState(null);
