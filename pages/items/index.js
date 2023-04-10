@@ -1,7 +1,7 @@
 import AppLayout from "../../components/layout/app/app-layout";
 import TileList from "../../components/layout/app/item-lists/tile-list";
 
-function AppPage() {
+function ItemsPage() {
     return (
         <AppLayout>
             <TileList />
@@ -9,4 +9,4 @@ function AppPage() {
     );
 }
 
-export default AppPage;
+export default ItemsPage;

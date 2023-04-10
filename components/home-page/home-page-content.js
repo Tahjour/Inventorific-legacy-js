@@ -6,8 +6,8 @@ function HomePageContent() {
             <div className={styles.intro}>
                 <h1>Inventorific</h1>
                 <p>An inventory control manager</p>
-                <Link href={"/app"} className={styles.tryBtnLink}>
-                    <button>Launch</button>
+                <Link href={"/items"} className={styles.tryBtnLink}>
+                    Launch
                 </Link>
             </div>
         </section>

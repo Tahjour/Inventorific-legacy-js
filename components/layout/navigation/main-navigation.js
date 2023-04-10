@@ -25,9 +25,6 @@ function MainNavigation() {
                 <Image className={styles.logoImage} src={"/Logo smaller.png"} alt={"The app's logo"} width={55} height={50} priority></Image>
             </Link>
 
-            {route === "/app" && <Link href={"/"} className={styles.defaultLink}>
-                {/* <h1 className={styles.appHeaderTitle}>{process.env.appName}</h1> */}
-            </Link>}
             {<nav>
                 <ul>
                     <li>
@@ -38,7 +35,7 @@ function MainNavigation() {
                                     <AiFillCaretDown size={20} />
                                 </DropdownMenu.Trigger>
                                 <DropdownMenu.Content className={styles.dropdownContent}>
-                                    {route !== "/app" ? <Link href={"/app"} className={styles.dropdownLink}>
+                                    {route !== "/items" ? <Link href={"/items"} className={styles.dropdownLink}>
                                         <DropdownMenu.Item className={styles.dropdownItem}>
                                             Launch App
                                         </DropdownMenu.Item>

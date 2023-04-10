@@ -1,0 +1,30 @@
+.itemDetailsContainer > * {
+	margin: 0;
+	color: white;
+}
+
+.itemDetailsContainer {
+	height: calc(100vh - var(--main-nav-height));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+.itemImageContainer {
+	position: relative;
+	width: 60%;
+	height: 60%;
+}
+
+.itemImage {
+	border-radius: 10px;
+}
+
+.itemInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

@@ -9,12 +9,12 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
         <SessionProvider session={session}>
             <ItemsContextProvider>
                 <MainNavigation />
-                <motion.div key={router.route} initial="pageInitial" animate="pageAnimate" variants={{
+                <motion.div className='mainAnimationDiv' key={router.route} initial="pageInitial" animate="pageAnimate" variants={{
                     pageInitial: {
-                        scale: 0
+                        opacity: 0
                     },
                     pageAnimate: {
-                        scale: 1,
+                        opacity: 1,
                     }
                 }}>
                     <Component {...pageProps} />

@@ -1,8 +1,10 @@
+// itemsContext.js
 import { createContext, useEffect, useState } from "react";
 
 export const ItemsContext = createContext({
     isItemModalOpen: false,
     getItemBeforeEdit: () => { return {}; },
+    getItem: (itemID) => { return {}; },
     getItems: () => { return []; },
     addItem: async (newItem) => { },
     deleteItem: (itemToDelete) => { },
@@ -42,6 +44,9 @@ export function ItemsContextProvider(props) {
     }
     function closeItemModalStateHandler() {
         setIsItemModalOpen(false);
+    }
+    function getItemHandler(itemID) {
+        return userItems.find(item => item.id === itemID);
     }
     function getItemsHandler() {
         return userItems;
@@ -131,6 +136,7 @@ export function ItemsContextProvider(props) {
     const context = {
         isItemModalOpen: isItemModalOpen,
         getItemBeforeEdit: getItemBeforeEditHandler,
+        getItem: getItemHandler,
         getItems: getItemsHandler,
         addItem: addItemHandler,
         saveItemAfterEdit: saveItemAfterEditHandler,

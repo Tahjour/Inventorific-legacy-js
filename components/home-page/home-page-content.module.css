@@ -24,9 +24,7 @@
 
 .tryBtnLink {
 	margin-top: 20px;
-}
-
-.intro button {
+	text-decoration: none;
 	font-size: 1rem;
 	background-color: transparent;
 	color: white;
@@ -40,7 +38,7 @@
 	transition: 100ms linear;
 }
 
-.intro button::before {
+.tryBtnLink::before {
 	pointer-events: none;
 	content: '';
 	position: absolute;
@@ -54,7 +52,7 @@
 	opacity: 0.7;
 	transition: opacity 100ms linear;
 }
-.intro button::after {
+.tryBtnLink::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -69,9 +67,9 @@
 	transition: opacity 100ms linear;
 }
 
-.intro button:hover::before {
+.tryBtnLink:hover::before {
 	opacity: 1;
 }
-.intro button:hover::after {
+.tryBtnLink:hover::after {
 	opacity: 1;
 }

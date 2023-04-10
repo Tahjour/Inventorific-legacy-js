@@ -131,9 +131,10 @@ async function updateItemImage(
     const userItemImageAfter = `${itemAfterEditName}(${itemAfterEditID})`;
     const existingImagePublicId = `${mainFolder}/${userFolder}/${userItemImageBefore}`;
     const newImagePublicId = `${mainFolder}/${userFolder}/${userItemImageAfter}`;
+    const defaultImageURL = process.env.CLOUDINARY_DEFAULT_IMAGE_URL;
 
     if (itemAfterEditImageFile) {
-        if (itemBeforeEditImageURL !== process.env.CLOUDINARY_DEFAULT_IMAGE_URL) {
+        if (itemBeforeEditImageURL !== defaultImageURL) {
             const destroyResponse = await cloudinary.uploader.destroy(existingImagePublicId);
             if (destroyResponse.result !== 'ok') {
                 res.status(500).json({ message: "Failed to delete the existing image on server" });
@@ -144,9 +145,10 @@ async function updateItemImage(
         });
         return uploadResponse.secure_url;
     } else {
-        return itemAfterEditImageURL === process.env.CLOUDINARY_DEFAULT_IMAGE_URL
-            ? process.env.CLOUDINARY_DEFAULT_IMAGE_URL
-            : (await cloudinary.uploader.rename(existingImagePublicId, newImagePublicId)).secure_url;
+        if (itemAfterEditImageURL === defaultImageURL || existingImagePublicId === newImagePublicId) {
+            return itemAfterEditImageURL;
+        }
+        return (await cloudinary.uploader.rename(existingImagePublicId, newImagePublicId)).secure_url;
     }
 }
 

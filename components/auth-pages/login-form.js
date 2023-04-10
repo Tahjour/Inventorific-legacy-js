@@ -33,13 +33,13 @@ function LoginForm() {
         });
         console.log("reached here too!!!");
         if (result.ok) {
-            router.push('/app');
+            router.push('/items');
         }
     }
 
     async function googleSignInHandler() {
         try {
-            await signIn("google", { callbackUrl: "http://localhost:3000/app" });
+            await signIn("google", { callbackUrl: "http://localhost:3000/items" });
         } catch (error) {
             console.error("Error during sign-in:", error);
         }
