@@ -1,19 +1,30 @@
 .bars {
-	height: calc(100vh - var(--main-nav-height));
-	border-top: 1px solid rgba(0, 255, 255, 0.5);
+	/* height: calc(100vh - var(--main-nav-height)); */
+	height: 100%;
 	display: flex;
 	flex-direction: row;
 }
 
 .mainBar {
+	position: relative;
 	width: 100%;
-	flex: 4;
+	height: 100%;
 	color: white;
-	/* padding: 30px 30px 30px 30px; */
 	background-color: rgba(35, 35, 35, 0);
+}
+
+.listBar {
+	position: absolute;
+	width: 100%;
+	height: calc(100% - 60px);
+	top: 60px;
 	overflow: auto;
-	/* background-color: rgba(0, 255, 255, 0.2); */
-	/* box-shadow: inset 0 0 10px var(--neon-blue-accent); */
+}
+
+@media screen and (max-width: 900px) {
+	.listBar {
+		top: 50px;
+	}
 }
 
 .sideBar {

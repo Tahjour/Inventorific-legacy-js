@@ -1,4 +1,4 @@
-// itemsContext.js
+// context/ItemsContext.js
 import { createContext, useEffect, useState } from "react";
 
 export const ItemsContext = createContext({
@@ -7,23 +7,27 @@ export const ItemsContext = createContext({
     getItem: (itemID) => { return {}; },
     getItems: () => { return []; },
     addItem: async (newItem) => { },
-    deleteItem: (itemToDelete) => { },
-    saveItemAfterEdit: (itemAfterEdit, itemBeforeEdit) => { },
+    deleteItem: async (itemToDelete) => { },
+    saveItemAfterEdit: async (itemAfterEdit, itemBeforeEdit) => { },
     showItemModal: (itemBeforeEdit = null) => { },
     closeItemModal: () => { },
+    searchTerm: "",
+    searchItems: (newSearchTerm) => { },
+    loginMode: "",
+    setLoginMode: () => { },
 });
 
 export function ItemsContextProvider(props) {
-    //todo: add loading screens where necessary
-    //todo: finish the list view and individual item pages to see full details about items
-    //todo: Get the search to work
     const [userItems, setUserItems] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredItems, setFilteredItems] = useState([]);
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
     const [itemBeforeEdit, setItemBeforeEdit] = useState(null);
     const [isFirstLoadDone, setIsFirstLoadDone] = useState(false);
+    const [loginMode, setLoginMode] = useState("");
 
     useEffect(() => {
-        //Figure out how to add a loading component
+        // Figure out how to add a loading component
         async function loadAllItems() {
             if (!isFirstLoadDone) {
                 const response = await fetch("/api/load-items");
@@ -42,15 +46,24 @@ export function ItemsContextProvider(props) {
         setItemBeforeEdit(itemBeforeEdit);
         setIsItemModalOpen(true);
     }
+
     function closeItemModalStateHandler() {
         setIsItemModalOpen(false);
     }
+
     function getItemHandler(itemID) {
         return userItems.find(item => item.id === itemID);
     }
+
     function getItemsHandler() {
-        return userItems;
+        if (searchTerm === "") {
+            console.log("Returned user items");
+            return userItems;
+        }
+        console.log("Returned filtered items");
+        return filteredItems;
     }
+
     function getItemBeforeEditHandler() {
         return itemBeforeEdit;
     }
@@ -133,6 +146,18 @@ export function ItemsContextProvider(props) {
         });
     }
 
+    function searchItemsHandler(newSearchTerm) {
+        setSearchTerm(newSearchTerm);
+        const filteredItems = userItems.filter((item) =>
+            item.name.toLowerCase().includes(newSearchTerm.toLowerCase())
+        );
+        setFilteredItems(filteredItems);
+    }
+
+    function setLoginModeHandler(newLoginMode) {
+        setLoginMode(newLoginMode);
+    }
+
     const context = {
         isItemModalOpen: isItemModalOpen,
         getItemBeforeEdit: getItemBeforeEditHandler,
@@ -143,7 +168,12 @@ export function ItemsContextProvider(props) {
         deleteItem: deleteItemHandler,
         showItemModal: showItemModalStateHandler,
         closeItemModal: closeItemModalStateHandler,
+        searchTerm: searchTerm,
+        searchItems: searchItemsHandler,
+        loginMode: loginMode,
+        setLoginMode: setLoginModeHandler,
     };
+
 
     return (
         <ItemsContext.Provider value={context}>

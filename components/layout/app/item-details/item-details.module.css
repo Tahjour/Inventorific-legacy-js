@@ -5,6 +5,7 @@
 
 .itemDetailsContainer {
 	height: calc(100vh - var(--main-nav-height));
+	/* background-color: rgb(30, 30, 30); */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -19,7 +20,9 @@
 }
 
 .itemImage {
-	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+	object-fit: cover;
+	border-radius: 50px;
 }
 
 .itemInfo {

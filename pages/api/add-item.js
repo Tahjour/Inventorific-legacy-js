@@ -1,3 +1,4 @@
+//pages/api/auth/add-item.js
 import { connectToDatabase } from "../../lib/externalDB";
 import { v2 as cloudinary } from "cloudinary";
 import { authOptions } from "./auth/[...nextauth]";
