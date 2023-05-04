@@ -27,13 +27,25 @@ async function signUpHandler(req, res) {
     }
 
     const hashedPassword = await hashPassword(password);
-    const result = await collection.insertOne({
+
+    // Create a new Date object for the current date and time
+    const currentDate = new Date();
+    // Get the day, month, and year
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+    const year = currentDate.getFullYear();
+    // Format the date as a string
+    const formattedDate = `${month}/${day}/${year}`;
+
+    const userDoc = {
         type: 'credentials',
+        created: formattedDate,
         name: name,
         email: email,
         password: hashedPassword,
         items: []
-    });
+    };
+    const result = await collection.insertOne(userDoc);
     mongoClient.close();
     res.status(201).json({ message: "User added successfully!", result: result });
 }

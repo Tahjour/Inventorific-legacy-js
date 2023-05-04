@@ -57,6 +57,7 @@ async function handler(req, res) {
                 itemAfterEditID,
                 itemAfterEditName,
                 itemAfterEditPrice,
+                itemAfterEditAmount,
                 itemAfterEditDescription,
                 itemAfterEditImageURL,
             } = fields;
@@ -81,6 +82,7 @@ async function handler(req, res) {
                 id: itemAfterEditID,
                 name: itemAfterEditName,
                 price: itemAfterEditPrice,
+                amount: itemAfterEditAmount,
                 description: itemAfterEditDescription,
                 imageURL: updatedImageURL,
             };
@@ -99,7 +101,10 @@ async function handler(req, res) {
                 const updateRes = await users.updateOne(
                     { email: session.user.email, "items.id": fields.itemAfterEditID },
                     { $set: { "items.$": itemAfterEdit } }
-                );
+                ).catch(error => {
+                    console.error('Error editing item:', error);
+                    res.status(500).json({ message: 'Error editing item in database' });
+                });;
                 // Send a response after the update
                 res.status(201).json({ messages: "Success!", itemAfterEdit, updateRes });
             } else {

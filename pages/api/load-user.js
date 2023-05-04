@@ -11,7 +11,7 @@ async function handler(req, res) {
     try {
         const session = await getServerSession(req, res, authOptions);
         if (!session) {
-            res.status(401).json({ message: "Unauthorized" });
+            res.status(401).json({ message: "User not signed it. Aborting server load" });
             return;
         }
 
@@ -26,8 +26,11 @@ async function handler(req, res) {
             return;
         }
 
-        const allItems = existingUser.items;
-        res.status(200).json({ message: "Items Loaded Successfully", allItems });
+        const user = {
+            createdDate: existingUser.created,
+            items: existingUser.items
+        };
+        res.status(200).json({ message: "Items Loaded Successfully", user });
         try {
             if (mongoClient) {
                 await mongoClient.close();

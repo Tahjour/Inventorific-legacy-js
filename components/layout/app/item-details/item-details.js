@@ -20,19 +20,23 @@ function ItemDetails({ itemID }) {
 
     return (
         <section className={styles.itemDetailsContainer}>
-            <div className={styles.itemImageContainer}>
-                <Image
-                    className={styles.itemImage}
-                    src={item.imageURL}
-                    alt={"Item's image"}
-                    fill
-                />
+            <div className={styles.itemDetailsSubContainer}>
+                <div className={styles.itemImageContainer}>
+                    <Image
+                        className={styles.itemImage}
+                        src={item.imageURL}
+                        alt={"Item's image"}
+                        fill
+                    />
+                </div>
+                <div className={styles.itemInfo}>
+                    <h1>Name: {item.name}</h1>
+                    <p>Price: ${item.price}</p>
+                    <p>{item.amount}</p>
+                    <p>{item.description}</p>
+                </div>
             </div>
-            <div className={styles.itemInfo}>
-                <h1>{item.name}</h1>
-                <p>${item.price}</p>
-                <p>{item.description}</p>
-            </div>
+
         </section>
     );
 }

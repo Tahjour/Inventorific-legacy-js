@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "./auth-pages.module.css";
 import { FiUser, FiEyeOff, FiEye } from "react-icons/fi";
@@ -8,9 +8,11 @@ import Link from "next/link";
 import { useFormik } from 'formik';
 import { loginValidate } from "../../lib/authHelper";
 import { useRouter } from "next/router";
+import { ItemsContext } from "../../context/ItemsContext";
 
 
 function LoginForm() {
+    const itemsContext = useContext(ItemsContext);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
 
@@ -24,25 +26,45 @@ function LoginForm() {
     });
 
     async function LoginFormSubmitHandler(values) {
-        // await signOut();
-        console.log("reached here!!!");
+        itemsContext.showNotification({
+            status: 'saving',
+            message: "Logging in..."
+        });
+
         const result = await signIn('credentials', {
             redirect: false,
             email: values.email,
             password: values.password,
         });
-        console.log("reached here too!!!");
+
         if (result.ok) {
-            router.push('/items');
+            itemsContext.setDidServerItemsLoad(false);
+            itemsContext.setInitialServerLoadTry(false);
+            itemsContext.showNotification({
+                status: 'success',
+                message: "Logged In"
+            });
+            if (itemsContext.initialServerLoadTry) {
+                router.push('/items');
+            }
+        } else {
+            itemsContext.showNotification({
+                status: 'error',
+                message: "Username or password incorrect"
+            });
         }
     }
 
     async function googleSignInHandler() {
-        try {
-            await signIn("google", { callbackUrl: "http://localhost:3000/items" });
-        } catch (error) {
-            console.error("Error during sign-in:", error);
-        }
+        itemsContext.showNotification({
+            status: 'saving',
+            message: "Logging in..."
+        });
+        await signIn("google", { callbackUrl: "/items" }).catch(e => {
+            console.error(e);
+        });
+        itemsContext.setDidServerItemsLoad(false);
+        itemsContext.setInitialServerLoadTry(false);
     }
     return (
         <section className={styles.formContainer}>
@@ -50,7 +72,6 @@ function LoginForm() {
                 <h1>Login to Your Account</h1>
 
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
-
                     <div className={styles.inputContainer}>
                         <input className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`} type="text" id="email" name="email" placeholder={"Email"} {...formik.getFieldProps('email')}></input>
                         <MdAlternateEmail className={styles.inputIcons} />

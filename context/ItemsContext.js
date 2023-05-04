@@ -1,9 +1,20 @@
 // context/ItemsContext.js
 import { createContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export const ItemsContext = createContext({
+    notification: null,
+    didServerItemsLoad: false,
+    initialServerLoadTry: false,
     isItemModalOpen: false,
+    isDeleteModalOpen: false,
+    setInitialServerLoadTry: () => { },
+    setDidServerItemsLoad: () => { },
+    showNotification: () => { },
+    hideNotification: () => { },
     getItemBeforeEdit: () => { return {}; },
+    getItemToDelete: () => { return {}; },
+    getUser: () => { return {}; },
     getItem: (itemID) => { return {}; },
     getItems: () => { return []; },
     addItem: async (newItem) => { },
@@ -11,6 +22,8 @@ export const ItemsContext = createContext({
     saveItemAfterEdit: async (itemAfterEdit, itemBeforeEdit) => { },
     showItemModal: (itemBeforeEdit = null) => { },
     closeItemModal: () => { },
+    showDeleteModal: (itemToDelete = null, userToDelete = null) => { },
+    closeDeleteModal: () => { },
     searchTerm: "",
     searchItems: (newSearchTerm) => { },
     loginMode: "",
@@ -18,29 +31,68 @@ export const ItemsContext = createContext({
 });
 
 export function ItemsContextProvider(props) {
+    const [user, setUser] = useState({});
     const [userItems, setUserItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredItems, setFilteredItems] = useState([]);
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [itemBeforeEdit, setItemBeforeEdit] = useState(null);
-    const [isFirstLoadDone, setIsFirstLoadDone] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
+    const [didServerItemsLoad, setDidServerItemsLoad] = useState(false);
+    const [initialServerLoadTry, setInitialServerLoadTry] = useState(false);
     const [loginMode, setLoginMode] = useState("");
+    const [activeNotification, setActiveNotification] = useState(null);
 
     useEffect(() => {
         // Figure out how to add a loading component
         async function loadAllItems() {
-            if (!isFirstLoadDone) {
-                const response = await fetch("/api/load-items");
+            if (!initialServerLoadTry) {
+                const response = await fetch("/api/load-user");
                 const data = await response.json();
                 console.log("data: ", data);
-                if (data.allItems) {
-                    setUserItems(data.allItems);
-                    setIsFirstLoadDone(true);
+                if (data.user) {
+                    setUser(data.user);
+                    setUserItems(data.user.items);
+                    setDidServerItemsLoad(true);
                 }
+                setInitialServerLoadTry(true);
             }
         }
         loadAllItems();
-    }, [isFirstLoadDone, userItems]);
+        if (activeNotification && activeNotification.status === "success") {
+            const timer = setTimeout(() => {
+                setActiveNotification(null);
+            }, 1000);
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+        if (activeNotification && activeNotification.status === "error") {
+            const timer = setTimeout(() => {
+                setActiveNotification(null);
+            }, 5000);
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+    }, [initialServerLoadTry, didServerItemsLoad, userItems, activeNotification]);
+
+    function setInitialServerLoadTryHandler(hasLoaded) {
+        setInitialServerLoadTry(hasLoaded);
+    }
+
+    function setDidServerItemsLoadHandler(hasLoaded) {
+        setDidServerItemsLoad(hasLoaded);
+    }
+
+    function showNotificationHandler(notification) {
+        setActiveNotification(notification);
+    }
+
+    function hideNotificationHandler() {
+        setActiveNotification(null);
+    }
 
     function showItemModalStateHandler(itemBeforeEdit = null) {
         setItemBeforeEdit(itemBeforeEdit);
@@ -51,21 +103,38 @@ export function ItemsContextProvider(props) {
         setIsItemModalOpen(false);
     }
 
+    function showDeleteModalStateHandler(itemToDelete = null) {
+        setItemToDelete(itemToDelete);
+        setIsDeleteModalOpen(true);
+    }
+
+    function closeDeleteModalStateHandler() {
+        setIsDeleteModalOpen(false);
+    }
+
+    function getUserHandler() {
+        return user;
+    }
+
     function getItemHandler(itemID) {
         return userItems.find(item => item.id === itemID);
     }
 
     function getItemsHandler() {
         if (searchTerm === "") {
-            console.log("Returned user items");
+            // console.log("Returned user items");
             return userItems;
         }
-        console.log("Returned filtered items");
+        // console.log("Returned filtered items");
         return filteredItems;
     }
 
     function getItemBeforeEditHandler() {
         return itemBeforeEdit;
+    }
+
+    function getItemToDeleteHandler() {
+        return itemToDelete;
     }
 
     async function addItemHandler(newItem) {
@@ -78,6 +147,7 @@ export function ItemsContextProvider(props) {
         formData.append("newItemID", newItem.id);
         formData.append("newItemName", newItem.name);
         formData.append("newItemPrice", newItem.price);
+        formData.append("newItemAmount", newItem.amount);
         formData.append("newItemDescription", newItem.description);
         formData.append("newItemImageFilePathURL", newItem.imageURL);
         formData.append("newItemImageFile", newItem.imageFile);
@@ -93,6 +163,15 @@ export function ItemsContextProvider(props) {
             setUserItems((prevItems) => {
                 return prevItems.map((item) => (item.id === newItem.id ? newItem : item));
             });
+            showNotificationHandler({
+                status: "success",
+                message: "Saved",
+            });
+        } else {
+            showNotificationHandler({
+                status: "error",
+                message: "There was an issue adding the item",
+            });
         }
     }
 
@@ -106,6 +185,7 @@ export function ItemsContextProvider(props) {
         formData.append("itemBeforeEditID", itemBeforeEdit.id);
         formData.append("itemBeforeEditName", itemBeforeEdit.name);
         formData.append("itemBeforeEditPrice", itemBeforeEdit.price);
+        formData.append("itemBeforeEditAmount", itemBeforeEdit.amount);
         formData.append("itemBeforeEditDescription", itemBeforeEdit.description);
         formData.append("itemBeforeEditImageURL", itemBeforeEdit.imageURL);
         formData.append("itemBeforeEditImageFile", itemBeforeEdit.imageFile);
@@ -114,6 +194,7 @@ export function ItemsContextProvider(props) {
         formData.append("itemAfterEditID", itemAfterEdit.id);
         formData.append("itemAfterEditName", itemAfterEdit.name);
         formData.append("itemAfterEditPrice", itemAfterEdit.price);
+        formData.append("itemAfterEditAmount", itemAfterEdit.amount);
         formData.append("itemAfterEditDescription", itemAfterEdit.description);
         formData.append("itemAfterEditImageURL", itemAfterEdit.imageURL);
         formData.append("itemAfterEditImageFile", itemAfterEdit.imageFile);
@@ -129,21 +210,48 @@ export function ItemsContextProvider(props) {
             setUserItems((prevItems) => {
                 return prevItems.map((item) => (item.id === itemAfterEdit.id ? itemAfterEdit : item));
             });
+            showNotificationHandler({
+                status: "success",
+                message: "Saved",
+            });
+        } else {
+            showNotificationHandler({
+                status: "error",
+                message: "There was an issue editing the item",
+            });
         }
+
+
     }
 
-    async function deleteItemHandler(itemToDelete) {
+    async function deleteItemHandler() {
+        if (!itemToDelete || !itemToDelete.data) {
+            console.error("No item to delete");
+            return;
+        }
         setUserItems((prevItems) => {
-            return prevItems.filter(item => item.id !== itemToDelete.id);
+            return prevItems.filter(item => item.id !== itemToDelete.data.id);
         });
         const formData = new FormData();
-        formData.append("itemToDeleteID", itemToDelete.id);
-        formData.append("itemToDeleteName", itemToDelete.name);
-        formData.append("itemToDeleteImageFilePathURL", itemToDelete.imageURL);
-        await fetch("/api/delete-item", {
+        formData.append("itemToDeleteID", itemToDelete.data.id);
+        formData.append("itemToDeleteName", itemToDelete.data.name);
+        formData.append("itemToDeleteImageFilePathURL", itemToDelete.data.imageURL);
+        const response = await fetch("/api/delete-item", {
             method: "POST",
             body: formData,
         });
+        const data = await response.json();
+        if (data.deleteRes) {
+            showNotificationHandler({
+                status: "success",
+                message: "Saved",
+            });
+        } else {
+            showNotificationHandler({
+                status: "error",
+                message: "There was an issue editing the item",
+            });
+        }
     }
 
     function searchItemsHandler(newSearchTerm) {
@@ -159,8 +267,18 @@ export function ItemsContextProvider(props) {
     }
 
     const context = {
+        notification: activeNotification,
+        initialServerLoadTry: initialServerLoadTry,
+        didServerItemsLoad: didServerItemsLoad,
         isItemModalOpen: isItemModalOpen,
+        isDeleteModalOpen: isDeleteModalOpen,
+        setInitialServerLoadTry: setInitialServerLoadTryHandler,
+        setDidServerItemsLoad: setDidServerItemsLoadHandler,
+        showNotification: showNotificationHandler,
+        hideNotification: hideNotificationHandler,
         getItemBeforeEdit: getItemBeforeEditHandler,
+        getItemToDelete: getItemToDeleteHandler,
+        getUser: getUserHandler,
         getItem: getItemHandler,
         getItems: getItemsHandler,
         addItem: addItemHandler,
@@ -168,6 +286,8 @@ export function ItemsContextProvider(props) {
         deleteItem: deleteItemHandler,
         showItemModal: showItemModalStateHandler,
         closeItemModal: closeItemModalStateHandler,
+        showDeleteModal: showDeleteModalStateHandler,
+        closeDeleteModal: closeDeleteModalStateHandler,
         searchTerm: searchTerm,
         searchItems: searchItemsHandler,
         loginMode: loginMode,

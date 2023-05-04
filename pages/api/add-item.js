@@ -58,6 +58,7 @@ async function handler(req, res) {
                     id: fields.newItemID,
                     name: fields.newItemName,
                     price: fields.newItemPrice,
+                    amount: fields.newItemAmount,
                     description: fields.newItemDescription,
                     imageURL: newItemImageURL,
                 };
@@ -72,8 +73,11 @@ async function handler(req, res) {
                     const updateRes = await users.updateOne(
                         { email: session.user.email },
                         { $push: { items: newItem } }
-                    );
-                    // Add the following line to send a response after the update
+                    ).catch(error => {
+                        console.error('Error adding item:', error);
+                        res.status(500).json({ message: 'Error adding item to database' });
+                    });
+
                     res.status(201).json({ messages: "Success!", newItem, updateRes });
                 } else {
                     // Handle the case when no user is found

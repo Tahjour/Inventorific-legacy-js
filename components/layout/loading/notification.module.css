@@ -1,0 +1,41 @@
+/*code for custom loading icon*/
+
+.notificationLoader {
+	border: 10px solid rgb(0, 255, 255);
+	border-radius: 50%;
+	border-top: 10px solid #5e0089;
+	width: 30px;
+	height: 30px;
+}
+
+.notificationPopUpContainer {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	bottom: 0;
+}
+
+.notificationPopUp {
+	display: flex;
+	/* justify-content: space-between; */
+	align-items: center;
+	gap: 10px;
+	padding: 0 20px;
+	/* height: 80px; */
+	background: linear-gradient(to right, rgba(0, 255, 255, 1), rgba(89, 0, 148, 1));
+	border-radius: 10px;
+	color: white;
+}
+
+.loading {
+	background: #177cbe;
+}
+
+/* .success {
+	background: rgb(0, 125, 0);
+} */
+
+.error {
+	background: rgb(143, 0, 0);
+}

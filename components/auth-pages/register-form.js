@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import styles from "./auth-pages.module.css";
 import { FiUser, FiEyeOff, FiEye } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
@@ -8,8 +8,10 @@ import { useFormik } from "formik";
 import { registerValidate } from "../../lib/authHelper";
 import { headers } from "../../next.config";
 import { useRouter } from "next/router";
+import { ItemsContext } from "../../context/ItemsContext";
 
 function RegisterForm() {
+    const itemsContext = useContext(ItemsContext);
     const router = useRouter();
     const [showPassword, setShowPassword] = useState({
         password: false,
@@ -31,15 +33,23 @@ function RegisterForm() {
             email: values.email,
             password: values.password
         };
+        itemsContext.showNotification({
+            status: "saving",
+            message: "Creating user..."
+        });
         await fetch("/api/auth/signup", {
             method: 'POST',
             body: JSON.stringify(reqBody),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(res => res.json()).then(data => {
+        }).then(res => res.json()).then(async data => {
             console.log(data);
-            router.push("/login");
+            await router.push("/login");
+            itemsContext.showNotification({
+                status: "success",
+                message: "User created!"
+            });
         });
     }
     return (

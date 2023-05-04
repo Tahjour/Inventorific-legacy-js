@@ -1,3 +1,4 @@
+/* nextjs-inventory-control\components\layout\app\dropdownmenu.module.css */
 .defaultLink,
 .dropdownLink {
 	text-decoration: none;
@@ -27,6 +28,7 @@
 	/* margin-right: 10px; */
 	border: 0;
 	z-index: 2;
+	cursor: pointer;
 }
 
 .dropdownUserIconContainer {
@@ -36,10 +38,10 @@
 }
 
 .dropdownTrigger:hover,
+.dropdownTrigger:focus,
 .dropdownTrigger[data-state='open'] {
-	cursor: pointer;
 	background: linear-gradient(to top right, rgba(119, 0, 255, 0.5), rgba(0, 255, 255, 0.5));
-	/* outline: 1px solid rgba(0, 255, 255, 0.5); */
+	outline: 0;
 }
 
 .dropdownContent {
@@ -58,9 +60,10 @@
 	border-radius: 3px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	/* justify-content: space-between; */
 	height: 25px;
-	padding: 0 5px;
+	/* padding: 0 5px; */
+	margin: 5px;
 	position: relative;
 	/* padding-left: 25px; */
 	font-weight: normal;
@@ -71,7 +74,12 @@
 .dropdownLink {
 	font-weight: normal;
 }
+
 .dropdownItem:hover,
 .dropdownItem:focus {
 	background: linear-gradient(to right, rgba(0, 255, 255, 0.5), rgba(119, 0, 255, 0.5));
+}
+
+.iconWrapper {
+	margin-right: 10px;
 }

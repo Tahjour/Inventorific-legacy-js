@@ -1,0 +1,31 @@
+.notificationPopUpContainer {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	bottom: 0;
+}
+
+.notificationPopUp {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 40%;
+	height: 80px;
+	background: linear-gradient(to right, rgba(0, 255, 255, 1), rgba(89, 0, 148, 1));
+	border-radius: 10px;
+	color: white;
+}
+
+.loading {
+	background: #177cbe;
+}
+
+.success {
+	background: rgb(0, 125, 0);
+	color: grey;
+}
+
+.error {
+	background: rgb(143, 0, 0);
+}

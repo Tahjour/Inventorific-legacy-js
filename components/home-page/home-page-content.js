@@ -7,7 +7,7 @@ function HomePageContent() {
                 <h1>Inventorific</h1>
                 <p>An inventory control manager</p>
                 <Link href={"/items"} className={styles.tryBtnLink}>
-                    Start
+                    open
                 </Link>
             </div>
         </section>

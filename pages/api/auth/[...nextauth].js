@@ -54,12 +54,24 @@ export const authOptions = {
                 if (existingUser) {
                     return true;
                 }
+                // Create a new Date object for the current date and time
+                const currentDate = new Date();
+                // Get the day, month, and year
+                const day = currentDate.getDate();
+                const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+                const year = currentDate.getFullYear();
+                // Format the date as a string
+                const formattedDate = `${month}/${day}/${year}`;
+
                 const userDoc = {
                     type: params.account.type,
+                    created: formattedDate,
                     ...params.user,
                     items: []
                 };
-                const res = await users.insertOne(userDoc);
+                await users.insertOne(userDoc).catch(error => {
+                    console.error('Error adding user:', error);
+                });
                 mongoClient.close();
             }
             return true;

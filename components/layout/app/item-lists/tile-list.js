@@ -8,41 +8,36 @@ import styles from "./tile-list.module.css";
 import { ItemsContext } from "../../../../context/ItemsContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup, useAnimate } from "framer-motion";
+import Loader from "../../loading/loader";
 
-function TileList() {
+function TileList(props) {
+    const { loadedItems } = props;
     const itemsContext = useContext(ItemsContext);
-    const [isLoadingItems, setIsLoadingItems] = useState(true);
-    const [loadedItems, setLoadedItems] = useState([]);
-    const router = useRouter();
-
-    useEffect(() => {
-        if (itemsContext.getItems()) {
-            setLoadedItems(itemsContext.getItems());
-        }
-        setIsLoadingItems(false);
-    }, [loadedItems, isLoadingItems, itemsContext]);
 
     function editItemHandler(item) {
         itemsContext.showItemModal(item);
     }
 
     function deleteItemHandler(item) {
-        itemsContext.deleteItem(item);
-        setIsLoadingItems(true);
+        const itemToDelete = {
+            deleteType: "item",
+            data: item
+        };
+        itemsContext.showDeleteModal(itemToDelete);
     }
 
     return (
         <section className={styles.tileList}>
             <AnimatePresence mode="popLayout">
-                {!isLoadingItems && loadedItems.length !== 0 && loadedItems.map((item) => {
+                {loadedItems.map((item, index) => {
                     return (
                         <motion.div
                             key={item.id}
+                            layout
                             initial="hidden"
                             animate="visible"
                             exit="hidden"
-                            layoutId={item.id}
                             variants={{
                                 hidden: {
                                     opacity: 0,
@@ -55,8 +50,6 @@ function TileList() {
                                     transition: { duration: 0.2 },
                                 },
                             }}
-                        // tabIndex={0}
-                        // role="button"
                         >
                             <Link href={`items/${item.id}`} className={styles.itemCard}>
                                 <div className={styles.itemImageContainer}>
@@ -66,12 +59,12 @@ function TileList() {
                                     <h3>{item.name.length > 15 ? `${item.name.slice(0, 15)}...` : item.name}</h3>
                                     <p>{item.price.length > 15 ? `$${item.price.slice(0, 12)}...` : `$${item.price}`}</p>
                                     <div className={styles.operationIcons}>
-                                        <BiEdit className={styles.editIcon} onClick={(e) => {
+                                        <BiEdit className={styles.editIcon} size={30} onClick={(e) => {
                                             e.preventDefault();
                                             e.stopPropagation();
                                             editItemHandler(item);
                                         }} />
-                                        <BsTrash className={styles.deleteIcon} onClick={async (e) => {
+                                        <BsTrash className={styles.deleteIcon} size={30} onClick={async (e) => {
                                             e.preventDefault();
                                             e.stopPropagation();
                                             deleteItemHandler(item);
@@ -83,6 +76,7 @@ function TileList() {
                     );
                 })}
             </AnimatePresence>
+
 
 
             {/* {!isLoadingItems && (
