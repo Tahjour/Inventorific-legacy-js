@@ -1,0 +1,56 @@
+/* components\layout\app\main-bar.module.css */
+.mainBar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background: rgba(35, 35, 35, 0);
+}
+
+.listBar {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 60px);
+    top: 60px;
+    overflow: auto;
+}
+
+@media screen and (max-width: 900px) {
+    .listBar {
+        top: 50px;
+    }
+}
+
+.noItemsContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noItemsDisplayContainer {
+    width: 400px;
+    height: 400px;
+    /* background-color: rgba(0, 0, 0, 0.727); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.noItemsDisplayContainer h1 {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.iconWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 4px;
+    /* Adjust the value as needed */
+    margin-right: 4px;
+    /* Adjust the value as needed */
+}

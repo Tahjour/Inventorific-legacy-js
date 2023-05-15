@@ -1,0 +1,7 @@
+/* components\ui\home-background.module.css */
+.homeBackground {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0));
+}

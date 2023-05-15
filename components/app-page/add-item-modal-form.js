@@ -31,6 +31,27 @@ function AddItemModalForm() {
 
         const enteredImageFileURL = imageFileURL || defaultImagePath;
 
+        // Create a new Date object for the current date and time
+        const currentDate = new Date();
+        // Get the day, month, and year
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+        const year = currentDate.getFullYear();
+        // Get the hours, minutes, and seconds
+        let hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes().toString().padStart(2, '0'); // Pad start to always have 2 digits
+        const seconds = currentDate.getSeconds().toString().padStart(2, '0'); // Pad start to always have 2 digits
+        // Convert hours from 24-hour clock to 12-hour clock format
+        const period = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        // Format the date and time as a string
+        const formattedDate = `${month}/${day}/${year}`;
+        const formattedTime = `${hours}:${minutes}:${seconds} ${period}`;
+        // const formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+
+
         itemsContext.showNotification({
             title: "Saving",
             status: "saving",
@@ -44,9 +65,12 @@ function AddItemModalForm() {
                 amount: values.amount,
                 description: values.description,
                 imageURL: enteredImageFileURL,
+                createdDate: itemBeforeEdit.createdDate,
+                createdTime: itemBeforeEdit.createdTime,
+                modifiedDate: formattedDate,
+                modifiedTime: formattedTime,
                 imageFile: imageFile
             };
-
             itemsContext.saveItemAfterEdit(itemBeforeEdit, itemAfterEdit);
         } else {
             const newItem = {
@@ -56,6 +80,10 @@ function AddItemModalForm() {
                 amount: values.amount,
                 description: values.description,
                 imageURL: enteredImageFileURL,
+                createdDate: formattedDate,
+                createdTime: formattedTime,
+                modifiedDate: formattedDate,
+                modifiedTime: formattedTime,
                 imageFile: imageFile
             };
             //Add new item to local storage
@@ -94,8 +122,8 @@ function AddItemModalForm() {
                         <div className={styles.customImageUploadLabelContents}>
                             <div
                                 className={`${styles.customImageUploadLabelContentsOptions} ${imageFileURL
-                                        ? ""
-                                        : styles.customImageUploadLabelContentsOptionsVisible
+                                    ? ""
+                                    : styles.customImageUploadLabelContentsOptionsVisible
                                     }`}
                             >
                                 <BiImageAdd />
@@ -114,8 +142,16 @@ function AddItemModalForm() {
                     <input className={`${styles.textInput} ${formik.errors.amount && formik.touched.amount ? styles.errorTextInput : ""}`} type="text" id="amount" name="amount" placeholder="Amount of Item"  {...formik.getFieldProps('amount')} required>
                     </input>
 
-                    <textarea className={styles.textArea} placeholder="Description of Item" name="description"  {...formik.getFieldProps('description')}>
-                    </textarea>
+                    {/* <textarea className={styles.textArea} placeholder="Description of Item" name="description"  {...formik.getFieldProps('description')}>
+                    </textarea> */}
+                    <div
+                        className={styles.textArea}
+                        contentEditable="true"
+                        name="description" data-placeholder="Description of Item"
+                        {...formik.getFieldProps('description')}
+                    >
+                    </div>
+
 
                     <div className={styles.submitAndCancelBtns}>
                         <button type="button" className={styles.cancelBtn} onClick={itemsContext.closeItemModal}>Cancel</button>

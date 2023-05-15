@@ -2,8 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { comparePasswords } from "../../../lib/authHelper";
-import mongoClientPromise, { connectToDatabase } from "../../../lib/externalDB";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { connectToDatabase } from "../../../lib/externalDB";
 
 export const authOptions = {
     // adapter: MongoDBAdapter(mongoClientPromise, { databaseName: process.env.mongodbDatabase }),
@@ -71,6 +70,7 @@ export const authOptions = {
                 };
                 await users.insertOne(userDoc).catch(error => {
                     console.error('Error adding user:', error);
+                    return false;
                 });
                 mongoClient.close();
             }

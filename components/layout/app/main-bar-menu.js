@@ -1,6 +1,6 @@
 // main-bar-menu.js
 import DropDownMenu from './dropdownmenu';
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { BsGrid, BsPlusCircle, BsSearch, BsFilter, BsCardList } from "react-icons/bs";
 import { ItemsContext } from "../../../context/ItemsContext";
 import { useSession } from "next-auth/react";
@@ -10,13 +10,21 @@ import styles from "./main-bar-menu.module.css";
 function MainBarMenu() {
     const { data: session } = useSession();
     const itemsContext = useContext(ItemsContext);
-    const [listStyle, setListStyle] = useState("tile");
     const [timeoutID, setTimeoutID] = useState(null);
     const [searchTerm, setSearchTerm] = useState(itemsContext.searchTerm);
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     function changeListStyle() {
-        listStyle === "tile" ? setListStyle("list") : setListStyle("tile");
+        itemsContext.getListMode() === "tile" ? itemsContext.setListMode("list") : itemsContext.setListMode("tile");
     }
+
     function addNewItemHandler() {
         itemsContext.showItemModal();
     }
@@ -44,9 +52,11 @@ function MainBarMenu() {
                         <button className={styles.mainBarMenuBtn} onClick={addNewItemHandler}>
                             <BsPlusCircle size={20} />
                         </button>
-                        <button className={styles.mainBarMenuBtn} onClick={changeListStyle}>
-                            {listStyle === "tile" ? <BsCardList size={20} /> : <BsGrid size={20} />}
-                        </button>
+                        {windowWidth >= 1020 && (
+                            <button className={styles.mainBarMenuBtn} onClick={changeListStyle}>
+                                {itemsContext.getListMode() === "tile" ? <BsCardList size={20} /> : <BsGrid size={20} />}
+                            </button>
+                        )}
                         <button className={styles.mainBarMenuBtn}>
                             <BsFilter size={20} />
                         </button>

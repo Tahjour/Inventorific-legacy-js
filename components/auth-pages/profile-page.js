@@ -19,8 +19,8 @@ function ProfilePageLayout() {
 
     return (
         <Fragment>
+            <MainNavigation />
             <section className={styles.mainContainer}>
-                <MainNavigation />
                 <section className={styles.profileContainer}>
                     <div className={styles.secondCol}>
                         <div className={styles.imageAndItemsContainer}>
@@ -28,7 +28,7 @@ function ProfilePageLayout() {
                                 {session ? session.user.name[0] : null}
                             </div>
                             <h3>
-                                {itemsContext.getItems().length > 1 ? `${itemsContext.getItems().length} items` : `${itemsContext.getItems().length} item`}
+                                {itemsContext.getItems().length === 1 ? `${itemsContext.getItems().length} item` : `${itemsContext.getItems().length} items`}
                             </h3>
                         </div>
 

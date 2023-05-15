@@ -2,9 +2,12 @@
 import ProfilePageLayout from "../../components/auth-pages/profile-page";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
+import PageTransition from "../../components/ui/page-transition";
 
 function ProfilePage() {
-    return <ProfilePageLayout />;
+    return <PageTransition>
+        <ProfilePageLayout />
+    </PageTransition>;
 }
 
 export async function getServerSideProps(context) {

@@ -10,18 +10,9 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
         <SessionProvider session={session}>
             <ItemsContextProvider>
                 <MainLayout>
-                    <AnimatePresence mode='wait'>
-                        <motion.section className='mainAnimationDiv' key={router.route} initial="pageInitial" animate="pageAnimate" exit="pageInitial" variants={{
-                            pageInitial: {
-                                opacity: 0
-                            },
-                            pageAnimate: {
-                                opacity: 1,
-                            }
-                        }}>
-                            <Component {...pageProps} />
-                        </motion.section>
-                    </AnimatePresence>
+                    {/* <AnimatePresence mode='wait'> */}
+                    <Component key={router.asPath} {...pageProps} />
+                    {/* </AnimatePresence> */}
                 </MainLayout>
             </ItemsContextProvider>
         </SessionProvider>

@@ -81,7 +81,6 @@
 	color: white;
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
 } */
-
 .imageFileInput {
 	display: none;
 }
@@ -133,10 +132,9 @@
 }
 
 .customImageUploadLabelContentsOptionsVisible {
-    visibility: visible;
-    opacity: 1;
+	visibility: visible;
+	opacity: 1;
 }
-
 
 .customImageUploadLabelContents svg {
 	font-size: 1.2rem;
@@ -167,9 +165,26 @@
 }
 
 .textArea {
+	position: relative;
 	width: 80%;
 	height: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	word-break: break-all;
+	padding: 30px;
+	overflow-y: scroll;
+	/* or any height you want */
 }
+
+.textArea.empty::before {
+	content: attr(data-placeholder);
+	position: absolute;
+	color: #999;
+	pointer-events: none;
+	display: block;
+}
+
 @media (max-width: 750px) {
 	.textArea {
 		width: 90%;
@@ -209,25 +224,30 @@
 	margin-bottom: 10px;
 	transition: 100ms linear;
 } */
-
 .submitBtn,
 .cancelBtn {
 	background-color: transparent;
 	color: white;
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	border-radius: 10px;
-	padding: 0.625em; /* Use em instead of px for relative sizing */
-	font-size: 1rem; /* Use rem for a responsive font size */
-	width: 100%; /* Make the buttons full width on small screens */
+	padding: 0.625em;
+	/* Use em instead of px for relative sizing */
+	font-size: 1rem;
+	/* Use rem for a responsive font size */
+	width: 100%;
+	/* Make the buttons full width on small screens */
 	transition: 100ms linear;
 }
 
 /* Media query for larger screens */
 @media (min-width: 768px) {
+
 	.submitBtn,
 	.cancelBtn {
-		width: auto; /* Reset width to auto on larger screens */
-		padding: 1em 2em; /* Increase horizontal padding on larger screens */
+		width: auto;
+		/* Reset width to auto on larger screens */
+		padding: 1em 2em;
+		/* Increase horizontal padding on larger screens */
 	}
 }
 

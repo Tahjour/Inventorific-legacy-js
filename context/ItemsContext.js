@@ -17,6 +17,8 @@ export const ItemsContext = createContext({
     getUser: () => { return {}; },
     getItem: (itemID) => { return {}; },
     getItems: () => { return []; },
+    setListMode: () => { },
+    getListMode: () => { return ""; },
     addItem: async (newItem) => { },
     deleteItem: async (itemToDelete) => { },
     saveItemAfterEdit: async (itemAfterEdit, itemBeforeEdit) => { },
@@ -31,10 +33,12 @@ export const ItemsContext = createContext({
 });
 
 export function ItemsContextProvider(props) {
+    const { data: sesson } = useSession();
     const [user, setUser] = useState({});
     const [userItems, setUserItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredItems, setFilteredItems] = useState([]);
+    const [listMode, setListMode] = useState("tile"); //tile or list mode
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [itemBeforeEdit, setItemBeforeEdit] = useState(null);
@@ -129,6 +133,14 @@ export function ItemsContextProvider(props) {
         return filteredItems;
     }
 
+    function setListModeHandler(listMode) {
+        setListMode(listMode);
+    }
+
+    function getListModeHandler() {
+        return listMode;
+    }
+
     function getItemBeforeEditHandler() {
         return itemBeforeEdit;
     }
@@ -142,6 +154,14 @@ export function ItemsContextProvider(props) {
             return [...prevItems, newItem];
         });
 
+        if (!sesson) {
+            showNotificationHandler({
+                status: "success",
+                message: "Saved",
+            });
+            return;
+        }
+
         const formData = new FormData();
 
         formData.append("newItemID", newItem.id);
@@ -149,6 +169,10 @@ export function ItemsContextProvider(props) {
         formData.append("newItemPrice", newItem.price);
         formData.append("newItemAmount", newItem.amount);
         formData.append("newItemDescription", newItem.description);
+        formData.append("newItemCreatedDate", newItem.createdDate);
+        formData.append("newItemCreatedTime", newItem.createdTime);
+        formData.append("newItemModifiedDate", newItem.modifiedDate);
+        formData.append("newItemModifiedTime", newItem.modifiedTime);
         formData.append("newItemImageFilePathURL", newItem.imageURL);
         formData.append("newItemImageFile", newItem.imageFile);
 
@@ -179,6 +203,14 @@ export function ItemsContextProvider(props) {
         setUserItems((prevItems) => {
             return prevItems.map((item) => (item.id === itemAfterEdit.id ? itemAfterEdit : item));
         });
+
+        if (!sesson) {
+            showNotificationHandler({
+                status: "success",
+                message: "Saved",
+            });
+            return;
+        }
         const formData = new FormData();
 
         //Add itemBeforeEdit properties to form data
@@ -187,8 +219,13 @@ export function ItemsContextProvider(props) {
         formData.append("itemBeforeEditPrice", itemBeforeEdit.price);
         formData.append("itemBeforeEditAmount", itemBeforeEdit.amount);
         formData.append("itemBeforeEditDescription", itemBeforeEdit.description);
+        formData.append("itemBeforeEditCreatedDate", itemBeforeEdit.createdDate);
+        formData.append("itemBeforeEditCreatedTime", itemBeforeEdit.createdTime);
+        formData.append("itemBeforeEditModifiedDate", itemBeforeEdit.modifiedDate);
+        formData.append("itemBeforeEditModifiedTime", itemBeforeEdit.modifiedTime);
         formData.append("itemBeforeEditImageURL", itemBeforeEdit.imageURL);
         formData.append("itemBeforeEditImageFile", itemBeforeEdit.imageFile);
+
 
         // Add item after edit properties to form data
         formData.append("itemAfterEditID", itemAfterEdit.id);
@@ -196,6 +233,10 @@ export function ItemsContextProvider(props) {
         formData.append("itemAfterEditPrice", itemAfterEdit.price);
         formData.append("itemAfterEditAmount", itemAfterEdit.amount);
         formData.append("itemAfterEditDescription", itemAfterEdit.description);
+        formData.append("itemAfterEditCreatedDate", itemAfterEdit.createdDate);
+        formData.append("itemAfterEditCreatedTime", itemAfterEdit.createdTime);
+        formData.append("itemAfterEditModifiedDate", itemAfterEdit.modifiedDate);
+        formData.append("itemAfterEditModifiedTime", itemAfterEdit.modifiedTime);
         formData.append("itemAfterEditImageURL", itemAfterEdit.imageURL);
         formData.append("itemAfterEditImageFile", itemAfterEdit.imageFile);
 
@@ -232,6 +273,13 @@ export function ItemsContextProvider(props) {
         setUserItems((prevItems) => {
             return prevItems.filter(item => item.id !== itemToDelete.data.id);
         });
+        if (!sesson) {
+            showNotificationHandler({
+                status: "success",
+                message: "Saved",
+            });
+            return;
+        }
         const formData = new FormData();
         formData.append("itemToDeleteID", itemToDelete.data.id);
         formData.append("itemToDeleteName", itemToDelete.data.name);
@@ -281,6 +329,8 @@ export function ItemsContextProvider(props) {
         getUser: getUserHandler,
         getItem: getItemHandler,
         getItems: getItemsHandler,
+        setListMode: setListModeHandler,
+        getListMode: getListModeHandler,
         addItem: addItemHandler,
         saveItemAfterEdit: saveItemAfterEditHandler,
         deleteItem: deleteItemHandler,

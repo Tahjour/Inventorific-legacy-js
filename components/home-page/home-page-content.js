@@ -5,7 +5,7 @@ function HomePageContent() {
         <section className={styles.homePageContent}>
             <div className={styles.intro}>
                 <h1>Inventorific</h1>
-                <p>An inventory control manager</p>
+                <p style={{margin: 10}}>An inventory control manager</p>
                 <Link href={"/items"} className={styles.tryBtnLink}>
                     open
                 </Link>

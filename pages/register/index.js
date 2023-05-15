@@ -1,15 +1,14 @@
-import { Fragment } from "react";
 import RegisterForm from "../../components/auth-pages/register-form";
 import MainNavigation from "../../components/layout/navigation/main-navigation";
-import MainNavigationLayout from "../../components/layout/navigation/main-navigation-layout";
+import PageTransition from "../../components/ui/page-transition";
 
-function LoginPage() {
+function RegisterPage() {
     return (
-        <Fragment>
+        <PageTransition>
             <MainNavigation />
             <RegisterForm />
-        </Fragment>
+        </PageTransition>
     );
 }
 
-export default LoginPage;
+export default RegisterPage;

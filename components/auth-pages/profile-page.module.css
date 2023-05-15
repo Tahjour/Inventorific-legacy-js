@@ -1,15 +1,15 @@
 /* components\auth-pages\profile-page.module.css */
-.mainContainer{
-	height: 100vh;
+.mainContainer {
+	height: 100%;
 	overflow: auto;
 }
 
 .profileContainer {
 	width: 100%;
+	height: 100%;
 	display: flex;
-	/* flex-direction: column; */
 	justify-content: center;
-	/* align-items: center; */
+	align-items: center;
 	gap: 20px;
 	color: white;
 }
@@ -32,9 +32,16 @@
 	width: 50%;
 	background-color: rgb(18, 18, 18);
 	border-radius: 10px;
-	align-self: flex-start;
+	margin-bottom: 100px;
 }
-.imageAndItemsContainer{
+
+@media screen and (max-width: 900px) {
+	.secondCol {
+		width: 100%;
+	}
+}
+
+.imageAndItemsContainer {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -75,9 +82,12 @@
 	color: white;
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	border-radius: 10px;
-	padding: 0.625em; /* Use em instead of px for relative sizing */
-	font-size: 1rem; /* Use rem for a responsive font size */
-	width: 100%; /* Make the buttons full width on small screens */
+	padding: 0.625em;
+	/* Use em instead of px for relative sizing */
+	font-size: 1rem;
+	/* Use rem for a responsive font size */
+	width: 100%;
+	/* Make the buttons full width on small screens */
 	margin-bottom: 30px;
 	transition: 100ms linear;
 }
@@ -88,9 +98,12 @@
 	color: white;
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	border-radius: 10px;
-	padding: 0.625em; /* Use em instead of px for relative sizing */
-	font-size: 1rem; /* Use rem for a responsive font size */
-	width: 100%; /* Make the buttons full width on small screens */
+	padding: 0.625em;
+	/* Use em instead of px for relative sizing */
+	font-size: 1rem;
+	/* Use rem for a responsive font size */
+	width: 100%;
+	/* Make the buttons full width on small screens */
 	transition: 100ms linear;
 }
 

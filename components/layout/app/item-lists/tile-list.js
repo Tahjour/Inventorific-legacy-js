@@ -33,6 +33,7 @@ function TileList(props) {
                 {loadedItems.map((item, index) => {
                     return (
                         <motion.div
+                            // className={styles.itemCardContainer}
                             key={item.id}
                             layout
                             initial="hidden"
@@ -53,11 +54,22 @@ function TileList(props) {
                         >
                             <Link href={`items/${item.id}`} className={styles.itemCard}>
                                 <div className={styles.itemImageContainer}>
-                                    <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+                                    <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 25vw, (max-width: 1024px) 50vw, 100vw" />
                                 </div>
                                 <div className={styles.itemInfo}>
-                                    <h3>{item.name.length > 15 ? `${item.name.slice(0, 15)}...` : item.name}</h3>
-                                    <p>{item.price.length > 15 ? `$${item.price.slice(0, 12)}...` : `$${item.price}`}</p>
+                                    <div className={styles.itemInfoBits}>
+                                        <strong>Name</strong>
+                                        {item.name.length > 12 ? `${item.name.slice(0, 12)}...` : item.name}
+                                    </div>
+                                    <div className={styles.itemInfoBits}>
+                                        <strong>Price</strong>
+                                        {item.price.length > 11 ? `$${item.price.slice(0, 11)}...` : `$${item.price}`}
+                                    </div>
+                                    <div className={styles.itemInfoBits}>
+                                        <strong>Amount</strong>
+                                        {item.amount.length > 11 ? `${item.amount.slice(0, 11)}...` : `${item.amount}`}
+                                    </div>
+
                                     <div className={styles.operationIcons}>
                                         <BiEdit className={styles.editIcon} size={30} onClick={(e) => {
                                             e.preventDefault();
@@ -76,34 +88,6 @@ function TileList(props) {
                     );
                 })}
             </AnimatePresence>
-
-
-
-            {/* {!isLoadingItems && (
-                <motion.div
-                    className={styles.itemCard}
-                    onClick={addNewItemHandler}
-                    tabIndex={"0"}
-                    role="button"
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            addNewItemHandler();
-                        }
-                    }}
-                    whileHover={{
-                        rotate: [0, 10, -10, 0],
-                    }}
-                    whileFocus={{
-                        rotate: [0, 10, -10, 0],
-                    }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <div className={styles.itemInfo}>
-                        <h3>Add Item</h3>
-                        <BsPlusCircle className={styles.addNewItemIcon} />
-                    </div>
-                </motion.div>
-            )} */}
 
         </section>
     );

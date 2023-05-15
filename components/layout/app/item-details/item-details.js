@@ -26,14 +26,24 @@ function ItemDetails({ itemID }) {
                         className={styles.itemImage}
                         src={item.imageURL}
                         alt={"Item's image"}
+                        sizes="(max-width: 640px) 25vw, (max-width: 1024px) 50vw, 100vw"
                         fill
                     />
                 </div>
                 <div className={styles.itemInfo}>
-                    <h1>Name: {item.name}</h1>
-                    <p>Price: ${item.price}</p>
-                    <p>{item.amount}</p>
-                    <p>{item.description}</p>
+                    <div className={styles.itemInfoSub}>
+                        <div className={styles.itemInfoCol1}>
+                            <h1>Name: {item.name}</h1>
+                            <p>Price: ${item.price}</p>
+                            <p>Amount: {item.amount}</p>
+                        </div>
+                        <div className={styles.itemInfoCol1}>
+                            <p>Created On: {item.createdDate} {item.createdTime}</p>
+                            <p>Last Modified: {item.modifiedDate} {item.modifiedTime}</p>
+                        </div>
+                    </div>
+
+                    <p className={styles.itemDescription}>{item.description}</p>
                 </div>
             </div>
 

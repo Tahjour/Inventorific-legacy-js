@@ -40,7 +40,7 @@
 .dropdownTrigger:hover,
 .dropdownTrigger:focus,
 .dropdownTrigger[data-state='open'] {
-	background: linear-gradient(to top right, rgba(119, 0, 255, 0.5), rgba(0, 255, 255, 0.5));
+	background: linear-gradient(to top right, rgba(119, 0, 255, 1), rgba(0, 255, 255, 1));
 	outline: 0;
 }
 
@@ -62,7 +62,7 @@
 	align-items: center;
 	/* justify-content: space-between; */
 	height: 25px;
-	/* padding: 0 5px; */
+	padding: 10px;
 	margin: 5px;
 	position: relative;
 	/* padding-left: 25px; */

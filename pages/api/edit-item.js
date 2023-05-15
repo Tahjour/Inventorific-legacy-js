@@ -53,12 +53,16 @@ async function handler(req, res) {
             const {
                 itemBeforeEditID,
                 itemBeforeEditName,
+                itemBeforeEditCreatedDate,
+                itemBeforeEditCreatedTime,
                 itemBeforeEditImageURL,
                 itemAfterEditID,
                 itemAfterEditName,
                 itemAfterEditPrice,
                 itemAfterEditAmount,
                 itemAfterEditDescription,
+                itemAfterEditModifiedDate,
+                itemAfterEditModifiedTime,
                 itemAfterEditImageURL,
             } = fields;
 
@@ -85,6 +89,10 @@ async function handler(req, res) {
                 amount: itemAfterEditAmount,
                 description: itemAfterEditDescription,
                 imageURL: updatedImageURL,
+                createdDate: itemBeforeEditCreatedDate,
+                createdTime: itemBeforeEditCreatedTime,
+                modifiedDate: itemAfterEditModifiedDate,
+                modifiedTime: itemAfterEditModifiedTime
             };
 
             // Connect to the MongoDB database
@@ -150,7 +158,7 @@ async function updateItemImage(
         });
         return uploadResponse.secure_url;
     } else {
-        if (itemAfterEditImageURL === defaultImageURL || existingImagePublicId === newImagePublicId) {
+        if (itemAfterEditImageURL === defaultImageURL || existingImagePublicId.toLowerCase() === newImagePublicId.toLowerCase()) {
             return itemAfterEditImageURL;
         }
         return (await cloudinary.uploader.rename(existingImagePublicId, newImagePublicId)).secure_url;

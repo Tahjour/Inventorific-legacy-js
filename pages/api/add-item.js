@@ -61,6 +61,10 @@ async function handler(req, res) {
                     amount: fields.newItemAmount,
                     description: fields.newItemDescription,
                     imageURL: newItemImageURL,
+                    createdDate: fields.newItemCreatedDate,
+                    createdTime: fields.newItemCreatedTime,
+                    modifiedDate: fields.newItemModifiedDate,
+                    modifiedTime: fields.newItemModifiedTime
                 };
 
                 const mongoClient = await connectToDatabase();
