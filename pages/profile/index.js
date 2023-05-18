@@ -5,9 +5,9 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import PageTransition from "../../components/ui/page-transition";
 
 function ProfilePage() {
-    return <PageTransition>
+    return <>
         <ProfilePageLayout />
-    </PageTransition>;
+    </>;
 }
 
 export async function getServerSideProps(context) {

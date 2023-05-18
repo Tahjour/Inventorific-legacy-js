@@ -1,17 +1,13 @@
 import { Fragment } from "react";
 import LoginForm from "../../components/auth-pages/login-form";
 import MainNavigation from "../../components/layout/navigation/main-navigation";
-import PageTransition from "../../components/ui/page-transition";
 
 function LoginPage() {
     return (
         <Fragment>
             <MainNavigation />
-            <PageTransition>
-                <LoginForm />
-            </PageTransition>
+            <LoginForm />
         </Fragment>
-
     );
 }
 

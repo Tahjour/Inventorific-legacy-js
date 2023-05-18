@@ -10,9 +10,25 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
         <SessionProvider session={session}>
             <ItemsContextProvider>
                 <MainLayout>
-                    {/* <AnimatePresence mode='wait'> */}
-                    <Component key={router.asPath} routePath={router.asPath} {...pageProps} />
-                    {/* </AnimatePresence> */}
+                    <motion.section key={router.asPath} initial="pageInitial" animate="pageAnimate" exit="pageExit" variants={{
+                        pageInitial: {
+                            opacity: 0
+                        },
+                        pageAnimate: {
+                            opacity: 1,
+                            transition: {
+                                duration: 0.2
+                            }
+                        },
+                        pageExit: {
+                            opacity: 0
+                        }
+                    }} style={{
+                        height: "100vh",
+                        // overflow: "hidden"
+                    }}>
+                        <Component {...pageProps} />
+                    </motion.section>
                 </MainLayout>
             </ItemsContextProvider>
         </SessionProvider>
