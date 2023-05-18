@@ -22,65 +22,54 @@
 	/* background-color: rgb(0, 0, 0, 0.8); */
 }
 
-.form,
+.addOrEditForm,
 .deleteForm {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 25px;
 	position: relative;
-	background-color: rgb(30, 30, 30);
-	width: 80%;
-	height: 90%;
-	border-radius: 20px;
+	background-color: rgb(15, 15, 15);
 	text-align: center;
 	border: 1px solid rgba(0, 255, 255, 0.5);
 	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-	/* padding: 20px; */
 	z-index: 2;
 }
 
+.addOrEditForm {
+	width: 80%;
+	height: 90%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	border-radius: 20px;
+}
+
 .deleteForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 25px;
+	border-radius: 20px;
 	color: white;
 	background-color: black;
 	width: 40%;
 	height: 50%;
+	padding: 20px;
 }
 
-.formContentsContainer {
-	/* position: relative; */
-	display: flex;
-	background-color: rgb(0, 0, 0);
-	color: white;
-	width: 100%;
-	height: 100%;
-	border-radius: inherit;
+@media (max-width: 1160px) {
+	.deleteForm {
+		height: 70%;
+		width: 80%;
+	}
 }
 
-.formContentsContainerCol {
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	border-radius: inherit;
+@media (max-width: 500px) {
+	.deleteForm {
+		width: 100%;
+		height: 100%;
+		border: 0;
+		box-shadow: none;
+	}
 }
 
-.formContentsContainerCol:first-of-type {
-	height: 100%;
-}
-
-.formContentsContainerCol:last-of-type {
-	/* justify-content: stretch; */
-	padding: 20px 0;
-	gap: 25px;
-}
-
-/* .form h1 {
-	color: white;
-	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
-} */
 .imageFileInput {
 	display: none;
 }
@@ -93,7 +82,7 @@
 	padding: 6px;
 	cursor: pointer;
 	text-align: center;
-	border-radius: inherit;
+	border-radius: 20px;
 	border: 0;
 	background-color: rgb(25, 25, 25);
 	color: rgb(190, 190, 190);
@@ -144,6 +133,15 @@
 	margin: 0;
 }
 
+.itemInfo {
+	display: grid;
+	justify-items: center;
+	align-items: center;
+	padding: 20px 0 20px 10px;
+	gap: 20px;
+	overflow-y: scroll;
+}
+
 .textInput,
 .textArea {
 	text-align: center;
@@ -154,41 +152,39 @@
 }
 
 .textInput {
-	width: 50%;
+	width: 70%;
 	height: 50px;
 }
 
-@media only screen and (max-width: 750px) {
-	.textInput {
-		width: 90%;
-	}
+.textAreaContainer {
+	width: 90%;
+	position: relative;
 }
 
 .textArea {
 	position: relative;
-	width: 80%;
+	width: 100%;
 	height: 300px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	word-break: break-all;
-	padding: 30px;
-	overflow-y: scroll;
-	/* or any height you want */
+	max-width: 100%;
+	/* max-height: 300px; */
+	padding: 20px;
+	text-align: justify;
+	resize: vertical;
 }
 
-.textArea.empty::before {
-	content: attr(data-placeholder);
+.resizeHandle {
+	height: 0px;
+	width: 0px;
+	border: 10px solid rgb(0, 158, 158);
+	border-radius: 50%;
+	/* border-left: 20px solid transparent;
+	border-right: 20px solid transparent; */
+	transform: rotate(-45deg);
 	position: absolute;
-	color: #999;
+	right: -5px;
+	bottom: 0px;
 	pointer-events: none;
-	display: block;
-}
-
-@media (max-width: 750px) {
-	.textArea {
-		width: 90%;
-	}
+	z-index: 2;
 }
 
 .textInput:focus,
@@ -214,16 +210,6 @@
 	gap: 50px;
 }
 
-/* .submitBtn,
-.cancelBtn {
-	background-color: transparent;
-	color: white;
-	border: 1px solid rgba(0, 255, 255, 0.5);
-	border-radius: 10px;
-	padding: 10px;
-	margin-bottom: 10px;
-	transition: 100ms linear;
-} */
 .submitBtn,
 .cancelBtn {
 	background-color: transparent;
@@ -234,21 +220,8 @@
 	/* Use em instead of px for relative sizing */
 	font-size: 1rem;
 	/* Use rem for a responsive font size */
-	width: 100%;
-	/* Make the buttons full width on small screens */
-	transition: 100ms linear;
-}
-
-/* Media query for larger screens */
-@media (min-width: 768px) {
-
-	.submitBtn,
-	.cancelBtn {
-		width: auto;
-		/* Reset width to auto on larger screens */
-		padding: 1em 2em;
-		/* Increase horizontal padding on larger screens */
-	}
+	width: auto;
+	padding: 1em 2em;
 }
 
 .submitBtn:hover {
@@ -282,4 +255,82 @@
 .errorTextInput,
 .errorTextInput:focus {
 	outline: 2px solid rgba(255, 0, 0, 0.5);
+}
+
+@media (hover: none) {
+	.customImageUploadLabel .customImageUploadLabelContentsOptions {
+		/* Styles for devices without hover capabilities go here */
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+@media (max-width: 1000px) {
+	.addOrEditForm {
+		width: 100%;
+		height: 100%;
+		padding: 15px;
+		border-radius: 0;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		overflow-y: scroll;
+		border: 0;
+		box-shadow: none;
+	}
+
+	.addOrEditForm::-webkit-scrollbar {
+		/* background-color: rgb(21, 21, 21); */
+		/* background-color: transparent; */
+		width: 0px;
+	}
+
+	.addOrEditForm::-webkit-scrollbar-thumb {
+		background: linear-gradient(rgba(140, 0, 255, 0.5), rgba(0, 255, 255, 0.5));
+		transition: background 100ms ease-in-out;
+	}
+
+	.addOrEditForm::-webkit-scrollbar-thumb:hover {
+		background: linear-gradient(rgba(140, 0, 255, 1), rgba(0, 255, 255, 1));
+	}
+
+	.addOrEditForm::-webkit-scrollbar-track {
+		/* box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.5); */
+		border-radius: 20px;
+		margin-block-start: 10px;
+		margin-block-end: 10px;
+	}
+
+	.customImageUploadLabel {
+		height: 400px;
+	}
+
+	.textAreaContainer {
+		width: 100%;
+	}
+
+	.itemInfo {
+		gap: 20px;
+		padding: 30px 10px;
+		overflow-y: visible;
+	}
+
+	.itemInfo::-webkit-scrollbar {
+		/* background-color: rgb(21, 21, 21); */
+		/* background-color: transparent; */
+		width: 0px;
+	}
+
+	.textInput {
+		width: 100%;
+	}
+
+	.textArea {
+		width: 100%;
+	}
+
+	.textArea::-webkit-scrollbar {
+		/* background-color: rgb(21, 21, 21); */
+		/* background-color: transparent; */
+		width: 10px;
+	}
 }

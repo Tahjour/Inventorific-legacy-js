@@ -102,7 +102,7 @@ function AddItemModalForm() {
     }
 
     return <section className={styles.formContainer}>
-        <motion.form className={styles.form} animate="visible" exit={"hidden"} variants={{
+        <motion.form className={styles.addOrEditForm} animate="visible" exit={"hidden"} variants={{
             hidden: {
                 scale: 0,
                 transition: { duration: 0.2 }
@@ -114,49 +114,43 @@ function AddItemModalForm() {
                 }
             },
         }} onSubmit={formik.handleSubmit}>
-            <div className={styles.formContentsContainer}>
-                <div className={styles.formContentsContainerCol}>
-                    <label className={styles.customImageUploadLabel}>
-                        <input className={styles.imageFileInput} type={"file"} onChange={imageInputChangeHandler}></input>
-                        {imageFileURL ? <Image src={imageFileURL} alt={"Selected Image"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 100vw" /> : null}
-                        <div className={styles.customImageUploadLabelContents}>
-                            <div
-                                className={`${styles.customImageUploadLabelContentsOptions} ${imageFileURL
-                                    ? ""
-                                    : styles.customImageUploadLabelContentsOptionsVisible
-                                    }`}
-                            >
-                                <BiImageAdd />
-                                {imageFileURL ? <p>Change Image</p> : <p>Upload Image</p>}
-                            </div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.formContentsContainerCol}>
-                    <input className={`${styles.textInput} ${formik.errors.name && formik.touched.name ? styles.errorTextInput : ""}`} type="text" id="name" name="name" placeholder="Name of Item" {...formik.getFieldProps('name')} required>
-                    </input>
+            {/* <div className={styles.formContentsContainer}> */}
 
-                    <input className={`${styles.textInput} ${formik.errors.price && formik.touched.price ? styles.errorTextInput : ""}`} type="text" id="price" name="price" placeholder="Price of Item"  {...formik.getFieldProps('price')} required>
-                    </input>
-
-                    <input className={`${styles.textInput} ${formik.errors.amount && formik.touched.amount ? styles.errorTextInput : ""}`} type="text" id="amount" name="amount" placeholder="Amount of Item"  {...formik.getFieldProps('amount')} required>
-                    </input>
-
-                    {/* <textarea className={styles.textArea} placeholder="Description of Item" name="description"  {...formik.getFieldProps('description')}>
-                    </textarea> */}
+            <label className={styles.customImageUploadLabel}>
+                <input className={styles.imageFileInput} type={"file"} onChange={imageInputChangeHandler}></input>
+                {imageFileURL ? <Image src={imageFileURL} alt={"Selected Image"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 100vw" /> : null}
+                <div className={styles.customImageUploadLabelContents}>
                     <div
-                        className={styles.textArea}
-                        contentEditable="true"
-                        name="description" data-placeholder="Description of Item"
-                        {...formik.getFieldProps('description')}
-                    >
+                        className={`${styles.customImageUploadLabelContentsOptions} ${imageFileURL
+                            ? ""
+                            : styles.customImageUploadLabelContentsOptionsVisible
+                            }`}>
+                        <BiImageAdd />
+                        {imageFileURL ? <p>Change Image</p> : <p>Upload Image</p>}
                     </div>
+                </div>
+            </label>
 
+            <div className={styles.itemInfo}>
+                {/* <label htmlFor="name">Name</label> */}
+                <input className={`${styles.textInput} ${formik.errors.name && formik.touched.name ? styles.errorTextInput : ""}`} type="text" id="name" name="name" placeholder="Name of Item" {...formik.getFieldProps('name')} required>
+                </input>
 
-                    <div className={styles.submitAndCancelBtns}>
-                        <button type="button" className={styles.cancelBtn} onClick={itemsContext.closeItemModal}>Cancel</button>
-                        <button type="submit" className={styles.submitBtn}>{itemBeforeEdit ? "Edit Item" : "Add Item"}</button>
-                    </div>
+                <input className={`${styles.textInput} ${formik.errors.price && formik.touched.price ? styles.errorTextInput : ""}`} type="text" id="price" name="price" placeholder="Price of Item"  {...formik.getFieldProps('price')} required>
+                </input>
+
+                <input className={`${styles.textInput} ${formik.errors.amount && formik.touched.amount ? styles.errorTextInput : ""}`} type="text" id="amount" name="amount" placeholder="Amount of Item"  {...formik.getFieldProps('amount')} required>
+                </input>
+
+                <div className={styles.textAreaContainer}>
+                    <textarea className={styles.textArea} placeholder="Description of Item" name="description"  {...formik.getFieldProps('description')}>
+                    </textarea>
+                    <div className={styles.resizeHandle}></div>
+                </div>
+
+                <div className={styles.submitAndCancelBtns}>
+                    <button type="button" className={styles.cancelBtn} onClick={itemsContext.closeItemModal}>Cancel</button>
+                    <button type="submit" className={styles.submitBtn}>{itemBeforeEdit ? "Edit" : "Create"}</button>
                 </div>
             </div>
         </motion.form>

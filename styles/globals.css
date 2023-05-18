@@ -69,7 +69,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 } */
-
 html {
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0)),
 		radial-gradient(circle, rgb(0, 0, 0), rgb(0, 255, 255), rgb(119, 0, 255), rgb(0, 0, 0));

@@ -13,18 +13,6 @@ function MainBarMenu() {
     const [timeoutID, setTimeoutID] = useState(null);
     const [searchTerm, setSearchTerm] = useState(itemsContext.searchTerm);
 
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    function changeListStyle() {
-        itemsContext.getListMode() === "tile" ? itemsContext.setListMode("list") : itemsContext.setListMode("tile");
-    }
-
     function addNewItemHandler() {
         itemsContext.showItemModal();
     }
@@ -52,11 +40,7 @@ function MainBarMenu() {
                         <button className={styles.mainBarMenuBtn} onClick={addNewItemHandler}>
                             <BsPlusCircle size={20} />
                         </button>
-                        {windowWidth >= 1020 && (
-                            <button className={styles.mainBarMenuBtn} onClick={changeListStyle}>
-                                {itemsContext.getListMode() === "tile" ? <BsCardList size={20} /> : <BsGrid size={20} />}
-                            </button>
-                        )}
+
                         <button className={styles.mainBarMenuBtn}>
                             <BsFilter size={20} />
                         </button>

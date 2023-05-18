@@ -54,7 +54,7 @@ function TileList(props) {
                         >
                             <Link href={`items/${item.id}`} className={styles.itemCard}>
                                 <div className={styles.itemImageContainer}>
-                                    <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 25vw, (max-width: 1024px) 50vw, 100vw" />
+                                    <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 80vw, (max-width: 1024px) 90vw, 100vw" />
                                 </div>
                                 <div className={styles.itemInfo}>
                                     <div className={styles.itemInfoBits}>
@@ -71,12 +71,12 @@ function TileList(props) {
                                     </div>
 
                                     <div className={styles.operationIcons}>
-                                        <BiEdit className={styles.editIcon} size={30} onClick={(e) => {
+                                        <BiEdit className={styles.editIcon} onClick={(e) => {
                                             e.preventDefault();
                                             e.stopPropagation();
                                             editItemHandler(item);
                                         }} />
-                                        <BsTrash className={styles.deleteIcon} size={30} onClick={async (e) => {
+                                        <BsTrash className={styles.deleteIcon} onClick={async (e) => {
                                             e.preventDefault();
                                             e.stopPropagation();
                                             deleteItemHandler(item);

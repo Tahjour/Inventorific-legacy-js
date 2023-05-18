@@ -17,8 +17,6 @@ export const ItemsContext = createContext({
     getUser: () => { return {}; },
     getItem: (itemID) => { return {}; },
     getItems: () => { return []; },
-    setListMode: () => { },
-    getListMode: () => { return ""; },
     addItem: async (newItem) => { },
     deleteItem: async (itemToDelete) => { },
     saveItemAfterEdit: async (itemAfterEdit, itemBeforeEdit) => { },
@@ -131,14 +129,6 @@ export function ItemsContextProvider(props) {
         }
         // console.log("Returned filtered items");
         return filteredItems;
-    }
-
-    function setListModeHandler(listMode) {
-        setListMode(listMode);
-    }
-
-    function getListModeHandler() {
-        return listMode;
     }
 
     function getItemBeforeEditHandler() {
@@ -329,8 +319,6 @@ export function ItemsContextProvider(props) {
         getUser: getUserHandler,
         getItem: getItemHandler,
         getItems: getItemsHandler,
-        setListMode: setListModeHandler,
-        getListMode: getListModeHandler,
         addItem: addItemHandler,
         saveItemAfterEdit: saveItemAfterEditHandler,
         deleteItem: deleteItemHandler,

@@ -3,6 +3,14 @@ import { ItemsContext } from "../../context/ItemsContext";
 import styles from "./modal-form.module.css";
 function ModalBackdrop() {
     const itemsContext = useContext(ItemsContext);
-    return <div className={styles.modalBackdrop} onClick={itemsContext.closeItemModal}></div>;
+    function handleModalClose() {
+        if (itemsContext.isItemModalOpen) {
+            itemsContext.closeItemModal();
+        }
+        if (itemsContext.isDeleteModalOpen) {
+            itemsContext.closeDeleteModal();
+        }
+    }
+    return <div className={styles.modalBackdrop} onClick={handleModalClose}></div>;
 }
 export default ModalBackdrop;
