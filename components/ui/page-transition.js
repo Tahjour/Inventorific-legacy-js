@@ -8,7 +8,7 @@ function PageTransition(props) {
         return <p>Motion Not Loaded</p>;
     }
     return (
-        <motion.section initial="pageInitial" animate="pageAnimate" exit="pageExit" variants={{
+        <motion.section key={props.key} initial="pageInitial" animate="pageAnimate" exit="pageExit" variants={{
             pageInitial: {
                 opacity: 0
             },

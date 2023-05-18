@@ -11,7 +11,7 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
             <ItemsContextProvider>
                 <MainLayout>
                     {/* <AnimatePresence mode='wait'> */}
-                    <Component key={router.asPath} {...pageProps} />
+                    <Component key={router.asPath} routePath={router.asPath} {...pageProps} />
                     {/* </AnimatePresence> */}
                 </MainLayout>
             </ItemsContextProvider>
