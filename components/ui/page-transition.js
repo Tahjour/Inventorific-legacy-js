@@ -4,6 +4,9 @@ import styles from "./page-transition.module.css";
 
 
 function PageTransition(props) {
+    if (!motion) {
+        return <p>Motion Not Loaded</p>;
+    }
     return (
         <motion.section initial="pageInitial" animate="pageAnimate" exit="pageExit" variants={{
             pageInitial: {

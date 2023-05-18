@@ -26,8 +26,6 @@ export const ItemsContext = createContext({
     closeDeleteModal: () => { },
     searchTerm: "",
     searchItems: (newSearchTerm) => { },
-    loginMode: "",
-    setLoginMode: () => { },
 });
 
 export function ItemsContextProvider(props) {
