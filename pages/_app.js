@@ -25,7 +25,7 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
                         }
                     }} style={{
                         height: "100vh",
-                        // overflow: "hidden"
+                        overflow: "hidden"
                     }}>
                         <Component {...pageProps} />
                     </motion.section>

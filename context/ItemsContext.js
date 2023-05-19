@@ -34,7 +34,6 @@ export function ItemsContextProvider(props) {
     const [userItems, setUserItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredItems, setFilteredItems] = useState([]);
-    const [listMode, setListMode] = useState("tile"); //tile or list mode
     const [isItemModalOpen, setIsItemModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [itemBeforeEdit, setItemBeforeEdit] = useState(null);
