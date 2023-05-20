@@ -6,6 +6,7 @@ import MainBarMenu from "./main-bar-menu";
 import { BsPlusCircle } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
 import { ItemsContext } from "../../../context/ItemsContext";
+import Loader from "../loading/loader";
 
 function MainBar() {
     const itemsContext = useContext(ItemsContext);
@@ -21,6 +22,7 @@ function MainBar() {
 
     return (
         <section className={styles.mainBar}>
+            {!itemsContext.initialServerLoadTry && <Loader message={"Loading all items..."} />}
             <MainBarMenu />
             <section className={styles.listBar}>
                 <AnimatePresence mode="wait">

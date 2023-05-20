@@ -2,7 +2,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { AnimatePresence, motion } from "framer-motion";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { FaUserCog } from "react-icons/fa";
 import { FaUserCircle, FaHome } from "react-icons/fa";
 import { RiLogoutBoxLine, RiLoginBoxLine } from "react-icons/ri";
@@ -12,10 +12,11 @@ import Link from 'next/link';
 import styles from "./dropdownmenu.module.css";
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import LoaderReuseable from '../loading/loaderReuseable';
 
 
-function DropDownMenu(props) {
-    const { session } = props;
+function DropDownMenu() {
+    const { data: session } = useSession();
     const route = useRouter().route;
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -31,11 +32,13 @@ function DropDownMenu(props) {
     return (
         <DropdownMenu.Root className={styles.dropdownRoot} open={dropdownOpen} onOpenChange={setDropdownOpen}>
             <DropdownMenu.Trigger className={styles.dropdownTrigger}>
+
                 <FaUserCog size={20} />
 
                 <motion.div className={styles.dropdownUserIconContainer} animate={{ rotate: dropdownOpen ? 180 : 0 }}>
                     <AiFillCaretDown size={15} />
                 </motion.div>
+
             </DropdownMenu.Trigger>
             <AnimatePresence>
                 {dropdownOpen && <DropdownMenu.Portal forceMount>

@@ -11,17 +11,14 @@ import { motion } from "framer-motion";
 import DropDownMenu from '../app/dropdownmenu';
 
 function MainNavigation() {
-    const { data: session } = useSession();
-    const itemsContext = useContext(ItemsContext);
-
     return (
         <header className={styles.header}>
             <Link href="/">
                 <Image className={styles.logoImage} src={"/Logo smaller.png"} alt={"The app's logo"} width={55} height={50} priority></Image>
             </Link>
-            
-            <DropDownMenu session={session} />
-        </header >
+
+            <DropDownMenu />
+        </header>
     );
 }
 

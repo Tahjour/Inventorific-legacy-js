@@ -1,6 +1,7 @@
 import styles from "./loader.module.css";
 import { motion } from "framer-motion";
-const Loader = () => {
+const Loader = (props) => {
+    const { message } = props;
     return (
         <div className={styles.wrapper}>
             <motion.div
@@ -23,7 +24,7 @@ const Loader = () => {
                 }}
                 className={styles.loader}
             ></motion.div>
-            Loading all items...
+            {message}
         </div>
     );
 };

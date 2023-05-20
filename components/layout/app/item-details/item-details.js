@@ -2,6 +2,8 @@ import Image from 'next/image';
 import styles from './item-details.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { ItemsContext } from '../../../../context/ItemsContext';
+import LoaderReuseable from '../../loading/loaderReuseable';
+import Loader from '../../loading/loader';
 
 function ItemDetails({ itemID }) {
     const itemsContext = useContext(ItemsContext);
@@ -15,7 +17,9 @@ function ItemDetails({ itemID }) {
     }, [itemID, itemsContext]);
 
     if (!item) {
-        return <div>Loading...</div>;
+        return <section className={styles.itemDetailsContainer}>
+            <Loader message={"Loading item info..."} />
+        </section>;
     }
 
     return (

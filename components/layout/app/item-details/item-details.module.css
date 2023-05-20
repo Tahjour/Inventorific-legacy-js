@@ -10,7 +10,11 @@
 	justify-items: center;
 	gap: 50px;
 	padding: 50px;
-	overflow: auto;
+	overflow-y: scroll;
+}
+
+.itemDetailsContainer::-webkit-scrollbar {
+	width: 5px;
 }
 
 .itemImageContainer {
@@ -66,6 +70,7 @@
 	.itemDetailsContainer {
 		gap: 10px;
 	}
+
 	.itemImageContainer {
 		height: 300px;
 	}

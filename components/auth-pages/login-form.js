@@ -58,7 +58,7 @@ function LoginForm() {
     async function googleSignInHandler() {
         itemsContext.showNotification({
             status: 'saving',
-            message: "Logging in..."
+            message: "Opening Google sign-in..."
         });
         await signIn("google", { callbackUrl: "/items" }).catch(e => {
             console.error(e);
