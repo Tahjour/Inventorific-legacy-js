@@ -1,17 +1,12 @@
 /* components\auth-pages\profile-page.module.css */
-.mainContainer {
-	height: 100%;
-	overflow: auto;
-}
-
 .profileContainer {
 	width: 100%;
-	height: 100%;
+	height: calc(100% - var(--main-nav-height));
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	gap: 20px;
+	/* align-items: center; */
 	color: white;
+	overflow: auto;
 }
 
 .userImage {
@@ -26,8 +21,8 @@
 }
 
 .secondCol {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 1fr;
 	padding: 20px;
 	width: 50%;
 	background-color: rgb(18, 18, 18);

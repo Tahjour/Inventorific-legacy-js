@@ -16,23 +16,6 @@ function AddItemModalForm() {
     const [imageFile, setImageFile] = useState(itemBeforeEdit ? itemBeforeEdit.imageFile : null);
     const defaultImagePath = "/default_image.png";
 
-    useEffect(() => {
-        function setVhVariable() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-            console.log(vh);
-        }
-
-        // Run the function when the component mounts
-        setVhVariable();
-
-        // Run the function every time the window is resized
-        window.addEventListener('resize', setVhVariable);
-
-        // Clean up the event listener when the component unmounts
-        return () => window.removeEventListener('resize', setVhVariable);
-    }, []);
-
     const formik = useFormik({
         initialValues: {
             name: itemBeforeEdit ? itemBeforeEdit.name : '',

@@ -16,7 +16,6 @@ function AppLayout(props) {
     const itemsContext = useContext(ItemsContext);
     return (
         <Fragment>
-            
             <AnimatePresence mode="wait">
                 {itemsContext.isItemModalOpen && <Fragment>
                     <ModalBackdrop />

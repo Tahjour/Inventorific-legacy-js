@@ -80,6 +80,8 @@ html {
 
 body {
 	margin: 0;
+	height: calc(100 * var(--vh));
+	overflow: hidden;
 }
 
 ::-webkit-scrollbar {

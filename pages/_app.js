@@ -1,3 +1,4 @@
+// pages\_app.js
 import { ItemsContextProvider } from '../context/ItemsContext';
 import { SessionProvider } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -24,8 +25,7 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
                             opacity: 0
                         }
                     }} style={{
-                        height: "100vh",
-                        overflow: "hidden"
+                        height: "100%",
                     }}>
                         <Component {...pageProps} />
                     </motion.section>
