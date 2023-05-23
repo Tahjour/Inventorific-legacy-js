@@ -280,7 +280,7 @@
 	.addOrEditForm::-webkit-scrollbar {
 		/* background-color: rgb(21, 21, 21); */
 		/* background-color: transparent; */
-		width: 0px;
+		width: 5px;
 	}
 
 	.customImageUploadLabel {

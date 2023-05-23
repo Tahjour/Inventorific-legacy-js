@@ -1,3 +1,4 @@
+/* components\layout\app\main-bar-menu.module.css */
 .mainBarMenuContainer {
 	position: fixed;
 	display: flex;
@@ -6,7 +7,7 @@
 	width: 100%;
 	height: 50px;
 	z-index: 1;
-	margin-top: 10px;
+	margin: 10px 0;
 }
 
 .mainBarMenu {
@@ -26,9 +27,9 @@
 	.mainBarMenuContainer {
 		margin: 0;
 	}
+
 	.mainBarMenu {
 		width: 100%;
-		padding: 0 10px;
 	}
 }
 
@@ -97,14 +98,14 @@
 	text-align: center;
 	background-color: rgb(15, 15, 15);
 	border: 0;
-	outline: 1px solid rgba(0, 255, 255, 0.5);
+	border: 1px solid rgba(0, 255, 255, 0.5);
 	color: white;
 	border-radius: 10px;
 	padding: 0 50px;
 }
 
 .searchBar:focus {
-	outline: 1px solid var(--neon-blue-accent);
+	outline: none;
 	box-shadow: 0 0 10px var(--neon-blue-accent);
 }
 

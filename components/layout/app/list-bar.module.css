@@ -1,0 +1,59 @@
+/* components\layout\app\list-bar.module.css */
+.listBar {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 60px);
+    top: 70px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 900px) {
+    .listBar {
+        height: calc(100% - 50px);
+        top: 50px;
+    }
+}
+
+.listBar::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* .listBar::-webkit-scrollbar-thumb {
+    background: linear-gradient(rgba(140, 0, 255, 0.5), rgba(0, 255, 255, 0.5));
+    transition: background 100ms ease-in-out;
+}
+
+.listBar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(rgba(140, 0, 255, 1), rgba(0, 255, 255, 1));
+}
+
+.listBar::-webkit-scrollbar-track {
+    border-radius: 20px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+} */
+.noItemsDisplayContainer {
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(0, 0, 0, 0.727); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noItemsDisplayContainer h1 {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.iconWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 4px;
+    /* Adjust the value as needed */
+    margin-right: 4px;
+    /* Adjust the value as needed */
+}
