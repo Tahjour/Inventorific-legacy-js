@@ -1,4 +1,5 @@
 /* components\layout\main-layout\main-layout.module.css */
 .mainLayoutContainer {
-    height: calc(99.9 * var(--vh));
+    height: 100vh;
+    overflow: hidden;
 }
