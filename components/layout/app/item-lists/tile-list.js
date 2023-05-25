@@ -14,6 +14,7 @@ import Loader from "../../loading/loader";
 function TileList(props) {
     const { loadedItems } = props;
     const itemsContext = useContext(ItemsContext);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     function editItemHandler(item) {
         itemsContext.showItemModal(item);
@@ -27,10 +28,15 @@ function TileList(props) {
         itemsContext.showDeleteModal(itemToDelete);
     }
 
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
+
     return (
         <section className={styles.tileList}>
             <AnimatePresence mode="popLayout">
                 {loadedItems.map((item, index) => {
+
                     return (
                         <motion.div
                             // className={styles.itemCardContainer}
@@ -52,7 +58,15 @@ function TileList(props) {
                         >
                             <Link href={`items/${item.id}`} className={styles.itemCard}>
                                 <div className={styles.itemImageContainer}>
-                                    <Image className={styles.itemImage} src={item.imageURL} alt={"Item's image"} fill sizes="(max-width: 640px) 80vw, (max-width: 1024px) 90vw, 100vw" />
+                                    {!imageLoaded && <Loader />} {/* Show the loader when the image is not loaded */}
+                                    <Image
+                                        className={styles.itemImage}
+                                        src={item.imageURL}
+                                        alt={"Item's image"}
+                                        fill
+                                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 90vw, 100vw"
+                                        onLoadingComplete={handleImageLoad}
+                                    />
                                 </div>
                                 <div className={styles.itemInfo}>
                                     <div className={styles.itemInfoBits}>

@@ -1,4 +1,4 @@
 /* components\layout\main-layout\main-layout.module.css */
 .mainLayoutContainer {
-    height: 100vh;
+    height: calc(99.9 * var(--vh));
 }

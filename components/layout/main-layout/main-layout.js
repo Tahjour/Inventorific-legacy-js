@@ -11,6 +11,23 @@ function MainLayout(props) {
     const itemsContext = useContext(ItemsContext);
     const activeNotification = itemsContext.notification;
 
+    useEffect(() => {
+        function setVhVariable() {
+            let vh = window.innerHeight / 100;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            console.log(vh);
+        }
+
+        // Run the function when the component mounts
+        setVhVariable();
+
+        // Run the function every time the window is resized
+        window.addEventListener('resize', setVhVariable);
+
+        // Clean up the event listener when the component unmounts
+        return () => window.removeEventListener('resize', setVhVariable);
+    }, []);
+
     return (
         <section className={styles.mainLayoutContainer}>
             {props.children}
