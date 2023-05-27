@@ -42,7 +42,9 @@ function DeleteConfirmation() {
                     status: "success",
                     message: "User Deleted"
                 });
-                await signOut();
+                await signOut({
+                    callbackUrl: "/login",
+                });
             }
         }
     }

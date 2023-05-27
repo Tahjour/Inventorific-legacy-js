@@ -58,7 +58,7 @@ function TileList(props) {
                         >
                             <Link href={`items/${item.id}`} className={styles.itemCard}>
                                 <div className={styles.itemImageContainer}>
-                                    {!imageLoaded && <Loader />} {/* Show the loader when the image is not loaded */}
+                                    {!imageLoaded && <Loader message="Loading image..." />} {/* Show the loader when the image is not loaded */}
                                     <Image
                                         className={styles.itemImage}
                                         src={item.imageURL}
@@ -69,18 +69,21 @@ function TileList(props) {
                                     />
                                 </div>
                                 <div className={styles.itemInfo}>
-                                    <div className={styles.itemInfoBits}>
-                                        <strong>Name</strong>
-                                        {item.name.length > 12 ? `${item.name.slice(0, 12)}...` : item.name}
-                                    </div>
-                                    <div className={styles.itemInfoBits}>
-                                        <strong>Price</strong>
-                                        {item.price.length > 11 ? `$${item.price.slice(0, 11)}...` : `$${item.price}`}
-                                    </div>
-                                    <div className={styles.itemInfoBits}>
-                                        <strong>Amount</strong>
-                                        {item.amount.length > 11 ? `${item.amount.slice(0, 11)}...` : `${item.amount}`}
-                                    </div>
+                                <div className={styles.itemInfoHighlight}>
+                                        <div className={styles.itemInfoBits}>
+                                            <strong>Name</strong>
+                                            {item.name.length > 12 ? `${item.name.slice(0, 12)}...` : item.name}
+                                        </div>
+                                        <div className={styles.itemInfoBits}>
+                                            <strong>Price</strong>
+                                            {item.price.length > 11 ? `$${item.price.slice(0, 11)}...` : `$${item.price}`}
+                                        </div>
+                                        <div className={styles.itemInfoBits}>
+                                            <strong>Amount</strong>
+                                            {item.amount.length > 11 ? `${item.amount.slice(0, 11)}...` : `${item.amount}`}
+                                        </div>
+                                </div>
+                                    
 
                                     <div className={styles.operationIcons}>
                                         <BiEdit className={styles.editIcon} onClick={(e) => {

@@ -38,7 +38,6 @@ function DropDownMenu() {
                 <motion.div className={styles.dropdownUserIconContainer} animate={{ rotate: dropdownOpen ? 180 : 0 }}>
                     <AiFillCaretDown size={15} />
                 </motion.div>
-
             </DropdownMenu.Trigger>
             <AnimatePresence>
                 {dropdownOpen && <DropdownMenu.Portal forceMount>
@@ -49,17 +48,17 @@ function DropDownMenu() {
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
                         >
-                            {session ? <Link href={"/profile"} className={styles.dropdownLink}>
-                                <DropdownMenu.Item className={styles.dropdownItem}>
-                                    <span className={styles.iconWrapper}><AiOutlineUser size={20} /></span>
-                                    Profile
-                                </DropdownMenu.Item>
-                            </Link> : null}
-
                             {route !== "/" ? <Link href={"/"} className={styles.dropdownLink}>
                                 <DropdownMenu.Item className={styles.dropdownItem}>
                                     <span className={styles.iconWrapper}><FaHome size={20} /></span>
                                     Home
+                                </DropdownMenu.Item>
+                            </Link> : null}
+
+                            {session ? <Link href={"/profile"} className={styles.dropdownLink}>
+                                <DropdownMenu.Item className={styles.dropdownItem}>
+                                    <span className={styles.iconWrapper}><AiOutlineUser size={20} /></span>
+                                    Profile
                                 </DropdownMenu.Item>
                             </Link> : null}
 
@@ -83,7 +82,7 @@ function DropDownMenu() {
                     </DropdownMenu.Item>
                 </Link> : null} */}
 
-                            {session ? <Link href={"/login"} className={styles.dropdownLink}>
+                            {session && route !== "/login" && route !== "/register" ? <Link href={"/login"} className={styles.dropdownLink}>
                                 <DropdownMenu.Item className={styles.dropdownItem}>
                                     <span className={styles.iconWrapper}><AiOutlineUserSwitch size={20} /></span>
                                     Switch User

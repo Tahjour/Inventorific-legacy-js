@@ -27,6 +27,7 @@ async function handler(req, res) {
         }
 
         const user = {
+            type: existingUser.type,
             createdDate: existingUser.created,
             items: existingUser.items
         };

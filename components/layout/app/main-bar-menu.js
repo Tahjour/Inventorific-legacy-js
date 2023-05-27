@@ -3,12 +3,10 @@ import DropDownMenu from './dropdownmenu';
 import { Fragment, useContext, useEffect, useState } from "react";
 import { BsGrid, BsPlusCircle, BsSearch, BsFilter, BsCardList } from "react-icons/bs";
 import { ItemsContext } from "../../../context/ItemsContext";
-import { useSession } from "next-auth/react";
 import styles from "./main-bar-menu.module.css";
 
 
 function MainBarMenu() {
-    const { data: session } = useSession();
     const itemsContext = useContext(ItemsContext);
     const [timeoutID, setTimeoutID] = useState(null);
     const [searchTerm, setSearchTerm] = useState(itemsContext.searchTerm);
@@ -38,11 +36,7 @@ function MainBarMenu() {
                 <div className={styles.mainBarMenu}>
                     <div className={styles.mainBarMenuBtns}>
                         <button className={styles.mainBarMenuBtn} onClick={addNewItemHandler}>
-                            <BsPlusCircle size={20} />
-                        </button>
-
-                        <button className={styles.mainBarMenuBtn}>
-                            <BsFilter size={20} />
+                            <BsPlusCircle size={25} />
                         </button>
                     </div>
 
@@ -51,7 +45,7 @@ function MainBarMenu() {
                         <BsSearch className={styles.searchIcon} />
                     </div>
 
-                    <DropDownMenu session={session} />
+                    <DropDownMenu />
                 </div>
             </section>
         </Fragment>
