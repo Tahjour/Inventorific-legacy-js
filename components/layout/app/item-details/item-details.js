@@ -23,7 +23,7 @@ function ItemDetails({ itemID }) {
     }
 
     return (
-        <section className={styles.itemDetailsContainer}>
+        <section className={styles.itemDetailsContainer} style={{ height: itemsContext.getCurrentViewportHeight() }}>
             <div className={styles.itemImageContainer}>
                 <Image
                     className={styles.itemImage}

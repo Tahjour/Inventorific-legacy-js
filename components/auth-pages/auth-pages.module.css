@@ -73,6 +73,15 @@
 	background-color: inherit;
 }
 
+.inputLabel {
+	position: absolute;
+	top: 50%;
+	left: 20px;
+	transform: translateY(-50%);
+	font-size: 1em;
+	color: rgb(190, 190, 190);
+}
+
 .inputIcons {
 	position: absolute;
 	right: 10px;

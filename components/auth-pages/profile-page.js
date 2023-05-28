@@ -32,7 +32,7 @@ function ProfilePageLayout() {
                         {session ? session.user.name[0] : null}
                     </div>
                     <h3>
-                        {itemsContext.getUser().type === "oauth" ? "Google Account" : "Credentials Account"}
+                        {itemsContext.getUser().type === "oauth" ? "Signed in with Google" : "Signed in with password"}
                     </h3>
                     <h3>
                         {itemsContext.getItems().length === 1 ? `${itemsContext.getItems().length} item` : `${itemsContext.getItems().length} items`}
@@ -44,13 +44,13 @@ function ProfilePageLayout() {
                             <label>Date joined</label>
                             <input className={styles.textInput} type="text" defaultValue={itemsContext.getUser().createdDate} disabled></input>
                         </div>
-                        {itemsContext.getUser().type === "oauth" ? null : <div className={styles.formGroup}>
+                        {<div className={styles.formGroup}>
                             <label>Email Address</label>
-                            <input className={styles.textInput} type="email" defaultValue={session ? session.user.email : null}></input>
+                            <input className={styles.textInput} type="email" defaultValue={session ? session.user.email : null} {...(itemsContext.getUser().type === "oauth" ? { disabled: true } : {})}></input>
                         </div>}
-                        {itemsContext.getUser().type === "oauth" ? null : <div className={styles.formGroup}>
+                        {<div className={styles.formGroup}>
                             <label>Username</label>
-                            <input className={styles.textInput} type="text" defaultValue={session ? session.user.name : null}></input>
+                            <input className={styles.textInput} type="text" defaultValue={session ? session.user.name : null} {...(itemsContext.getUser().type === "oauth" ? { disabled: true } : {})}></input>
                         </div>}
 
                         <div className={styles.buttons}>

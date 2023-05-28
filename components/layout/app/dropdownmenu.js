@@ -55,7 +55,7 @@ function DropDownMenu() {
                                 </DropdownMenu.Item>
                             </Link> : null}
 
-                            {session ? <Link href={"/profile"} className={styles.dropdownLink}>
+                            {session && route !== "/profile" ? <Link href={"/profile"} className={styles.dropdownLink}>
                                 <DropdownMenu.Item className={styles.dropdownItem}>
                                     <span className={styles.iconWrapper}><AiOutlineUser size={20} /></span>
                                     Profile

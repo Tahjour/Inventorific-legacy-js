@@ -1,5 +1,4 @@
 /* components\layout\main-layout\main-layout.module.css */
 .mainLayoutContainer {
-    height: 100vh;
-    overflow: hidden;
+    height: var(--viewport-height);
 }

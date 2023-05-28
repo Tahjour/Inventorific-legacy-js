@@ -8,6 +8,7 @@ export const ItemsContext = createContext({
     initialServerLoadTry: false,
     isItemModalOpen: false,
     isDeleteModalOpen: false,
+    getCurrentViewportHeight: () => { },
     setInitialServerLoadTry: () => { },
     setDidServerItemsLoad: () => { },
     showNotification: () => { },
@@ -29,6 +30,7 @@ export const ItemsContext = createContext({
 });
 
 export function ItemsContextProvider(props) {
+    const viewportHeight = props.viewportHeight;
     const { data: sesson } = useSession();
     const [user, setUser] = useState({});
     const [userItems, setUserItems] = useState([]);
@@ -76,6 +78,10 @@ export function ItemsContextProvider(props) {
             };
         }
     }, [initialServerLoadTry, didServerItemsLoad, userItems, activeNotification]);
+
+    function getCurrentViewportHeightHandler() {
+        return viewportHeight;
+    }
 
     function setInitialServerLoadTryHandler(hasLoaded) {
         setInitialServerLoadTry(hasLoaded);
@@ -307,6 +313,7 @@ export function ItemsContextProvider(props) {
         didServerItemsLoad: didServerItemsLoad,
         isItemModalOpen: isItemModalOpen,
         isDeleteModalOpen: isDeleteModalOpen,
+        getCurrentViewportHeight: getCurrentViewportHeightHandler,
         setInitialServerLoadTry: setInitialServerLoadTryHandler,
         setDidServerItemsLoad: setDidServerItemsLoadHandler,
         showNotification: showNotificationHandler,

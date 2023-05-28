@@ -74,6 +74,7 @@ function LoginForm() {
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
                     <div className={styles.inputContainer}>
                         <input className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`} type="text" id="email" name="email" placeholder={"Email"} {...formik.getFieldProps('email')}></input>
+                        <label className={styles.inputLabel}>Email</label>
                         <MdAlternateEmail className={styles.inputIcons} />
                     </div>
 
