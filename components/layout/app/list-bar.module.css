@@ -2,7 +2,7 @@
 .listBar {
     position: absolute;
     width: 100%;
-    height: calc(var(--viewport-height) - 60px);
+    height: calc(var(--vh) - 60px);
     top: 70px;
     overflow-y: scroll;
     overflow-x: hidden;

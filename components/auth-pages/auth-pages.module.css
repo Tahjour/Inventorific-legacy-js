@@ -1,5 +1,5 @@
 .formContainer {
-	height: calc(100% - var(--main-nav-height));
+	height: calc(var(--vh) - var(--main-nav-height));
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

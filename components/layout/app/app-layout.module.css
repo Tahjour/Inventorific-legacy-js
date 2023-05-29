@@ -1,13 +1,13 @@
 .bars {
-	height: var(--viewport-height);
+	height: var(--vh);
 	display: flex;
 	flex-direction: row;
 }
 
 .sideBar {
-	z-index: 2;
-	height: 100%;
 	flex: 0;
+	z-index: 2;
+	height: var(--vh);
 	/* background-color: rgba(35, 35, 35, 1); */
 	/* background-color: rgba(4, 174, 247, 0.2); */
 	margin: 0;

@@ -26,8 +26,8 @@
 	padding: 10px;
 	border-radius: 10px;
 	/* margin-right: 10px; */
-	outline: 1px solid rgba(0, 255, 255, 0.5);
-	border: 0;
+	border: 1px solid rgba(0, 255, 255, 0.5);
+	/* border: 0; */
 	z-index: 2;
 	cursor: pointer;
 }
@@ -43,6 +43,7 @@
 .dropdownTrigger[data-state='open'] {
 	background: linear-gradient(to top right, rgba(119, 0, 255, 1), rgba(0, 255, 255, 1));
 	outline: 0;
+	border: 1px solid rgb(10, 10, 10);
 }
 
 .dropdownContent {
@@ -60,7 +61,7 @@
 	font-size: 15px;
 	line-height: 1;
 	color: white;
-	border-radius: 3px;
+	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	/* justify-content: space-between; */
@@ -85,10 +86,4 @@
 
 .iconWrapper {
 	margin-right: 10px;
-}
-
-@media screen and (max-width: 425px) {
-	.dropdownContent {
-		
-	}
 }

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import styles from './item-details.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { ItemsContext } from '../../../../context/ItemsContext';
-import LoaderReuseable from '../../loading/loaderReuseable';
 import Loader from '../../loading/loader';
 
 function ItemDetails({ itemID }) {
@@ -23,7 +22,7 @@ function ItemDetails({ itemID }) {
     }
 
     return (
-        <section className={styles.itemDetailsContainer} style={{ height: itemsContext.getCurrentViewportHeight() }}>
+        <section className={styles.itemDetailsContainer}>
             <div className={styles.itemImageContainer}>
                 <Image
                     className={styles.itemImage}

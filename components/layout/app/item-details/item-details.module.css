@@ -1,11 +1,7 @@
-.itemDetailsContainer > * {
-	margin: 0;
-	color: white;
-}
-
 .itemDetailsContainer {
+	color: white;
 	width: 100%;
-	/* height: var(--viewport-height); */
+	height: var(--vh);
 	display: grid;
 	justify-items: center;
 	gap: 50px;
