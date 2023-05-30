@@ -1,3 +1,4 @@
+// D: \Projects\Personal_Projects\nextjs - inventory - control\components\auth - pages\login - form.js;
 import { useContext, useRef, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "./auth-pages.module.css";
@@ -9,6 +10,7 @@ import { useFormik } from 'formik';
 import { loginValidate } from "../../lib/authHelper";
 import { useRouter } from "next/router";
 import { ItemsContext } from "../../context/ItemsContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 function LoginForm() {
@@ -73,15 +75,69 @@ function LoginForm() {
 
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
                     <div className={styles.inputContainer}>
-                        <input className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`} type="text" id="email" name="email" placeholder={"Email"} {...formik.getFieldProps('email')}></input>
-                        <label className={styles.inputLabel}>Email</label>
-                        <MdAlternateEmail className={styles.inputIcons} />
+                        <div className={styles.inputSubContainer}>
+                            <input
+                                className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`}
+                                type="email"
+                                id="email"
+                                name="email"
+                                {...formik.getFieldProps('email')}
+                            />
+                            <label className={`${styles.inputLabel} ${formik.values.email && styles.inputActive} ${formik.errors.email && formik.touched.email ? styles.errorLabel : null}`}>
+                                Email
+                            </label>
+                            <MdAlternateEmail className={styles.inputIcons} />
+                        </div>
+                        <AnimatePresence>
+                            {formik.errors.email && (
+                                <motion.span
+                                    className={styles.errorMessage}
+                                    key="errorMessage"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {formik.errors.email}
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <input className={`${styles.textInput} ${formik.errors.password && formik.touched.password ? styles.errorTextInput : null}`} type={showPassword ? "text" : "password"} id="password" name="password" placeholder="Password" {...formik.getFieldProps('password')}></input>
-                        {showPassword ? <FiEye className={styles.inputIcons} onClick={() => { setShowPassword(false); }} /> : <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword(true); }} />}
+                        <div className={styles.inputSubContainer}>
+                            <input
+                                className={`${styles.textInput} ${formik.errors.password && formik.touched.password ? styles.errorTextInput : null}`}
+                                type={showPassword ? "text" : "password"}
+                                id="password"
+                                name="password"
+                                {...formik.getFieldProps('password')}>
+                            </input>
+                            <label className={`${styles.inputLabel} ${formik.values.password && styles.inputActive} ${formik.errors.password && formik.touched.password ? styles.errorLabel : null}`}>Password</label>
+                            {showPassword ?
+                                <FiEye
+                                    className={styles.inputIcons} onClick={() => { setShowPassword(false); }}
+                                /> :
+                                <FiEyeOff
+                                    className={styles.inputIcons} onClick={() => { setShowPassword(true); }}
+                                />}
+                        </div>
+                        <AnimatePresence>
+                            {formik.errors.password && (
+                                <motion.span
+                                    className={styles.errorMessage}
+                                    key="errorMessage"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {formik.errors.password}
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
                     </div>
+
 
                     <button type="submit" className={styles.submitBtn}>
                         {"Login"}
@@ -96,11 +152,9 @@ function LoginForm() {
 
 
                     <div className={styles.loginOrSignUpPart}>
-                        {"Don't have an account?"}
-                        <Link href={"/register"}>
-                            <button type="button" className={styles.toggleBtn}>
-                                {"Sign Up"}
-                            </button>
+                        {"Don't have an account? "}
+                        <Link href={"/register"} className={styles.toggleBtn}>
+                            {"Sign Up"}
                         </Link>
                     </div>
                 </form>

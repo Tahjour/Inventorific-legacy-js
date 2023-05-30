@@ -43,9 +43,9 @@ function DropDownMenu() {
                 {dropdownOpen && <DropdownMenu.Portal forceMount>
                     <DropdownMenu.Content className={styles.dropdownContent} asChild>
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                            initial={{ opacity: 0, scaleY: 0 }}
+                            animate={{ opacity: 1, scaleY: 1 }}
+                            exit={{ opacity: 0, scaleY: 0 }}
                             transition={{ duration: 0.3 }}
                         >
                             {route !== "/" ? <Link href={"/"} className={styles.dropdownLink}>

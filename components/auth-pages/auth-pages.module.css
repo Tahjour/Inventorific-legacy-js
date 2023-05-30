@@ -1,20 +1,20 @@
+/* D:\Projects\Personal_Projects\nextjs-inventory-control\components\auth-pages\auth-pages.module.css */
 .formContainer {
 	height: calc(var(--vh) - var(--main-nav-height));
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	display: grid;
+	justify-items: center;
 	align-items: center;
+	overflow-y: scroll;
+}
+
+.formContainer::-webkit-scrollbar {
+	width: 3px;
 }
 
 .formOuter,
 .formOuterRegister {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: rgb(30, 30, 30);
 	width: 500px;
-	height: 500px;
+	background-color: rgb(30, 30, 30);
 	margin-top: -5%;
 	border-radius: 20px;
 	text-align: center;
@@ -24,24 +24,21 @@
 	box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
-.formOuterRegister {
-	height: 500px;
+.formOuter::-webkit-scrollbar, .formOuterRegister::-webkit-scrollbar {
+	width: 5px;
 }
 
 .formOuter h1,
 .formOuterRegister h1 {
-	margin-bottom: 70px;
+	margin-bottom: 50px;
 	color: white;
 	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 50px rgba(0, 255, 255, 0.5);
 }
 
 .form {
-	position: relative;
-	width: 100%;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
-	/* justify-content: center; */
+	justify-content: center;
 	align-items: center;
 }
 
@@ -50,16 +47,28 @@
 }
 
 .inputContainer {
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	margin-bottom: 20px;
+}
+
+.inputSubContainer {
 	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 	border-radius: 10px;
-	width: 70%;
+	width: 100%;
 	height: 50px;
-	margin-bottom: 20px;
-	background-color: rgb(50, 50, 50);
+	background-color: rgb(30, 30, 30);
+}
+
+.inputIcons {
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
 }
 
 .textInput {
@@ -69,8 +78,16 @@
 	width: 100%;
 	height: 100%;
 	border: 0;
-	color: rgb(190, 190, 190);
 	background-color: inherit;
+	color: rgb(190, 190, 190);
+	outline: 2px solid rgba(190, 190, 190, 1);
+	transition: outline-color 0.3s ease;
+}
+
+.textInput:focus {
+	/* border: 1px solid rgba(0, 255, 255, 0.5); */
+	outline-color: rgba(0, 255, 255, 0.5);
+	/* transition: 0.3s ease; */
 }
 
 .inputLabel {
@@ -80,29 +97,62 @@
 	transform: translateY(-50%);
 	font-size: 1em;
 	color: rgb(190, 190, 190);
+	background-color: rgb(30, 30, 30);
+	pointer-events: none;
+	transition: .3s ease;
 }
 
-.inputIcons {
-	position: absolute;
-	right: 10px;
+.textInput:focus + .inputLabel,
+.inputActive {
+	top: 0px;
+	font-size: 0.8em;
+	padding: 5px;
 }
 
-.form .textInput:focus {
-	/* border: 1px solid rgba(0, 255, 255, 0.5); */
-	outline: 2px solid rgba(0, 255, 255, 0.5);
+.errorTextInput,
+.errorTextInput:focus {
+	outline-color: rgba(255, 0, 0, 0.5);
 }
 
-.form .errorTextInput,
-.form .errorTextInput:focus {
-	outline: 2px solid rgba(255, 0, 0, 0.5);
+.errorLabel {
+	color: rgba(255, 0, 0, 0.5);
+}
+
+.errorMessage {
+	color: rgba(255, 0, 0, 0.8);
+	margin-top: 10px;
 }
 
 .textInput:autofill {
 	-webkit-text-fill-color: rgb(190, 190, 190);
 	caret-color: white;
-	box-shadow: 0 0 1000px rgb(50, 50, 50) inset;
+	box-shadow: 0 0 1000px rgb(30, 30, 30) inset;
 	transition: background-color 5000s ease-in-out 0s;
 	/* Above is a hack to stop the background color from when the user autofills saved input */
+}
+
+.separatorLine {
+	display: flex;
+	flex-direction: row;
+	width: 70%;
+	/* text-transform: uppercase; */
+	margin: 20px 0;
+	font-size: 1rem;
+}
+
+.separatorLine::before,
+.separatorLine::after {
+	content: "";
+	border-bottom: 1px solid rgba(0, 255, 255, 1);
+	flex: 1 0 auto;
+	margin: 0;
+	transform: translateY(-40%);
+}
+
+.separatorLine span {
+	text-align: center;
+	flex: 0.2 0 auto;
+	margin: 0;
 }
 
 .form .submitBtn,
@@ -156,47 +206,21 @@
 	opacity: 1;
 }
 
+.loginOrSignUpPart {
+	/* position: absolute; */
+	margin: 20px 0;
+}
+
 .form .toggleBtn {
 	font-size: 1rem;
-	background-color: transparent;
-	border: 0;
+	text-decoration: none;
 	color: rgba(0, 255, 255, 0.5);
-	margin-bottom: 10px;
 	transition: 100ms linear;
 }
 
 .form .toggleBtn:hover {
 	cursor: pointer;
 	color: rgba(0, 255, 255, 1);
-}
-
-.separatorLine {
-	display: flex;
-	flex-direction: row;
-	width: 70%;
-	/* text-transform: uppercase; */
-	margin: 20px 0;
-	font-size: 1rem;
-}
-
-.separatorLine::before,
-.separatorLine::after {
-	content: "";
-	border-bottom: 1px solid rgba(0, 255, 255, 1);
-	flex: 1 0 auto;
-	margin: 0;
-	transform: translateY(-40%);
-}
-
-.separatorLine span {
-	text-align: center;
-	flex: 0.2 0 auto;
-	margin: 0;
-}
-
-.loginOrSignUpPart {
-	position: absolute;
-	bottom: 0;
 }
 
 @media screen and (min-width: 2560px) {

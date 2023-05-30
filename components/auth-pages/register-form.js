@@ -58,44 +58,66 @@ function RegisterForm() {
                 <h1>Create a New Account</h1>
 
                 <form className={styles.form} onSubmit={formik.handleSubmit}>
-
                     <div className={styles.inputContainer}>
-                        <input className={`${styles.textInput} ${formik.errors.name && formik.touched.name ? styles.errorTextInput : null}`} type="text" id="name" name="name" placeholder="Username" {...formik.getFieldProps('name')} required></input>
-                        <FiUser className={styles.inputIcons} />
+                        <div className={styles.inputSubContainer}>
+                            <input className={`${styles.textInput} ${formik.errors.name && formik.touched.name ? styles.errorTextInput : null}`} type="text" id="name" name="name" {...formik.getFieldProps('name')} required></input>
+
+                            <label className={`${styles.inputLabel} ${formik.values.name && styles.inputActive} ${formik.errors.name && formik.touched.name ? styles.errorLabel : null}`}>
+                                Username
+                            </label>
+
+                            <FiUser className={styles.inputIcons} />
+                        </div>
+                    </div>
+                    
+                    <div className={styles.inputContainer}>
+                        <div className={styles.inputSubContainer}>
+                            <input
+                                className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`}
+                                type="email" id="email" name="email"
+                                {...formik.getFieldProps('email')} required>
+                            </input>
+                            <label className={`${styles.inputLabel} ${formik.values.email && styles.inputActive} ${formik.errors.email && formik.touched.email ? styles.errorLabel : null}`}>
+                                Email
+                            </label>
+                            <MdAlternateEmail className={styles.inputIcons} />
+                        </div>
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <input
-                            className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`}
-                            type="email" id="email" name="email" placeholder={"Email"}
-                            {...formik.getFieldProps('email')} required>
-                        </input>
-                        <MdAlternateEmail className={styles.inputIcons} />
+                        <div className={styles.inputSubContainer}>
+                            <input
+                                className={`${styles.textInput} ${formik.errors.password && formik.touched.password ? styles.errorTextInput : null}`}
+                                type={showPassword.password ? "text" : "password"} id="password" name="password"
+                                {...formik.getFieldProps('password')} required>
+                            </input>
+                            <label className={`${styles.inputLabel} ${formik.values.password && styles.inputActive} ${formik.errors.password && formik.touched.password ? styles.errorLabel : null}`}>
+                                Password
+                            </label>
+                            {showPassword.password ?
+                                <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: false }); }} /> :
+                                <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: true }); }} />
+                            }
+                        </div>
                     </div>
 
                     <div className={styles.inputContainer}>
-                        <input
-                            className={`${styles.textInput} ${formik.errors.password && formik.touched.password ? styles.errorTextInput : null}`}
-                            type={showPassword.password ? "text" : "password"} id="password" name="password" placeholder="Password"
-                            {...formik.getFieldProps('password')} required>
-                        </input>
-                        {showPassword.password ?
-                            <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: false }); }} /> :
-                            <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: true }); }} />
-                        }
-                    </div>
 
-                    <div className={styles.inputContainer}>
-                        <input
-                            className={`${styles.textInput} ${formik.errors.cpassword && formik.touched.cpassword ? styles.errorTextInput : null}`}
-                            type={showPassword.cpassword ? "text" : "password"}
-                            id="cpassword" name="cpassword" placeholder="Confirm Password"
-                            {...formik.getFieldProps('cpassword')} required>
-                        </input>
-                        {showPassword.cpassword ?
-                            <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: false }); }} /> :
-                            <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: true }); }} />
-                        }
+                        <div className={styles.inputSubContainer}>
+                            <input
+                                className={`${styles.textInput} ${formik.errors.cpassword && formik.touched.cpassword ? styles.errorTextInput : null}`}
+                                type={showPassword.cpassword ? "text" : "password"}
+                                id="cpassword" name="cpassword"
+                                {...formik.getFieldProps('cpassword')} required>
+                            </input>
+                            <label className={`${styles.inputLabel} ${formik.values.cpassword && styles.inputActive} ${formik.errors.cpassword && formik.touched.cpassword ? styles.errorLabel : null}`}>
+                                Confirm Password
+                            </label>
+                            {showPassword.cpassword ?
+                                <FiEye className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: false }); }} /> :
+                                <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: true }); }} />
+                            }
+                        </div>
                     </div>
 
                     <button type="submit" className={styles.submitBtn}>
@@ -103,11 +125,9 @@ function RegisterForm() {
                     </button>
 
                     <div className={styles.loginOrSignUpPart}>
-                        {"Have an account?"}
-                        <Link href={"/login"}>
-                            <button type="button" className={styles.toggleBtn}>
-                                {"Sign In"}
-                            </button>
+                        {"Have an account? "}
+                        <Link href={"/login"} className={styles.toggleBtn}>
+                            {"Sign In"}
                         </Link>
                     </div>
                 </form>

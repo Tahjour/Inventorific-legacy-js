@@ -4,7 +4,8 @@
 
 :root {
 	--main-nav-height: 4rem;
-	--main-bar-menu-height: 50px;
+	--mainBarMenuHeight: 50px;
+	--mainBarMenuMargin: 10px;
 	--neon-blue-accent: rgba(0, 255, 255, 0.5);
 }
 

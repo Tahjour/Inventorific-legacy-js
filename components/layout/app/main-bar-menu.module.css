@@ -18,8 +18,8 @@
 	border-radius: 10px;
 	height: 100%;
 	width: 60%;
-	/* gap: 20px; */
 	background-color: rgb(10, 10, 10);
+	/* gap: 20px; */
 	/* z-index: 1; */
 }
 
@@ -29,6 +29,7 @@
 	}
 
 	.mainBarMenu {
+		margin-top: 5px;
 		width: 100%;
 	}
 }
