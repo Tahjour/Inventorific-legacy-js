@@ -89,7 +89,7 @@ function LoginForm() {
                             <MdAlternateEmail className={styles.inputIcons} />
                         </div>
                         <AnimatePresence>
-                            {formik.errors.email && (
+                            {formik.errors.email && formik.touched.email && (
                                 <motion.span
                                     className={styles.errorMessage}
                                     key="errorMessage"
@@ -123,7 +123,7 @@ function LoginForm() {
                                 />}
                         </div>
                         <AnimatePresence>
-                            {formik.errors.password && (
+                            {formik.errors.password && formik.touched.password && (
                                 <motion.span
                                     className={styles.errorMessage}
                                     key="errorMessage"

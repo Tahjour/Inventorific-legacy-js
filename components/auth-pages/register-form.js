@@ -9,6 +9,7 @@ import { registerValidate } from "../../lib/authHelper";
 import { headers } from "../../next.config";
 import { useRouter } from "next/router";
 import { ItemsContext } from "../../context/ItemsContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 function RegisterForm() {
     const itemsContext = useContext(ItemsContext);
@@ -68,8 +69,22 @@ function RegisterForm() {
 
                             <FiUser className={styles.inputIcons} />
                         </div>
+                        <AnimatePresence>
+                            {formik.errors.name && formik.touched.name && (
+                                <motion.span
+                                    className={styles.errorMessage}
+                                    key="errorMessage"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {formik.errors.name}
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
                     </div>
-                    
+
                     <div className={styles.inputContainer}>
                         <div className={styles.inputSubContainer}>
                             <input
@@ -82,6 +97,20 @@ function RegisterForm() {
                             </label>
                             <MdAlternateEmail className={styles.inputIcons} />
                         </div>
+                        <AnimatePresence>
+                            {formik.errors.email && formik.touched.email && (
+                                <motion.span
+                                    className={styles.errorMessage}
+                                    key="errorMessage"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {formik.errors.email}
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     <div className={styles.inputContainer}>
@@ -99,6 +128,20 @@ function RegisterForm() {
                                 <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, password: true }); }} />
                             }
                         </div>
+                        <AnimatePresence>
+                            {formik.errors.password && formik.touched.password && (
+                                <motion.span
+                                    className={styles.errorMessage}
+                                    key="errorMessage"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {formik.errors.password}
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     <div className={styles.inputContainer}>
@@ -118,6 +161,20 @@ function RegisterForm() {
                                 <FiEyeOff className={styles.inputIcons} onClick={() => { setShowPassword({ ...showPassword, cpassword: true }); }} />
                             }
                         </div>
+                        <AnimatePresence>
+                            {formik.errors.cpassword && formik.touched.cpassword && (
+                                <motion.span
+                                    className={styles.errorMessage}
+                                    key="errorMessage"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {formik.errors.cpassword}
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     <button type="submit" className={styles.submitBtn}>
