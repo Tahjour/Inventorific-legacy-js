@@ -132,7 +132,35 @@ function AddItemModalForm() {
             </label>
 
             <div className={styles.itemInfo}>
-                {/* <label htmlFor="name">Name</label> */}
+                {/* <div className={styles.inputContainer}>
+                    <div className={styles.inputSubContainer}>
+                        <input
+                            className={`${styles.textInput} ${formik.errors.email && formik.touched.email ? styles.errorTextInput : null}`}
+                            type="email"
+                            id="email"
+                            name="email"
+                            {...formik.getFieldProps('email')}
+                        />
+                        <label className={`${styles.inputLabel} ${formik.values.email && styles.inputActive} ${formik.errors.email && formik.touched.email ? styles.errorLabel : null}`}>
+                            Email
+                        </label>
+                        <MdAlternateEmail className={styles.inputIcons} />
+                    </div>
+                    <AnimatePresence>
+                        {formik.errors.email && formik.touched.email && (
+                            <motion.span
+                                className={styles.errorMessage}
+                                key="errorMessage"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                {formik.errors.email}
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+                </div> */}
                 <input className={`${styles.textInput} ${formik.errors.name && formik.touched.name ? styles.errorTextInput : ""}`} type="text" id="name" name="name" placeholder="Name of Item" {...formik.getFieldProps('name')} required>
                 </input>
 

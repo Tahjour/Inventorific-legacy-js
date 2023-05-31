@@ -147,6 +147,10 @@
 	margin-block-end: 10px;
 }
 
+.textInputContainer {
+	width: 70%;
+}
+
 .textInput,
 .textArea {
 	text-align: center;
@@ -159,6 +163,7 @@
 .textInput {
 	width: 70%;
 	height: 50px;
+	/* margin-bottom: 20px; */
 }
 
 .textAreaContainer {

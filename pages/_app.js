@@ -24,7 +24,7 @@ export default function App({ Component, pageProps: { session, ...pageProps }, r
         return () => {
             window.removeEventListener('resize', updateHeight);
         };
-    }, []);
+    }, [viewportHeight]);
 
     return (
         <SessionProvider session={session}>

@@ -1,4 +1,4 @@
 /* components\layout\main-layout\main-layout.module.css */
 .mainLayoutContainer {
-    height: var(--viewport-height);
+    height: var(--vh);
 }
